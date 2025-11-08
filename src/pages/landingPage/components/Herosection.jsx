@@ -39,13 +39,12 @@ const Herosection = () => {
                 }}
                 effect="fade"
                 autoplay={{
-                    delay: 3000, // 3 seconds
+                    delay: 5000, 
                     disableOnInteraction: false,
                 }}
                 loop={true}
                 className="h-full w-full relative"
             >
-
             {heroSlides.map((heroSlides) => (
                 <SwiperSlide key={heroSlides.id}>
                     <div className="bg-[#ff6e00] flex py-4 px-10 rounded-lg gap-20 items-center">
