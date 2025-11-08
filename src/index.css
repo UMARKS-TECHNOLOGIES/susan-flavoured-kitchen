@@ -120,3 +120,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+.swiper-pagination-bullet {
+  background-color: #fcd34d !important; /* Tailwind orange-300 by default */
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+  .swiper-pagination {
+  bottom: -20px !important; /* moves it 20px below */
+  position: absolute !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ea580c !important; /* Tailwind orange-600 */
+  opacity: 1;
+  transform: scale(1.2);
+}
