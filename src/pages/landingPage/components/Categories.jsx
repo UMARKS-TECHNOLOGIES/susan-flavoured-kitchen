@@ -52,7 +52,7 @@ const Categories = () => {
             backgroundImage: `url(${items.imageUrl})`,
           }}>
             <div className="bg-white/70 px-10 py-10 rounded-br-lg rounded-tl-lg">
-              <h3 className='text-lg font-medium'>{items.name}</h3>
+              <h3 className='text-2xl font-bold'>{items.name}</h3>
               <Button
                 className="my-4 bg-orange-600 rounded-br-lg rounded-tl-lg cursor-pointer hover:bg-orange-500 text-white font-medium"
                 size="lg"
