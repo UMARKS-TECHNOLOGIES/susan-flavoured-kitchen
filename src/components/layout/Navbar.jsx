@@ -7,9 +7,7 @@ import { GiShoppingCart } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
 
 
-
-const LandingNavbar = () => {
-
+const Navbar = () => {
     const navLinks = [
         {
             name: "Home",
@@ -48,8 +46,8 @@ const LandingNavbar = () => {
                                     to={link.href}
                                     className={(({ isActive }) => isActive ? 'text-orange-400 mx-4 font-medium' : "text-[#343333] hover:text-[#00004d] px-5 py-2 text-medium font-medium")}
                                 >
-                                   
-                                        {link.name}
+
+                                    {link.name}
                                 </NavLink>
                             )
 
@@ -75,4 +73,4 @@ const LandingNavbar = () => {
     )
 }
 
-export default LandingNavbar
+export default Navbar
