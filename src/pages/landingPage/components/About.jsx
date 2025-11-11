@@ -11,7 +11,7 @@ const About = () => {
                     }}>
                     </div>
                     <div className="max-w-lg">
-                        <p className="text-sm font-medium leading-relaxed">
+                        <p className="text-lg font-medium leading-tight">
                             At Susan’s flavored kitchen we believe good food starts with care — care for ingredients, for hygiene, and for the people we serve. <br />
                             From classic Nigerian rice dishes to rich soups, refreshing drinks, and baked treats, every meal is freshly prepared using high-quality ingredients and strict hygiene standards.
                             Whether you’re ordering for yourself or hosting a large event, our promise remains the same: authentic taste, freshness, and safe preparation in every bite.
