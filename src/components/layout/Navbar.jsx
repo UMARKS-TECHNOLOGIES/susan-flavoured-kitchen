@@ -15,8 +15,6 @@ import {
 
 
 const Navbar = () => {
-    // const [menuOpen, setMenuOpen] = useState(false);
-
     const navLinks = [
         {
             name: "Home",

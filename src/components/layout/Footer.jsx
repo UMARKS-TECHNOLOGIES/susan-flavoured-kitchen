@@ -5,14 +5,37 @@ import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import MasterCard from '../../assets/mastercard-transparent.png'
 import Visa from '../../assets/visaimg-transparent.png'
+import { NavLink } from "react-router-dom";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
+
 
 const Footer = () => {
     return (
         <section className='bg-[#ff6e00]'>
             <div className="max-w-7xl mx-auto">
                 <div className="flex items-center justify-center flex-col py-10">
-                    <ul className="flex gap-10 text-white text-lg font-medium">
-                        <li>Menu</li>
+                    <ul className="flex justify-center items-center gap-10 text-white text-lg font-medium">
+                        <li>
+                            <Accordion
+                             type="single"
+                             collapsible
+                             className="w-20"
+                             defaultValue="item-1"
+                            >
+                                <AccordionItem value="item-1" className='border-none'>
+                                    <div className="w-20 flex text-center">
+                                        <AccordionTrigger className='text-white hover:text-[#343333] font-medium px-4 py-2 border-non shadow-none hover-no-underline focus:ring-0 focus:outline-none data-[state=open]:text-white'>
+                                        <NavLink to="/"className='text-lg'>Menu</NavLink>
+                                    </AccordionTrigger>
+                                    </div>
+                                </AccordionItem>
+                            </Accordion>
+                        </li>
                         <li>Event Catering</li>
                         <li>About Us</li>
                         <li>Contact</li>
