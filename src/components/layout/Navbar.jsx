@@ -23,7 +23,7 @@ const Navbar = () => {
         {
             name: "Menu",
             dropdown: [
-                { name: "Breakfast", path: "/menu/breakfast" },
+                { name: "Breakfast", path: "/menu" },
                 { name: "Lunch", path: "/menu/lunch" },
                 { name: "Dinner", path: "/menu/dinner" },
             ],
