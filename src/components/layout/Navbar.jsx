@@ -18,7 +18,7 @@ const Navbar = () => {
     const navLinks = [
         {
             name: "Home",
-            href: "#"
+            href: "/"
         },
         {
             name: "Menu",
@@ -27,23 +27,24 @@ const Navbar = () => {
                 { name: "Lunch", path: "/menu/lunch" },
                 { name: "Dinner", path: "/menu/dinner" },
             ],
+            href: "/menu"
         },
         {
             name: "Event Catering",
-            href: "#"
+            href: "/events"
         },
         {
             name: "About Us",
-            href: "#"
+            href: "/about"
         },
         {
             name: "Contact",
-            href: "#"
+            href: "/contact"
         },
     ];
 
     return (
-        <nav className='bg-[#ffffff]'>
+        <nav className='bg-[#ffffff] sticky top-2 z-50'>
             <div className="max-w-7xl mx-auto py-4 flex justify-between items-center">
                 <div className="">
                     <img src={Logo} alt="" className='w-15' />
@@ -60,17 +61,19 @@ const Navbar = () => {
                             >
                                 <AccordionItem value="item-1" className="border-none">
                                     <div className="w-20 ">
-                                    <AccordionTrigger className="text-[#343333] hover:text-orange-600 font-medium px-4 py-2 border-none shadow-none hover:no-underline focus:ring-0 focus:outline-none data-[state=open]:text-orange-600">{link.name}</AccordionTrigger>
-                                        {link.dropdown.map((item) => (
+                                        {/* <NavLink to={link.href}> */}
+                                            <AccordionTrigger className="text-[#343333] hover:text-orange-600 font-medium px-4 py-2 border-none shadow-none hover:no-underline focus:ring-0 focus:outline-none data-[state=open]:text-orange-600">{link.name}</AccordionTrigger>
+                                            {link.dropdown.map((item) => (
 
-                                            <AccordionContent
-                                                key={item.name}
-                                                asChild
-                                                className="hover:bg-orange-50 hover:text-orange-600 cursor-pointer"
-                                            >
-                                                <NavLink to={item.path}>{item.name}</NavLink>
-                                            </AccordionContent>
-                                        ))}
+                                                <AccordionContent
+                                                    key={item.name}
+                                                    asChild
+                                                    className="hover:bg-orange-50 hover:text-orange-600 cursor-pointer"
+                                                >
+                                                    <NavLink to={item.path}>{item.name}</NavLink>
+                                                </AccordionContent>
+                                            ))}
+                                        {/* </NavLink> */}
                                     </div>
                                 </AccordionItem>
                             </Accordion>) : (

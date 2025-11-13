@@ -10,7 +10,7 @@ import Footer from '../../components/layout/Footer'
 
 const Home = () => {
   return (
-    <div className='bg-[#fffcfa] pt-4'>
+    <div className='bg-[#fffcfa] pt-4 overflow-hidden'>
       <Navbar />
       <Herosection />
       <Categories />
