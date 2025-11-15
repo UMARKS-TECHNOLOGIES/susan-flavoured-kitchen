@@ -31,17 +31,19 @@ const ProductHeader = () => {
                     </p>
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center border rounded-lg px-3 py-2 gap-3">
+                <div className="flex items-center gap-10">
+                    <div className="flex items-center gap-3">
                         <Minus
-                            className="cursor-pointer"
+                            className="cursor-pointer w-8 h-8 border-2 border-orange-500 text-orange-500 rounded flex items-center justify-center font-medium text-sm px-1  hover:bg-orange-50 "
                             onClick={() => setQty(Math.max(1, qty - 1))}
                         />
-                        <span className="font-medium">{qty}</span>
-                        <Plus className="cursor-pointer" onClick={() => setQty(qty + 1)} />
+                        <span className="w-8 h-8 border-2 border-orange-500 text-orange-500 rounded flex items-center justify-center font-bold">{qty}</span>
+                        <Plus className="w-8 h-8 bg-orange-500 text-white rounded flex items-center justify-center font-bold hover:bg-orange-600" onClick={() => setQty(qty + 1)} />
                     </div>
 
-                    <Button className="bg-orange-600 hover:bg-orange-700">
+
+
+                    <Button className="bg-orange-500 hover:bg-orange-600 text-white text-sm py-1 px-4 rounded-md ">
                         Add to Cart
                     </Button>
                 </div>

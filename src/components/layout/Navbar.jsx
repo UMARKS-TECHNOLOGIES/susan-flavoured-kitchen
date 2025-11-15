@@ -44,7 +44,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className='bg-[#ffffff] fixed top-5 left-0 w-full z-50 shadow-md'>
+        <nav className='bg-[#ffffff] fixed top-0 left-0 w-full z-50 shadow-md'>
             <div className="max-w-7xl mx-auto py-4 flex justify-between items-center">
                 <div className="">
                     <img src={Logo} alt="" className='w-15' />
@@ -98,7 +98,7 @@ const Navbar = () => {
                         <BsPerson className='text-2xl' />
                     </div>
                     <div className="relative">
-                        <Link>
+                        <Link to={"/cart"}>
                             <GiShoppingCart className='text-2xl' />
                         </Link>
                         <span className='bg-orange-600 w-4 h-4 text-xs font-medium text-center absolute rounded-full top-3 left-3'>2</span>
