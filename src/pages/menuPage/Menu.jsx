@@ -15,6 +15,7 @@ import Image8 from '../../assets/chickenChps.jpeg'
 import Image9 from '../../assets/doughnut.jpeg'
 import Image10 from '../../assets/sharwarma.jpeg'
 import Image11 from '../../assets/cake.jpeg'
+import DrinksSection from './components/DrinksSection';
 
 
 
@@ -32,72 +33,68 @@ const Menu = () => {
                 </div>
             </div>
 
-            <section className=" min-h-screen py-10 px-6 lg:px-12">
-                <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-8">
+              {/* FIRST THREE SECTIONS WITH SIDEBAR */}
+      <section className="px-6 lg:px-12 mt-10">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10">
 
-                    <MenuSidebar />
-                    {/* Main Menu Content */}
-                    <div className="space-y-12">
-                        <MenuSection
-                            title="Soups & Stews"
-                            items={[
-                                { name: "Egusi Soup & Pounded Yam", price: "₦2,500", image: `${Egusi}`, paragraph: "Rich melon soup simmered with assorted meat." },
-                                { name: "Afang Soup", price: "₦2,800", image: `${Image2}`, paragraph: "Rich melon soup simmered with assorted meat." },
-                                { name: "Amala & Ewedu", price: "₦3,000", image: `${Image3}`, paragraph: "Rich melon soup simmered with assorted meat." },
-                                { name: "Okro Soup", price: "₦2,700", image: `${Image4}`, paragraph: "Rich melon soup simmered with assorted meat." },
-                            ]}
-                        />
+          {/* Sidebar */}
+          <MenuSidebar />
 
-                        <hr className="border-t border-gray-300 my-6" />
+          {/* Food Sections */}
+          <div className="space-y-16">
 
-                        <MenuSection
-                            title="Rice Dishes"
-                            items={[
-                                { name: "Jollof Rice & Grilled chicken", price: "₦2,000", image: `${Image5}`, paragraph: "Flaky pastry filled with seasoned minced meat." },
-                                { name: "Fried Rice", price: "₦2,200", image: `${Image6}`, paragraph: "Flaky pastry filled with seasoned minced meat." },
-                                { name: "Rice & stew", price: "₦2,400", image: `${Image7}`, paragraph: "Flaky pastry filled with seasoned minced meat." },
-                                { name: "Ofada Rice", price: "₦2,600", image: `${Image6}`, paragraph: "Flaky pastry filled with seasoned minced meat." },
-                            ]}
-                        />
+            <MenuSection
+              title="Soups & Stews"
+              showMore
+              items={[
+                  { name: "Egusi Soup", price: "₦2,500", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Afang Soup", price: "₦2,800", image: `${Image2}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Banga Soup", price: "₦3,000", image: `${Image3}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Ogbono Soup", price: "₦2,700", image: `${Image4}`, desc: "Rich melon seed soup simmered with assorted meat." },
+              ]}
+            />
 
-                        <hr className="border-t border-gray-300 my-6" />
+            <hr className="border-gray-300" />
 
-                        <MenuSection
-                            title="Snacks & Pastries"
-                            items={[
-                                { name: "Chicken and chips", price: "₦800", image: `${Image8}`, paragraph: "Flaky pastry filled with seasoned minced meat." },
-                                {
-                                    name: "doughnut", price: "₦600", image: `${Image9}`, paragraph: "Long-grain rice cooked in our signature smoky pepper base."
-                                },
-                                { name: "sharwarma", price: "₦500", image: `${Image10}`, paragraph: "Long-grain rice cooked in our signature smoky pepper base." },
-                                { name: "cake", price: "₦1000", image: `${Image11}`, paragraph: "Long-grain rice cooked in our signature smoky pepper base." },
-                            ]}
+            <MenuSection
+              title="Rice"
+              showMore
+              items={[
+                  { name: "Jollof Rice", price: "₦2,000", image: `${Image5}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Fried Rice", price: "₦2,200", image: `${Image6}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Coconut Rice", price: "₦2,400", image: `${Image7}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Ofada Rice", price: "₦2,600", image: `${Image8}`, desc: "Rich melon seed soup simmered with assorted meat." },
+              ]}
+            />
 
-                        />
-                    </div>
-                </div>
-            </section>
-            <section className="py-10 px-6 lg:px-12">
-                <hr className="border-t border-gray-300 my-6" />
-                <div className="max-w-6xl mx-auto grid grid-cols-1 ">
-                    <MenuSection
-                        title="Drinks"
-                        items={[
-                            { name: "Chicken and chips", price: "₦800", image: `${Image8}`, paragraph: "Flaky pastry filled with seasoned minced meat." },
-                            {
-                                name: "doughnut", price: "₦600", image: `${Image9}`, paragraph: "Long-grain rice cooked in our signature smoky pepper base."
-                            },
-                            { name: "sharwarma", price: "₦500", image: `${Image10}`, paragraph: "Long-grain rice cooked in our signature smoky pepper base." },
-                        ]}
+            <hr className="border-gray-300" />
 
-                    />
+            <MenuSection
+              title="Snacks & Pastries"
+              showMore
+              items={[
+                  { name: "Meat Pie", price: "₦800", image: `${Image9}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Puff Puff", price: "₦600", image: `${Image10}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Spring Roll", price: "₦700", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
+                  { name: "Chin Chin", price: "₦500", image: `${Image11}`, desc: "Rich melon seed soup simmered with assorted meat." },
+              ]}
+            />
+          </div>
+        </div>
+      </section>
 
-                </div>
-
-            </section>
+    
+      <DrinksSection
+        title="Drinks"
+        items={[
+            { name: "Zobo Drink", price: "₦500", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat."},
+            { name: "Chapman", price: "₦1,000", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
+            { name: "Coke", price: "₦400", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
+        ]}
+      />
 
             <Footer />
-        </div>
+        </div >
     )
 }
 

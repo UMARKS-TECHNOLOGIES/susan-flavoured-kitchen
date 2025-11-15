@@ -3,28 +3,23 @@ import { Button } from "@/components/ui/button";
 
 const Card = ({ item }) => {
     return (
-        <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300">
-            <div className="p-4 flex justify-between items-center flex-col">
-                <div className="rounded-full w-40 h-40">
-                    <img
-                        src={item.image}
-                        alt={item.name}
-                        className=" rounded-full w-40 h-40 object-cover object-center"
-                    />
-                </div>
-                <div>
-                    <h4 className="font-semibold text-gray-800 text-2xl pt-2 capitalize">{item.name}</h4>
-                    <p className="font-semibold text-gray-400 text-lg py-4">{item.paragraph}</p>
-                </div>
-                <div className="flex text-center items-center space-x-25">
-                    <p className="text-lg font-medium">{item.price}</p>
-                    <Button
-                        size="lg"
-                        className="bg-orange-600 text-white text-lg hover:bg-orange-700 rounded-br-lg rounded-tl-lg">
-                        Add to cart
-                    </Button>
+        <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+            <div className="flex items-center justify-center">
+                <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-40 h-40 object-cover bg-center rounded-full mb-3"
+                />
+            </div>
 
-                </div>
+            <h2 className="font-bold text-2xl">{item.name}</h2>
+            <p className="text-gray-600 text-xl font-medium mb-2">{item.desc}</p>
+
+            <div className="flex justify-between items-center">
+                <p className="font-bold text-lg text-gray-900 mb-3">{item.price}</p>
+                <Button size="lg" className="bg-orange-600 text-white py-1 px-3 text-sm rounded-md hover:bg-orange-700">
+                    Add to Cart
+                </Button>
             </div>
         </div>
     );
