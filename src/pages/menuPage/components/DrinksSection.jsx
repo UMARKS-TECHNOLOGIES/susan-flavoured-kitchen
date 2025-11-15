@@ -1,9 +1,12 @@
 import React from "react";
 import Card from "./Card";
+import { useRef } from "react";
 
 const DrinksSection = ({ title, items }) => {
+    const drinksRef = useRef(null);
+
     return (
-        <div className="w-full mt-12">
+        <div className="w-full mt-12" ref={drinksRef}>
             <hr className="border-gray-300 mb-10" />
 
             <div className="max-w-5xl mx-auto mb-10">

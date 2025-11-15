@@ -1,15 +1,18 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Card = ({ item }) => {
     return (
         <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
             <div className="flex items-center justify-center">
-                <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-40 h-40 object-cover bg-center rounded-full mb-3"
-                />
+                <Link to={'/product'}>
+                    <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-40 h-40 object-cover bg-center rounded-full mb-3"
+                    />
+                </Link>
             </div>
 
             <h2 className="font-bold text-2xl">{item.name}</h2>
