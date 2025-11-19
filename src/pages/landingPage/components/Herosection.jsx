@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 const Herosection = () => {
     const heroSlides = [
         {
-            id: 3,
+            id: 1,
             title: "Hygenic meals, Unforgettable taste",
             description: "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
             image: Plate

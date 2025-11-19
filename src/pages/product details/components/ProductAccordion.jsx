@@ -5,10 +5,25 @@ import {
     AccordionTrigger,
     AccordionContent,
 } from "@/components/ui/accordion"
+import { useCart } from '../../../store/useCart';
 
-const ProductAccordion = () => {
+const ProductAccordion = ({ product, item }) => {
+    const data = product || item;
+    if (!data) {
+        console.error('ProductAccordion: No product/item prop provided');
+        return (
+            <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+                <p className="text-gray-500">Product not found</p>
+            </div>
+        );
+    }
+
+    const { isInCart, getItemQuantity } = useCart();
+    const inCart = isInCart(data.id);
+    const quantity = getItemQuantity(data.id);
+
     const sections = [
-        { title: "Description", text: "Delicious smoky Jollof Rice with grilled chicken." },
+        { title: "Description", text: data.description || "Delicious smoky Jollof Rice with grilled chicken." },
         { title: "Ingredients", text: "Rice, tomatoes, pepper mix, spices, chicken." },
         { title: "Hygiene Promise", text: "Prepared fresh in a clean environment." },
         { title: "Delivery Information", text: "Delivered within 25-35 minutes." },

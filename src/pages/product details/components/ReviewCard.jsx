@@ -4,9 +4,9 @@ import StarRating from '../../../components/layout/StarRating'
 const ReviewCard = ({ review}) => {
     return (
         <div className="border-b pb-5">
-            <p className=" text-lg">
+            <h2 className=" text-lg">
                 <StarRating rating={5} size="md" />
-            </p>
+            </h2>
 
             <p className="mt-2 text-gray-700 text-lg font-medium">{review.text}</p>
             <div className="flex justify-between">

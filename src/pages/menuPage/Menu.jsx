@@ -16,6 +16,7 @@ import Image9 from '../../assets/doughnut.jpeg'
 import Image10 from '../../assets/sharwarma.jpeg'
 import Image11 from '../../assets/cake.jpeg'
 import DrinksSection from './components/DrinksSection';
+import { MenuData } from './components/MenuData';
 
 
 
@@ -23,6 +24,7 @@ import DrinksSection from './components/DrinksSection';
 
 
 const Menu = () => {
+    
     return (
         <div className='bg-[#fffcfa] overflow-hidden'>
             <Navbar />
@@ -50,12 +52,7 @@ const Menu = () => {
                         <MenuSection
                             title="Soups & Stews"
                             showMore
-                            items={[
-                                { name: "Egusi Soup", price: "£2,500", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Afang Soup", price: "£2,800", image: `${Image2}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Banga Soup", price: "£3,000", image: `${Image3}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Ogbono Soup", price: "£2,700", image: `${Image4}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                            ]}
+                            items={MenuData.soup}
                         />
 
                         <hr className="border-gray-300" />
@@ -63,12 +60,7 @@ const Menu = () => {
                         <MenuSection
                             title="Rice"
                             showMore
-                            items={[
-                                { name: "Jollof Rice", price: "£2,000", image: `${Image5}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Fried Rice", price: "£2,200", image: `${Image6}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Coconut Rice", price: "£2,400", image: `${Image7}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Ofada Rice", price: "£2,600", image: `${Image8}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                            ]}
+                            items={MenuData.rice}
                         />
 
                         <hr className="border-gray-300" />
@@ -76,12 +68,7 @@ const Menu = () => {
                         <MenuSection
                             title="Snacks & Pastries"
                             showMore
-                            items={[
-                                { name: "Meat Pie", price: "£800", image: `${Image9}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Puff Puff", price: "£600", image: `${Image10}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Spring Roll", price: "£700", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                                { name: "Chin Chin", price: "£500", image: `${Image11}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                            ]}
+                            items={MenuData.snacks}
                         />
                     </div>
                 </div>
@@ -90,13 +77,8 @@ const Menu = () => {
 
             <DrinksSection
                 title="Drinks"
-                items={[
-                    { name: "Zobo Drink", price: "£500", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                    { name: "Chapman", price: "£1,000", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                    { name: "Coke", price: "£400", image: `${Egusi}`, desc: "Rich melon seed soup simmered with assorted meat." },
-                ]}
+                items={MenuData.drinks}
             />
-
             <Footer />
         </div >
     )

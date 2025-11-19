@@ -11,10 +11,15 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useCart } from '../../store/useCart';
 
 
 
 const Navbar = () => {
+
+    const { getTotalItems } = useCart();
+    const totalItems = getTotalItems();
+
     const navLinks = [
         {
             name: "Home",
@@ -62,17 +67,17 @@ const Navbar = () => {
                                 <AccordionItem value="item-1" className="border-none">
                                     <div className="w-20 ">
                                         {/* <NavLink to={link.href}> */}
-                                            <AccordionTrigger className="text-[#343333] hover:text-orange-600 font-medium px-4 py-2 border-none shadow-none hover:no-underline focus:ring-0 focus:outline-none data-[state=open]:text-orange-600">{link.name}</AccordionTrigger>
-                                            {link.dropdown.map((item) => (
+                                        <AccordionTrigger className="text-[#343333] hover:text-orange-600 font-medium px-4 py-2 border-none shadow-none hover:no-underline focus:ring-0 focus:outline-none data-[state=open]:text-orange-600">{link.name}</AccordionTrigger>
+                                        {link.dropdown.map((item) => (
 
-                                                <AccordionContent
-                                                    key={item.name}
-                                                    asChild
-                                                    className="hover:bg-orange-50 hover:text-orange-600 cursor-pointer"
-                                                >
-                                                    <NavLink to={item.path}>{item.name}</NavLink>
-                                                </AccordionContent>
-                                            ))}
+                                            <AccordionContent
+                                                key={item.name}
+                                                asChild
+                                                className="hover:bg-orange-50 hover:text-orange-600 cursor-pointer"
+                                            >
+                                                <NavLink to={item.path}>{item.name}</NavLink>
+                                            </AccordionContent>
+                                        ))}
                                         {/* </NavLink> */}
                                     </div>
                                 </AccordionItem>
@@ -101,7 +106,11 @@ const Navbar = () => {
                         <Link to={"/cart"}>
                             <GiShoppingCart className='text-2xl' />
                         </Link>
-                        <span className='bg-orange-600 w-4 h-4 text-xs font-medium text-center absolute rounded-full top-3 left-3'>2</span>
+                        {totalItems > 0 && (
+                            <span className="bg-orange-600 w-5 h-5 text-xs font-medium flex items-center justify-center absolute rounded-full -top-2 -right-2 text-white">
+                                {totalItems > 99 ? '99+' : totalItems}
+                            </span>
+                        )}
                     </div>
                 </div>
             </div>

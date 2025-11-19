@@ -4,7 +4,7 @@ import { Trash2 } from 'lucide-react';
 
 const CartItem = ({ item, onQuantityChange, onRemove }) => {
   return (
-      <div className="relative flex gap-4 pb-10">
+      <div className="relative flex gap-4 pb-10 border-b">
           <div className="w-36 h-36 rounded-full bg-black overflow-hidden shrink-0">
               <img
                   src={item.image}
@@ -39,12 +39,12 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
                   </div>
 
                   <span className="font-bold text-lg">
-                      Price: £{item.price.toFixed(2)}
+                      Price: £{(item.price * item.quantity).toFixed(2)}
                   </span>
               </div>
           <button
               onClick={() => onRemove(item.id)}
-              className="absolute left-7 -bottom-10 flex items-center gap-1 text-orange-500 text-lg font-bold mt-3 hover:text-orange-600"
+              className="absolute left-7 bottom-0 flex items-center gap-1 text-orange-500 text-lg font-bold mt-3 hover:text-orange-600"
           >
               <Trash2 className="w-4 h-4" />
               Remove
