@@ -102,6 +102,7 @@ const Checkout = () => {
                               subtotal={subtotal}
                               delivery={delivery}
                               total={total}
+                              showCheckoutButton={false}
                           />
                       </div>
                   </div>

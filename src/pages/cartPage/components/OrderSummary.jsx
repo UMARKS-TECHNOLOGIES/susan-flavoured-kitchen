@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '../../../components/ui/button'
 import { Link } from 'react-router-dom'
 
-const OrderSummary = ({ subtotal, delivery, total, onCheckout }) => {
+const OrderSummary = ({ subtotal, delivery, total, showCheckoutButton = true }) => {
     return (
         <div className="bg-white border rounded-lg px-4 py-15 sticky top-6">
             <h2 className="font-bold text-lg mb-4">Order Summary</h2>
@@ -21,14 +21,13 @@ const OrderSummary = ({ subtotal, delivery, total, onCheckout }) => {
                     <span>£{total.toFixed(2)}</span>
                 </div>
             </div>
-            <Link to={'/checkout'}>
-                <Button
-                    onClick={onCheckout}
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium"
-                >
-                    Proceed To Checkout
-                </Button>
-            </Link>
+            {showCheckoutButton && (
+                <Link to={'/checkout'}>
+                    <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium">
+                        Proceed To Checkout
+                    </Button>
+                </Link>
+            )}
         </div>
     )
 }
