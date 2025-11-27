@@ -7,6 +7,7 @@ import Cart from "./pages/cartPage/Cart";
 import { CartProvider } from "./components/shared/CartProvider";
 import AboutUs from "./pages/about-us/AboutUs";
 import Checkout from "./pages/checkoutPage/Checkout";
+import HomeEvent from "./pages/event-cathering-page/HomeEvent";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/event" element={<HomeEvent />}></Route>
         </Routes>
       </CartProvider>
     </BrowserRouter>

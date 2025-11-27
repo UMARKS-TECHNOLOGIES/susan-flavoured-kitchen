@@ -33,7 +33,7 @@ const Navbar = () => {
     },
     {
       name: "Event Catering",
-      href: "/events",
+      href: "/event",
     },
     {
       name: "About Us",
