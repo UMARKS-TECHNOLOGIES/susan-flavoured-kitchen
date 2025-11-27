@@ -5,8 +5,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductDetails from "./pages/product details/ProductDetails";
 import Cart from "./pages/cartPage/Cart";
 import { CartProvider } from "./components/shared/CartProvider";
-import AboutUs from "./pages/about-us/AboutUs";
 import Checkout from "./pages/checkoutPage/Checkout";
+import OrderConfirmation from "./pages/orderConfirmationpage/OrderConfirmation";
+import ContactUs from "./pages/contactUsPage/ContactUs";
+import AboutUs from "./pages/about-us/AboutUs";
 import HomeEvent from "./pages/event-cathering-page/HomeEvent";
 
 const App = () => {
@@ -20,9 +22,11 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/about" element={<AboutUs />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/event" element={<HomeEvent />}></Route>
+          <Route path="/orderconfirmation" element={<OrderConfirmation />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/event" element={<HomeEvent />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>

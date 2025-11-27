@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { CartContext } from '../../context/CartContext';
+import { CartContext } from '../../store/CartContext';
 
-export const CartProvider = ({children}) => {
+export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState(() => {
         // Load cart from localStorage on initial mount
         const savedCart = localStorage.getItem('cart');
@@ -90,9 +90,9 @@ export const CartProvider = ({children}) => {
         getItemQuantity
     };
 
-  return (
-    <CartContext.Provider value={value}>
-        {children}
-    </CartContext.Provider>
-  )
+    return (
+        <CartContext.Provider value={value}>
+            {children}
+        </CartContext.Provider>
+    )
 }

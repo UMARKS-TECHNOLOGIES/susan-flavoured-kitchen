@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui
 import { RadioGroup } from '@radix-ui/react-radio-group';
 import { RadioGroupItem } from '../../../components/ui/radio-group';
 import { Label } from '../../../components/ui/label';
-import { CreditCard } from 'lucide-react';
+import { CreditCard, Smartphone, Building2, } from 'lucide-react';
 import { Input } from '../../../components/ui/input';
 import {Separator} from '../../../components/ui/separator'
 
@@ -20,7 +20,10 @@ const PaymentMethod = ({selectedPayment, setSelectedPayment, cardDetails,setCard
           <CardContent className="space-y-4 pr-20">
               <RadioGroup value={selectedPayment} onValueChange={setSelectedPayment}>
                   <div className="flex items-center space-x-3">
-                      <RadioGroupItem value="card" id="card" />
+                      <RadioGroupItem 
+                      value="card" 
+                      id="card" 
+                      className="text-orange-600 border-orange-600 focus:ring-orange-600 data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600"/>
                       <Label htmlFor="card" className="cursor-pointer flex items-center gap-2">
                           <CreditCard className="w-4 h-4" />
                           <span>Credit / Debit Card</span>
