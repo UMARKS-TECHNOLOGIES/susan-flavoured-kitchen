@@ -121,18 +121,24 @@
   }
 }
 
-.swiper-pagination-bullet {
-  background-color: #fcd34d !important; /* Tailwind orange-300 by default */
-  opacity: 0.5;
-  transition: all 0.3s ease;
+.swiper-pagination {
+  position: static !important;
+  margin-top: -70px;
+  text-align: center;
 }
-  .swiper-pagination {
-  bottom: -20px !important; /* moves it 20px below */
-  position: absolute !important;
+
+.swiper-pagination-bullet {
+  background-color: rgba(128, 128, 128, 0.5) !important;
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0 8px !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(128, 128, 128, 0.7);
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #ea580c !important; /* Tailwind orange-600 */
-  opacity: 1;
-  transform: scale(1.2);
+  background-color: #ff6e00 !important;
+  transform: scale(1.5);
+  border-color: #ff6e00;
 }

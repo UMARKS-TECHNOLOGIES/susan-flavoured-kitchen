@@ -10,7 +10,11 @@ export default {
         "2xl": "1400px",
       },
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
+    },
   },
   plugins: [require("tailwindcss-animate")],
 };
