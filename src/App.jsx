@@ -6,6 +6,8 @@ import ProductDetails from './pages/product details/ProductDetails'
 import Cart from './pages/cartPage/Cart'
 import { CartProvider } from './components/shared/CartProvider'
 import Checkout from './pages/checkoutPage/Checkout'
+import OrderConfirmation from './pages/orderConfirmationpage/OrderConfirmation'
+import ContactUs from './pages/contactUsPage/ContactUs'
 const App = () => {
   return (
     <BrowserRouter>
@@ -18,6 +20,8 @@ const App = () => {
           <Route path='/menu' element={<Menu />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
+          <Route path='/orderconfirmation' element={<OrderConfirmation />} />
+          <Route path='/contact-us' element={<ContactUs />} />
 
         </Routes>
         </CartProvider>

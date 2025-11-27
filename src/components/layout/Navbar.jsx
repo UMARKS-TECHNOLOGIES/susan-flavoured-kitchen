@@ -44,7 +44,7 @@ const Navbar = () => {
         },
         {
             name: "Contact",
-            href: "/contact"
+            href: "/contact-us"
         },
     ];
 

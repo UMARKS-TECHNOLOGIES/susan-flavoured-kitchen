@@ -5,7 +5,7 @@ import ProductHeader from './components/ProductHeader'
 import GoesWellWith from './components/GoesWellWith'
 import ReviewList from './components/ReviewList'
 import { useNavigate, useParams } from 'react-router-dom'
-import { MenuData } from '../menuPage/components/MenuData'
+import { MenuData } from '../menuPage/MenuData'
 import { Button } from '../../components/ui/button'
 
 const ProductDetails = () => {

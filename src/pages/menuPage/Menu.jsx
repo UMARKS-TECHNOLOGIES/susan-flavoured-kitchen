@@ -16,7 +16,7 @@ import Image9 from '../../assets/doughnut.jpeg'
 import Image10 from '../../assets/sharwarma.jpeg'
 import Image11 from '../../assets/cake.jpeg'
 import DrinksSection from './components/DrinksSection';
-import { MenuData } from './components/MenuData';
+import { MenuData } from './MenuData';
 
 
 
@@ -24,19 +24,19 @@ import { MenuData } from './components/MenuData';
 
 
 const Menu = () => {
-    
+
     return (
         <div className='bg-[#fffcfa] overflow-hidden'>
             <Navbar />
             <div className="mt-32">
 
-            <div className="w-full my-4 h-40 bg-center bg-no-repeat bg-cover rounded-lg" style={{
-                backgroundImage: `url(${MenuImg})`
-            }}>
-                <div className="w-full h-full bg-black/60 text-center flex items-center justify-center text-white text-5xl font-bold">
-                    Our Menu
+                <div className="w-full my-4 h-40 bg-center bg-no-repeat bg-cover rounded-lg" style={{
+                    backgroundImage: `url(${MenuImg})`
+                }}>
+                    <div className="w-full h-full bg-black/60 text-center flex items-center justify-center text-white text-5xl font-bold">
+                        Our Menu
+                    </div>
                 </div>
-            </div>
             </div>
 
             {/* FIRST THREE SECTIONS WITH SIDEBAR */}

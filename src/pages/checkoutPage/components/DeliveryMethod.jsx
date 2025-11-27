@@ -1,8 +1,8 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
-import {RadioGroup, RadioGroupItem} from '../../../components/ui/radio-group'
+import { RadioGroup, RadioGroupItem } from '../../../components/ui/radio-group'
 import { Label } from '../../../components/ui/label';
-const DeliveryMethod = ({selectedMethod, setSelectedMethod}) => {
+const DeliveryMethod = ({ selectedMethod, setSelectedMethod }) => {
     const deliveryOptions = [
         {
             id: 'express',
@@ -23,35 +23,39 @@ const DeliveryMethod = ({selectedMethod, setSelectedMethod}) => {
             price: 0
         }
     ];
-  return (
-    <Card className='mt-6'>
-        <CardHeader>
-            <CardTitle className='text-2xl font-bold'>Delivery Method</CardTitle>
-        </CardHeader>
-        <CardContent>
-            <RadioGroup value={selectedMethod} onValueChange={setSelectedMethod}>
-                {deliveryOptions.map((option) => (
-                    <div key={option.id} className="flex items-center space-x-3 mb-3 ">
-                        <RadioGroupItem value={option.id} id={option.id}/>
-                        <Label htmlFor={option.id} className="flex cursor-pointer">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <span className="font-medium text-lg">{option.label}</span>
-                                    {option.description && (
-                                        <span className="font-medium text-lg">{option.description}</span>
+    return (
+        <Card className='mt-6'>
+            <CardHeader>
+                <CardTitle className='text-2xl font-bold'>Delivery Method</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <RadioGroup value={selectedMethod} onValueChange={setSelectedMethod}>
+                    {deliveryOptions.map((option) => (
+                        <div key={option.id} className="flex items-center space-x-3 mb-3 ">
+                            <RadioGroupItem 
+                            value={option.id} 
+                            id={option.id} 
+                            className="text-orange-600 border-orange-600 focus:ring-orange-600 data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600"
+                            />
+                            <Label htmlFor={option.id} className="flex cursor-pointer">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <span className="font-medium text-lg">{option.label}</span>
+                                        {option.description && (
+                                            <span className="font-medium text-lg">{option.description}</span>
+                                        )}
+                                    </div>
+                                    {option.price > 0 && (
+                                        <span className="font-medium text-lg">— £{option.price.toFixed(2)}</span>
                                     )}
                                 </div>
-                                {option.price > 0 && (
-                                    <span className="font-medium text-lg">— £{option.price.toFixed(2)}</span>
-                                )}
-                            </div>
-                        </Label>
-                    </div>
-                ))}
-            </RadioGroup>
-        </CardContent>
-    </Card>
-  )
+                            </Label>
+                        </div>
+                    ))}
+                </RadioGroup>
+            </CardContent>
+        </Card>
+    )
 }
 
 export default DeliveryMethod
