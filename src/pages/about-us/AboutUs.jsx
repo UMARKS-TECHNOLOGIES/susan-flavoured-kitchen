@@ -6,6 +6,7 @@ import Mission from "./components/Mission";
 import Auth from "./components/Auth";
 import Commitment from "./components/Commitment";
 import Quality from "./components/Quality";
+import Footer from "./components/Footer";
 const AboutUs = () => {
   return (
     <section>
@@ -16,6 +17,7 @@ const AboutUs = () => {
       <Auth />
       <Commitment />
       <Quality />
+      <Footer />
     </section>
   );
 };
