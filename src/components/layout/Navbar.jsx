@@ -47,9 +47,9 @@ const Navbar = () => {
 
   return (
     <nav className="bg-[#ffffff] fixed top-0 left-0 w-full z-50 shadow-md">
-      <div className="max-w-7xl mx-auto py-4 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto w-[85%] py-4 flex justify-between items-center">
         <div className="">
-          <img src={Logo} alt="" className="w-15" />
+          <img src={Logo} alt="" className="w-18" />
         </div>
         <div className="flex items-center justify-center text-center">
           {navLinks.map((link) =>
@@ -59,25 +59,21 @@ const Navbar = () => {
                 type="single"
                 collapsible
                 className="w-20"
-                defaultValue="item-1"
               >
-                <AccordionItem value="item-1" className="border-none">
-                  <div className="w-20 ">
-                    {/* <NavLink to={link.href}> */}
-                    <AccordionTrigger className="text-[#343333] hover:text-orange-600 font-medium px-4 py-2 border-none shadow-none hover:no-underline focus:ring-0 focus:outline-none data-[state=open]:text-orange-600">
-                      {link.name}
-                    </AccordionTrigger>
-                    {link.dropdown.map((item) => (
-                      <AccordionContent
-                        key={item.name}
-                        asChild
-                        className="hover:bg-orange-50 hover:text-orange-600 cursor-pointer"
-                      >
-                        <NavLink to={item.path}>{item.name}</NavLink>
-                      </AccordionContent>
-                    ))}
-                    {/* </NavLink> */}
-                  </div>
+                <AccordionItem value={link.name} className="border-none">
+                  <AccordionTrigger className="text-[#343333] hover:text-orange-600 font-medium px-4 py-2 border-none shadow-none hover:no-underline focus:ring-0 focus:outline-none data-[state=open]:text-orange-600">
+                    {link.name}
+                  </AccordionTrigger>
+
+                  {link.dropdown.map((item) => (
+                    <AccordionContent
+                      key={item.name}
+                      asChild
+                      className="hover:bg-orange-50 hover:text-orange-600 cursor-pointer"
+                    >
+                      <NavLink to={item.path}>{item.name}</NavLink>
+                    </AccordionContent>
+                  ))}
                 </AccordionItem>
               </Accordion>
             ) : (
