@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -115,19 +117,25 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: "Poppins", sans-serif;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Poppins", sans-serif;
   }
 }
 
-.swiper-pagination {
-  position: static !important;
-  margin-top: -70px;
+.heroSwiper .swiper-pagination {
+  position: absolute !important;
+  bottom: 20px !important;
+  left: 0 !important;
+  width: 100% !important;
   text-align: center;
+  z-index: 50 !important;
+  margin-top: 0 !important;
 }
 
-.swiper-pagination-bullet {
+.heroSwiper .swiper-pagination-bullet {
   background-color: rgba(128, 128, 128, 0.5) !important;
   width: 12px !important;
   height: 12px !important;
@@ -137,8 +145,41 @@
   border: 2px solid rgba(128, 128, 128, 0.7);
 }
 
-.swiper-pagination-bullet-active {
+.heroSwiper .swiper-pagination-bullet-active {
   background-color: #ff6e00 !important;
   transform: scale(1.5);
   border-color: #ff6e00;
+}
+
+.heroSwiper .swiper-slide {
+  background: transparent !important;
+}
+
+.heroSwiper .swiper-slide img {
+  width: auto !important;
+  height: auto !important;
+  display: inline-block !important;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #444;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

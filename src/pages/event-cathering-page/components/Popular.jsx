@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const Popular = () => {
   return (
-    <section className="bg-[#FFF9F4] relative mb-5 pb-6 pt-8 w-full">
+    <section className="bg-[#FFF9F4] relative  pb-6 pt-8 w-full">
       <div className="w-[85%] mx-auto">
         <h1 className="text-2xl mb-5 font-bold">Popular Cathering Dishes</h1>
 

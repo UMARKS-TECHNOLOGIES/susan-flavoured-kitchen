@@ -7,6 +7,7 @@ import Popular from "./components/Popular";
 import ClientReview from "./components/ClientReview";
 import Amazing from "./components/Amazing";
 import Footer from "@/components/layout/Footer";
+import Eventswiper from "./components/Eventswiper";
 const HomeEvent = () => {
   return (
     <section>
@@ -15,6 +16,7 @@ const HomeEvent = () => {
       <WhyChooseUs />
       <HowItWorks />
       <Popular />
+      <Eventswiper />
       <ClientReview />
       <Amazing />
       <Footer />

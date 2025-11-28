@@ -33,7 +33,7 @@ const Herosection = () => {
   ];
 
   return (
-    <section className="w-[95%] top-30 mx-auto relative">
+    <section className="w-[95%] mt-32 mx-auto relative">
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{
@@ -45,17 +45,17 @@ const Herosection = () => {
           disableOnInteraction: false,
         }}
         loop={true}
-        className="h-[90vh] w-full"
+        className="h-[40vh] w-full heroSwiper rounded-lg overflow-hidden"
         style={{ paddingBottom: "50px" }}
       >
         {heroSlides.map((heroSlides) => (
           <SwiperSlide key={heroSlides.id}>
             <div className="bg-[#ff6e00] flex py-8 px-12 rounded-lg gap-20 items-center">
               <div className="">
-                <img src={heroSlides.image} alt="" className="w-90" />
+                <img src={heroSlides.image} alt="" className="w-64" />
               </div>
               <div className="text-white max-w-4xl">
-                <h2 className="text-[60px] leading-tight font-bold max-w-2xl">
+                <h2 className="text-[50px] leading-tight font-bold max-w-2xl">
                   {heroSlides.title}
                 </h2>
 
