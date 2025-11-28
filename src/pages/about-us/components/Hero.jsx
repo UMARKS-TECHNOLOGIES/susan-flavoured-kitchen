@@ -18,8 +18,7 @@ const Hero = () => {
         </h1>
         <p className="text-white w-[70%] text-lg">
           From intimate gatherings to large celebrations, we prepare authentic
-          Nigerian dishes that bring people together — cooked fresh, beautifully
-          packaged, and handled with strict hygiene standards.
+          Niger
         </p>
       </div>
       <div></div>
