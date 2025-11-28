@@ -4,6 +4,9 @@ import Hero from "./components/Hero";
 import WhyChooseUs from "./components/WhyChooseUs";
 import HowItWorks from "./components/HowItWorks";
 import Popular from "./components/Popular";
+import ClientReview from "./components/ClientReview";
+import Amazing from "./components/Amazing";
+import Footer from "@/components/layout/Footer";
 const HomeEvent = () => {
   return (
     <section>
@@ -12,6 +15,9 @@ const HomeEvent = () => {
       <WhyChooseUs />
       <HowItWorks />
       <Popular />
+      <ClientReview />
+      <Amazing />
+      <Footer />
     </section>
   );
 };
