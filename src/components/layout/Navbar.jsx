@@ -49,7 +49,7 @@ const Navbar = () => {
     <nav className="bg-[#ffffff] fixed top-0 left-0 w-full z-50 shadow-md">
       <div className="max-w-7xl mx-auto w-[85%] py-4 flex justify-between items-center">
         <div className="">
-          <img src={Logo} alt="" className="w-18" />
+          <img src={Logo} alt="" className="w-13" />
         </div>
         <div className="flex items-center justify-center text-center">
           {navLinks.map((link) =>

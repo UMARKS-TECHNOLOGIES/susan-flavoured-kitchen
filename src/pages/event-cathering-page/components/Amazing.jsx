@@ -5,7 +5,7 @@ const Amazing = () => {
   return (
     <section className="w-full mt-15 pb-15 h-[200px] ">
       <div className="w-[80%] mx-auto">
-        <div>
+        <div className="mx-auto flex flex-col items-center">
           <h1 className="text-3xl font-bold ">
             Ready to Bring Amazing Food to Your Event?
           </h1>

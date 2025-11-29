@@ -100,7 +100,7 @@ const ContactUs = () => {
       <Navbar />
       {/* Hero Section */}
       <div
-        className="relative h-64 bg-cover bg-center flex items-center justify-center"
+        className="relative h-64 mt-17 mb-10  bg-cover bg-center flex items-center justify-center"
         style={{
           backgroundImage: `url(${HeroImage})`,
           backgroundBlendMode: "overlay",

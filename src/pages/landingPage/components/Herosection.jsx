@@ -33,7 +33,7 @@ const Herosection = () => {
   ];
 
   return (
-    <section className="w-[95%] mt-32 mx-auto relative">
+    <section className="w-[95%] mt-20 mx-auto relative">
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{
