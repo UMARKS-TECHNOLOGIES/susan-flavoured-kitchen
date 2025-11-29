@@ -10,10 +10,12 @@ import OrderConfirmation from "./pages/orderConfirmationpage/OrderConfirmation";
 import ContactUs from "./pages/contactUsPage/ContactUs";
 import AboutUs from "./pages/about-us/AboutUs";
 import HomeEvent from "./pages/event-cathering-page/HomeEvent";
+import ScrollToTop from "./components/shared/ScrollToTop";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <CartProvider>
         <Routes>
           {/* dynamic product route */}
