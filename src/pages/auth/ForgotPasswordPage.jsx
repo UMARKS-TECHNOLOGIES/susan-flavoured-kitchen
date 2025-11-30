@@ -68,12 +68,12 @@ const ForgotPasswordPage = () => {
             <div className="h-[500px] flex">
                 {/* Left Side - Image Section */}
                 <div
-                    className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative"
+                    className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative rounded-lg"
                     style={{
                         backgroundImage: `url(${Abt2})`,
                     }}
                 >
-                    <div className="absolute inset-0 bg-black opacity-40"></div>
+                    <div className="absolute inset-0 bg-black opacity-40 rounded-lg"></div>
 
                    
                     {/* Welcome Text */}
@@ -86,7 +86,7 @@ const ForgotPasswordPage = () => {
                 </div>
 
                 {/* Right Side - Form Section */}
-                <div className="w-full lg:w-1/2 flex items-center justify-center px-8 py-12 bg-white">
+                <div className="w-full lg:w-1/2 flex items-center justify-center px-8 py-12">
                     <div className="w-full max-w-md">
                         {/* Mobile Logo */}
                         <div className="lg:hidden mb-8 flex justify-center">
