@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
-import ContactMethod from "./components/ContactMethod";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "../../components/ui/dialog";
+import { Card, CardContent } from "../../components/ui/card";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../../components/ui/input";
 import {
@@ -27,6 +33,7 @@ const ContactUs = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPhoneOpen, setIsPhoneOpen] = useState(false);
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -73,27 +80,6 @@ const ContactUs = () => {
     }
   };
 
-  const contactMethods = [
-    {
-      icon: Phone,
-      title: "Call Us",
-      value: "07387064824",
-      link: "tel:07387064824",
-    },
-    {
-      icon: Mail,
-      title: "Email Us",
-      value: "Susanflavouredkitchen@gmail.com",
-      link: "mailto:Susanflavouredkitchen@gmail.com",
-    },
-    {
-      icon: Instagram,
-      title: "Instagram",
-      value: "@susanflavouredkitchenuk",
-      link: "https://instagram.com/susanflavouredkitchenuk",
-    },
-  ];
-
   const subjects = ["Order Inquiry", "Catering", "Feedback", "Other"];
   return (
     <div className="min-h-screen bg-[#fff9f4]">
@@ -114,13 +100,83 @@ const ContactUs = () => {
       </div>
 
       {/* Contact Methods */}
-      <div className="max-w-6xl mx-auto px-4 mt-4 mb-10">
+      <div className="max-w-6xl mx-auto px-4 mt-8 mb-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {contactMethods.map((method, index) => (
-            <ContactMethod key={index} {...method} />
-          ))}
+          {/* Phone - Opens Dialog */}
+          <Card
+            onClick={() => setIsPhoneOpen(true)}
+            className="text-center hover:shadow-md transition-shadow bg-transparent cursor-pointer h-full flex items-center justify-center"
+          >
+            <CardContent className="py-10">
+              <div className="flex justify-center">
+                <div className="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center text-orange-500">
+                  <Phone className="w-8 h-8" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Email - Opens Mailto */}
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=Susanflavouredkitchen@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block h-full"
+          >
+            <Card className="text-center hover:shadow-md transition-shadow bg-transparent cursor-pointer h-full flex items-center justify-center">
+              <CardContent className="py-10">
+                <div className="flex justify-center">
+                  <div className="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center text-orange-500">
+                    <Mail className="w-8 h-8" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </a>
+
+          {/* Instagram - Opens Link */}
+          <a
+            href="https://instagram.com/susanflavouredkitchenuk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block h-full"
+          >
+            <Card className="text-center hover:shadow-md transition-shadow bg-transparent cursor-pointer h-full flex items-center justify-center">
+              <CardContent className="py-10">
+                <div className="flex justify-center">
+                  <div className="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center text-orange-500">
+                    <Instagram className="w-8 h-8" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </a>
         </div>
       </div>
+
+      <Dialog open={isPhoneOpen} onOpenChange={setIsPhoneOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl font-bold">
+              Call Us
+            </DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col items-center justify-center space-y-4 py-6">
+            <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center text-orange-500">
+              <Phone className="w-10 h-10" />
+            </div>
+            <a
+              href="tel:07387064824"
+              className="text-3xl font-bold text-gray-800 hover:text-orange-500 transition-colors"
+            >
+              07387064824
+            </a>
+            <p className="text-gray-500 text-center">
+              Available for orders and inquiries
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Contact Form */}
       <div className="max-w-5xl mx-auto px-4 pb-16">

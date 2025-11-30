@@ -1,21 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.jpeg";
-import { MdOutlineSearch } from "react-icons/md";
+import { MdOutlineSearch, MdKeyboardArrowDown } from "react-icons/md";
 import { BsPerson } from "react-icons/bs";
 import { GiShoppingCart } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+
 import { useCart } from "../../store/useCart";
 
 const Navbar = () => {
   const { getTotalItems } = useCart();
   const totalItems = getTotalItems();
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   const navLinks = [
     {
@@ -54,28 +50,42 @@ const Navbar = () => {
         <div className="flex items-center justify-center text-center">
           {navLinks.map((link) =>
             link.dropdown ? (
-              <Accordion
-                key={link.name}
-                type="single"
-                collapsible
-                className="w-20"
-              >
-                <AccordionItem value={link.name} className="border-none">
-                  <AccordionTrigger className="text-[#343333] hover:text-orange-600 font-medium px-4 py-2 border-none shadow-none hover:no-underline focus:ring-0 focus:outline-none data-[state=open]:text-orange-600">
-                    {link.name}
-                  </AccordionTrigger>
+              <div key={link.name} className="relative">
+                <button
+                  onClick={() =>
+                    setOpenDropdown(
+                      openDropdown === link.name ? null : link.name
+                    )
+                  }
+                  className={`px-4 py-2 font-medium hover:text-orange-600 focus:outline-none flex items-center gap-1 ${
+                    openDropdown === link.name
+                      ? "text-orange-600"
+                      : "text-[#343333]"
+                  }`}
+                >
+                  {link.name}
+                  <MdKeyboardArrowDown
+                    className={`text-lg transition-transform duration-200 ${
+                      openDropdown === link.name ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
 
-                  {link.dropdown.map((item) => (
-                    <AccordionContent
-                      key={item.name}
-                      asChild
-                      className="hover:bg-orange-50 hover:text-orange-600 cursor-pointer"
-                    >
-                      <NavLink to={item.path}>{item.name}</NavLink>
-                    </AccordionContent>
-                  ))}
-                </AccordionItem>
-              </Accordion>
+                {openDropdown === link.name && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50 border border-gray-100">
+                    {link.dropdown.map((item) => (
+                      <NavLink
+                        key={item.name}
+                        to={item.path}
+                        onClick={() => setOpenDropdown(null)}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                      >
+                        {item.name}
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
+              </div>
             ) : (
               <NavLink
                 key={link.name}
@@ -94,7 +104,9 @@ const Navbar = () => {
 
         <div className="flex items-center justify-center space-x-4 ">
           <div className="">
-            <MdOutlineSearch className="text-2xl" />
+            <Link to="/menu">
+              <MdOutlineSearch className="text-2xl" />
+            </Link>
           </div>
           <div className="">
             <BsPerson className="text-2xl" />

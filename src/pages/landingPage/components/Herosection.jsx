@@ -1,5 +1,7 @@
 import React from "react";
 import Plate from "../../../assets/image1.svg";
+import Plate2 from "../../../assets/hero_food_2.png";
+import Plate3 from "../../../assets/hero_food_3.png";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,14 +23,14 @@ const Herosection = () => {
       title: "Hygenic meals, Unforgettable taste",
       description:
         "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
-      image: Plate,
+      image: Plate2,
     },
     {
       id: 3,
       title: "Hygenic meals, Unforgettable taste",
       description:
         "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
-      image: Plate,
+      image: Plate3,
     },
   ];
 
@@ -45,14 +47,18 @@ const Herosection = () => {
           disableOnInteraction: false,
         }}
         loop={true}
-        className="h-[40vh] w-full heroSwiper rounded-lg overflow-hidden"
+        className="h-auto w-full heroSwiper rounded-lg overflow-hidden"
         style={{ paddingBottom: "50px" }}
       >
         {heroSlides.map((heroSlides) => (
           <SwiperSlide key={heroSlides.id}>
             <div className="bg-[#ff6e00] flex py-8 px-12 rounded-lg gap-20 items-center">
-              <div className="">
-                <img src={heroSlides.image} alt="" className="w-64" />
+              <div className="w-[390px] h-[390px] flex items-center justify-center">
+                <img
+                  src={heroSlides.image}
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="text-white max-w-4xl">
                 <h2 className="text-[50px] leading-tight font-bold max-w-2xl">
