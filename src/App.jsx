@@ -11,6 +11,8 @@ import ContactUs from "./pages/contactUsPage/ContactUs";
 import AboutUs from "./pages/about-us/AboutUs";
 import HomeEvent from "./pages/event-cathering-page/HomeEvent";
 import ScrollToTop from "./components/shared/ScrollToTop";
+import LoginPage from "./pages/auth/LoginPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 
 const App = () => {
   return (
@@ -18,6 +20,11 @@ const App = () => {
       <ScrollToTop />
       <CartProvider>
         <Routes>
+          {/* auth route */}
+
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
+
           {/* dynamic product route */}
           <Route path="/product/:id" element={<ProductDetails />} />
           {/* other routes */}

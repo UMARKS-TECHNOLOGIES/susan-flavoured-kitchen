@@ -116,7 +116,9 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="">
-              <BsPerson className="text-2xl" />
+              <Link to={"/login"}>
+                <BsPerson className="text-2xl" />
+              </Link>
             </div>
             <div className="relative">
               <Link to={"/cart"}>
