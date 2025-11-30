@@ -6,7 +6,7 @@ import Image4 from "../../../assets/okrosoup.jpeg";
 import Image5 from "../../../assets/jollof-rice.jpg";
 import Image6 from "../../../assets/friedRice.jpeg";
 
-const PopularDishes = ({ product }) => {
+const PopularDishes = () => {
   const { addToCart, isInCart, getItemQuantity } = useCart();
 
   // Make sure each dish has a UNIQUE id
@@ -57,27 +57,31 @@ const PopularDishes = ({ product }) => {
   };
 
   return (
-    <section className="mt-25">
-      <div className="max-w-5xl mx-auto">
+    <section className="mt-10 lg:mt-25 px-4 lg:px-0">
+      <div className="w-full lg:max-w-5xl mx-auto">
         <h2 className="text-2xl font-medium">Popular Dishes</h2>
-        <div className="flex md:flex-row flex-col gap-4 mt-4">
+
+        {/* Mobile: Horizontal Scroll, Desktop: Grid (2 Columns) */}
+        <div className="flex flex-nowrap overflow-x-auto md:grid md:grid-cols-2 gap-4 mt-4 pb-4 -mx-4 px-4 snap-x snap-mandatory md:pb-0 md:mx-0 md:px-0">
           {popularDish.map((dish) => {
             const inCart = isInCart(dish.id);
             const quantity = getItemQuantity(dish.id);
 
             return (
-              // CRITICAL FIX: Added key prop and removed duplicate card
-              <div key={dish.id} className="w-full p-2 bg-secondary rounded-lg">
+              <div
+                key={dish.id}
+                className="min-w-[300px] md:min-w-0 w-full p-2 bg-secondary rounded-lg shrink-0 snap-center"
+              >
                 <img
                   src={dish.image}
                   alt={dish.name}
-                  className="w-full h-[50vh] object-cover bg-center rounded-lg"
+                  className="w-full h-[200px] md:h-[50vh] lg:h-[350px] object-cover bg-center rounded-lg"
                 />
-                <div className="px-4">
-                  <h3 className="mt-2 text-lg font-bold capitalize">
+                <div className="px-2 md:px-4">
+                  <h3 className="mt-2 text-lg font-bold capitalize truncate">
                     {dish.name}
                   </h3>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center mt-2">
                     <p className="text-lg font-bold">
                       £{dish.price.toFixed(2)}
                     </p>
