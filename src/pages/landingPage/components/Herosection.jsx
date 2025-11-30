@@ -43,7 +43,7 @@ const Herosection = () => {
           <input
             type="text"
             placeholder="Search Meals"
-            className="w-full h-10 pl-4 pr-4 rounded-lg border border-gray-300 focus:outline-none focus:border-[#ff6e00] text-sm"
+            className="w-full h-10 pl-4 pr-4 rounded-lg border border-gray-300 focus:outline-none focus:border-[#ff6e00] text-sm text-base"
           />
         </div>
         <Button className="bg-[#ff6e00] h-10 text-white px-6 rounded-lg hover:bg-[#e66300]">
