@@ -24,7 +24,7 @@ const Hero = () => {
         </p>
 
         <div className="flex justify-between w-[45%] mt-10">
-          <Link className="bg-[#FF6E00] px-3 border rounded rounded-tr-none rounded-bl-none text-white font-bold py-2">
+          <Link to={'/catering-quote'} className="bg-[#FF6E00] px-3 border rounded rounded-tr-none rounded-bl-none text-white font-bold py-2">
             Request Cathering Quote
           </Link>
           <Link className="text-[#FF6E00] font-bold boder-[#FF6E00] border border-[#FF6E00] rounded rounded-tr-none rounded-br-none px-3 py-2">
