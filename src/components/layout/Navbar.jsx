@@ -212,7 +212,7 @@ const Navbar = () => {
             ))}
             <Link
               to="/menu"
-              className="flex items-center gap-2 text-lg font-medium text-gray-800 border-b border-gray-100 pb-2"
+              className="flex items-center gap-2 text-lg font-medium text-gray-800 border-b border-gray-100 pb-1 -mb-1"
             >
               <MdOutlineSearch className="text-2xl" /> Search
             </Link>
