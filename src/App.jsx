@@ -13,6 +13,9 @@ import HomeEvent from "./pages/event-cathering-page/HomeEvent";
 import ScrollToTop from "./components/shared/ScrollToTop";
 import LoginPage from "./pages/auth/LoginPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import SignupPage from "./pages/auth/SignupPage";
+import CateringQuote from "./pages/cateringQuotePage/CateringQuote";
 
 const App = () => {
   return (
@@ -24,6 +27,8 @@ const App = () => {
 
           <Route path='/login' element={<LoginPage />} />
           <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
+          <Route path="/resetpassword" element={<ResetPasswordPage /> } />
+          <Route path="/signup" element={<SignupPage />} />
 
           {/* dynamic product route */}
           <Route path="/product/:id" element={<ProductDetails />} />
@@ -36,6 +41,7 @@ const App = () => {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/event" element={<HomeEvent />} />
+          <Route path="/catering-quote" element={<CateringQuote />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>

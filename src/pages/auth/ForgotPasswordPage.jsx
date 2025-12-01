@@ -48,6 +48,9 @@ const ForgotPasswordPage = () => {
     const handleBackToLogin = () => {
         window.location.href = '/login';
     };
+    const handleResetPassword = () => {
+        window.location.href = '/resetpassword';
+    }
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -91,7 +94,7 @@ const ForgotPasswordPage = () => {
                         {/* Mobile Logo */}
                         <div className="lg:hidden mb-8 flex justify-center">
                             <img
-                                src="/api/placeholder/150/60"
+                                src={Logo}
                                 alt="Logo"
                                 className="h-12"
                             />
@@ -135,7 +138,7 @@ const ForgotPasswordPage = () => {
                                 </p>
 
                                 <Button
-                                    onClick={handleBackToLogin}
+                                    onClick={handleResetPassword}
                                     className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white text-base font-medium"
                                 >
                                     Back to Log In

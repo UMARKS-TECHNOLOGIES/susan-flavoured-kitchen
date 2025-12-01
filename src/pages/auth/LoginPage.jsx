@@ -61,8 +61,8 @@ const LoginPage = () => {
     };
 
     const handleSignUp = () => {
-        console.log('Navigate to sign up');
-        // window.location.href = '/signup';
+        // console.log('Navigate to sign up');
+        window.location.href = '/signup';
     };
 
     const handleKeyPress = (e) => {
@@ -81,6 +81,7 @@ const LoginPage = () => {
                     className="h-20"
                 />
             </div>
+
             <div className="h-[500px] flex">
                 {/* Left Side - Image Section */}
                 <div
@@ -108,7 +109,7 @@ const LoginPage = () => {
                         {/* Mobile Logo */}
                         <div className="lg:hidden mb-8 flex justify-center">
                             <img
-                                src="/api/placeholder/150/60"
+                                src={Logo}
                                 alt="Logo"
                                 className="h-12"
                             />
