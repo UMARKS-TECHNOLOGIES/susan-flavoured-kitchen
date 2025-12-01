@@ -29,7 +29,7 @@ const Testimonial = () => {
     <section className="mt-10 lg:mt-0 px-4 lg:px-0">
       <div className="w-full lg:max-w-5xl mx-auto">
         <h3 className="text-2xl font-medium mb-4 lg:mb-0">Testimonials</h3>
-        <div className="flex overflow-x-auto lg:grid lg:grid-cols-3 gap-4 my-4 pb-4 snap-x snap-mandatory scroll-smooth lg:pb-0">
+        <div className="flex overflow-x-auto lg:grid lg:grid-cols-3 gap-4 my-4 pb-4 snap-x snap-mandatory scroll-smooth lg:pb-0 scrollbar-hide">
           {testimony.map((items) => (
             <div
               className="flex-shrink-0 w-[calc(100vw-2rem)] lg:w-auto bg-white px-6 py-6 rounded-br-lg rounded-tl-lg shadow-sm border border-gray-100 snap-center flex flex-col"
