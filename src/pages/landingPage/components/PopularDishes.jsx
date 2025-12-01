@@ -62,7 +62,7 @@ const PopularDishes = () => {
         <h2 className="text-2xl font-medium">Popular Dishes</h2>
 
         {/* Mobile: Horizontal Scroll, Desktop: Grid (2 Columns) */}
-        <div className="flex flex-nowrap overflow-x-auto md:grid md:grid-cols-2 gap-4 mt-4 pb-4 -mx-4 px-4 snap-x snap-mandatory md:pb-0 md:mx-0 md:px-0">
+        <div className="flex flex-nowrap overflow-x-auto scrollbar-hide md:grid md:grid-cols-2 gap-4 mt-4 pb-4 -mx-4 px-4 snap-x snap-mandatory md:pb-0 md:mx-0 md:px-0">
           {popularDish.map((dish) => {
             const inCart = isInCart(dish.id);
             const quantity = getItemQuantity(dish.id);
