@@ -42,9 +42,9 @@ const Menu = () => {
           <input
             type="text"
             placeholder="Search Meals"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-2/3 md:flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
-          <button className="bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-700">
+          <button className="bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-700 whitespace-nowrap">
             Search
           </button>
         </div>
