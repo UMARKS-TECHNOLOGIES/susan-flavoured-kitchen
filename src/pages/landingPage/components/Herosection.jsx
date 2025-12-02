@@ -14,21 +14,21 @@ const Herosection = () => {
   const heroSlides = [
     {
       id: 1,
-      title: "Hygienic Meals, Unforgettable Taste.",
+      title: "Hygienic meals, unforgettable taste.",
       description:
         "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
       image: Plate,
     },
     {
       id: 2,
-      title: "Hygienic Meals, Unforgettable Taste.",
+      title: "Hygienic meals, unforgettable taste.",
       description:
         "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
       image: Plate2,
     },
     {
       id: 3,
-      title: "Hygienic Meals, Unforgettable Taste.",
+      title: "Hygienic meals, unforgettable taste.",
       description:
         "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
       image: Plate3,

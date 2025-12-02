@@ -1,5 +1,5 @@
 import React from "react";
-import Picture from "../../../assets/ricebeans.jpg";
+import Picture from "../../../assets/chefstory1.jpeg";
 import { Button } from "../../../components/ui/button";
 
 const About = () => {
@@ -32,12 +32,13 @@ const About = () => {
               We believe in creating memories through food, one dish at a time.
             </p>
 
-            <Button
+            <Button    
               className="bg-orange-600 hover:bg-orange-500 text-white font-medium px-8 py-2 h-11"
-              size="lg"
-            >
+              size="lg" 
+            > 
               Learn More
             </Button>
+      
           </div>
         </div>
       </div>
