@@ -17,7 +17,7 @@ const Amazing = () => {
 
         <div className="w-[60%] mx-auto mt-15  ">
           <Link className="bg-[#FF6E00] mr-3 px-3 py-2 rounded rounded-tr-none rounded-bl-none text-white ">
-            Request Catering quote Call Us
+            Request Catering quote
           </Link>
 
           <Link className="bg-transparent border border-[#FF6E00] ml-8 px-17 py-2 rounded rounded-tr-none rounded-bl-none font-bold text-[#FF6E00]">

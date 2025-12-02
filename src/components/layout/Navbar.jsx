@@ -26,9 +26,11 @@ const Navbar = () => {
     {
       name: "Menu",
       dropdown: [
-        { name: "Breakfast", path: "/menu" },
-        { name: "Lunch", path: "/menu/lunch" },
-        { name: "Dinner", path: "/menu/dinner" },
+        { name: "All", path: "/menu" },
+        { name: "Soups and Stew", path: "/menu/Soups and Stew" },
+        { name: "Rice", path: "/menu/Rice" },
+        { name: "Snacks & Pastries", path: "/menu/Snacks & Drinks" },
+        { name: "Drinks", path: "/menu/Drinks" },
       ],
       href: "/menu",
     },
