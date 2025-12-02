@@ -44,7 +44,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
-  
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -125,7 +125,6 @@
     overflow-x: hidden;
     max-width: 100vw;
     width: 100%;
-   
   }
 
   input[type="text"],
@@ -134,9 +133,6 @@
   input[type="password"],
   textarea {
     font-size: 16px;
-      
-    }
-
   }
 
   @media (max-width: 768px) {
@@ -165,7 +161,7 @@
     @apply bg-background text-foreground;
     font-family: "Poppins", sans-serif;
   }
-
+}
 
 .heroSwiper .swiper-pagination {
   position: absolute !important;
