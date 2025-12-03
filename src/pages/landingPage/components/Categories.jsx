@@ -48,7 +48,7 @@ const Categories = () => {
       </h3>
 
       {/* Mobile: Horizontal Scroll, Desktop: Grid */}
-      <div className="my-5 flex flex-nowrap overflow-x-auto gap-4 pb-4 -mx-4 px-4 snap-x snap-mandatory lg:pb-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-9 lg:mx-0 lg:px-0">
+      <div className="my-5 flex flex-nowrap overflow-x-auto scrollbar-hide gap-4 pb-4 -mx-4 px-4 snap-x snap-mandatory lg:pb-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-9 lg:mx-0 lg:px-0">
         {categoryItems.map((item) => (
           <div
             key={item.id}

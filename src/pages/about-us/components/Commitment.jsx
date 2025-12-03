@@ -1,5 +1,5 @@
 import React from "react";
-import Abt3 from "../../../assets/Abt4.svg";
+import Abt3 from "../../../assets/chefstory1.jpeg";
 
 const Commitment = () => {
   return (

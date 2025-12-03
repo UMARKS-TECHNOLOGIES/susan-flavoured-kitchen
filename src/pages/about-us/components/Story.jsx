@@ -1,5 +1,5 @@
 import React from "react";
-import Abt2 from "@/assets/Abt2.svg";
+import Abt2 from "@/assets/chefstory1.jpeg";
 const Story = () => {
   return (
     <section className="mx-auto w-[85%] 0 gap-[10%]  mt-15 flex">
