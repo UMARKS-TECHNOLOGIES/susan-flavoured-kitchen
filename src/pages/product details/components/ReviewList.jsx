@@ -5,23 +5,29 @@ import StarRating from '../../../components/layout/StarRating';
 const ReviewList = () => {
     const reviews = [
         {
+            id: 1,
             rating: 5,
-            name: "Ada",
-            date: "10th November 2025",
-            text: "Perfect balance of spice and smokiness! So fresh and cleanly packaged.",
+            text: 'Perfect balance of spice and smokiness! so fresh and cleanly packaged.',
+            author: 'Abbi',
+            date: '14th November 2025',
+            verified: true
         },
         {
+            id: 2,
             rating: 5,
-            name: "Ada",
-            date: "10th November 2025",
-            text: "Perfect balance of spice and smokiness! So fresh and cleanly packaged.",
+            text: 'Absolutely delicious! The flavors were incredible and delivery was fast.',
+            author: 'John',
+            date: '12th November 2025',
+            verified: true
         },
         {
-            rating: 5,
-            name: "Ada",
-            date: "10th November 2025",
-            text: "Perfect balance of spice and smokiness! So fresh and cleanly packaged.",
-        },
+            id: 3,
+            rating: 4,
+            text: 'Great food, generous portions. Will definitely order again!',
+            author: 'Sarah',
+            date: '10th November 2025',
+            verified: true
+        }
     ];
 
     return (

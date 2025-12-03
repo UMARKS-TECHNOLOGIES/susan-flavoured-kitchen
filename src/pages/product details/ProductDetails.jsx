@@ -48,7 +48,7 @@ const ProductDetails = () => {
       <div className="pt-10 pb-20 space-y-12">
         <ProductHeader product={product} />
         <hr className='border-gray-300 border' />
-        <GoesWellWith />
+        <GoesWellWith currentProductId={product.id} />
         <ReviewList />
       </div>
       <Footer />
