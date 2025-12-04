@@ -16,6 +16,8 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import SignupPage from "./pages/auth/SignupPage";
 import CateringQuote from "./pages/cateringQuotePage/CateringQuote";
+import AdminDashboardLayout from "./pages/adminPage/components/AdminDashboardLayout";
+import AdminDashboard from "./pages/adminPage/AdminDashboard";
 
 const App = () => {
   return (
@@ -27,7 +29,7 @@ const App = () => {
 
           <Route path='/login' element={<LoginPage />} />
           <Route path='/forgotpassword' element={<ForgotPasswordPage />} />
-          <Route path="/resetpassword" element={<ResetPasswordPage /> } />
+          <Route path="/resetpassword" element={<ResetPasswordPage />} />
           <Route path="/signup" element={<SignupPage />} />
 
           {/* dynamic product route */}
@@ -42,6 +44,7 @@ const App = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/event" element={<HomeEvent />} />
           <Route path="/catering-quote" element={<CateringQuote />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>
