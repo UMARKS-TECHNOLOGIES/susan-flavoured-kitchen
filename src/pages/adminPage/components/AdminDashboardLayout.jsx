@@ -87,14 +87,14 @@ const AdminDashboardLayout = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 mb-8">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+            <div className="flex mb-8 items-center justify-around">
+                <Button className="bg-orange-500 py-10 px-10 hover:bg-orange-600 text-white">
                     View Orders
                 </Button>
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                <Button className="bg-orange-500 py-10 px-10 hover:bg-orange-600 text-white">
                     + Add New Meal
                 </Button>
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                <Button className="bg-orange-500 py-10 px-10 hover:bg-orange-600 text-white">
                     Catering Requests
                 </Button>
             </div>
