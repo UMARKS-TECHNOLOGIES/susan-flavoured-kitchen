@@ -79,7 +79,7 @@ const Menu = () => {
           />
           <button
             onClick={() => setSearchQuery(searchTerm)}
-            className="bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-700 whitespace-nowrap"
+            className="bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-700 whitespace-nowrap"
           >
             Search
           </button>
