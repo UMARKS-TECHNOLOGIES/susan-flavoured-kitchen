@@ -45,12 +45,23 @@ export const LoaderProvider = ({ children }) => {
 
   // Trigger on route change
   useEffect(() => {
-    setIsLoading(true);
-    waitForImages();
+    // Define major routes that require the preloader
+    const majorRoutes = ["/", "/about", "/menu", "/event", "/contact-us"];
 
-    // Safety timeout increased to 15s to match previous robustness
-    const safety = setTimeout(() => setIsLoading(false), 15000);
-    return () => clearTimeout(safety);
+    // Check if the current path is one of the major routes
+    const isMajorRoute = majorRoutes.includes(location.pathname);
+
+    if (isMajorRoute) {
+      setIsLoading(true);
+      waitForImages();
+
+      // Safety timeout increased to 15s to match previous robustness
+      const safety = setTimeout(() => setIsLoading(false), 15000);
+      return () => clearTimeout(safety);
+    } else {
+      // Ensure loader is off for non-major routes
+      setIsLoading(false);
+    }
   }, [location.pathname]);
 
   // Method to manually trigger loader (for "activity processing")

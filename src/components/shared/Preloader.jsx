@@ -24,10 +24,6 @@ const Preloader = () => {
             }}
           ></div>
         </div>
-
-        <p className="mt-4 text-orange-800 font-medium text-sm tracking-widest uppercase animate-pulse">
-          Loading Freshness...
-        </p>
       </div>
 
       <style>{`

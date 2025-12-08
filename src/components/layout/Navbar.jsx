@@ -27,7 +27,7 @@ const Navbar = () => {
       name: "Menu",
       dropdown: [
         { name: "All", path: "/menu" },
-        { name: "Soups and Stew", path: "/menu"},
+        { name: "Soups and Stew", path: "/menu" },
         { name: "Rice", path: "/menu" },
         { name: "Snacks & Pastries", path: "/menu" },
         { name: "Drinks", path: "/menu" },
@@ -154,6 +154,10 @@ const Navbar = () => {
                 </span>
               )}
             </div>
+
+            <Link to={"/login"}>
+              <BsPerson className="text-2xl text-gray-700" />
+            </Link>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
