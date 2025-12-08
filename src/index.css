@@ -144,10 +144,26 @@
       font-size: 16px !important;
     }
   }
+
   html {
     scroll-behavior: smooth;
   }
 
+  body {
+    min-height: 100vh;
+    @apply bg-background text-foreground;
+    font-family: "Poppins", sans-serif;
+    overflow-y: scroll; /* Force vertical scroll */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Utility class */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -155,11 +171,6 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    font-family: "Poppins", sans-serif;
   }
 }
 

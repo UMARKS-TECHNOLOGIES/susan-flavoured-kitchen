@@ -1,27 +1,23 @@
 import React from "react";
 import Event1 from "@/assets/Abt1.jpg";
+
 const Hero = () => {
   return (
-    <section className="h-[550px] relative">
-      <div className="w-full absolute">
-        <img
-          src={Event1}
-          className="h-[550px] relative z-1 object-cover w-full rounded-b-[10px]"
-          alt=""
-        />
-        <div className="bg-black/50 w-full h-[550px] absolute top-0 z-2 rounded-b-[50px]"></div>
-      </div>
+    <section className="h-[200px] md:h-[550px] w-full p-4 mt-20 md:p-0 md:mt-0 relative">
+      <div className="w-full h-full relative rounded-[10px] md:rounded-b-[50px] md:rounded-t-none overflow-hidden">
+        <img src={Event1} className="w-full h-full object-cover" alt="" />
+        <div className="bg-black/50 w-full h-full absolute top-0 left-0"></div>
 
-      <div className="absolute pl-[150px] w-[80%] top-[180px] z-3">
-        <h1 className="text-5xl leading-[1.2] pb-3 text-white font-bold">
-          Fresh. Hygienic. Unforgettable — Just Like Home.
-        </h1>
-        <p className="text-white w-[70%] text-lg">
-          We’re passionate about serving freshly cooked Nigerian meals made with
-          love, care, and uncompromising hygiene standards.
-        </p>
+        <div className="absolute px-6 md:pl-[150px] w-full md:w-[80%] top-1/2 -translate-y-1/2 md:top-[180px] md:translate-y-0 z-10 text-center md:text-left">
+          <h1 className="text-2xl md:text-5xl leading-tight text-white font-bold pb-2 md:pb-3">
+            Fresh. Hygienic. Unforgettable — Just Like Home.
+          </h1>
+          <p className="hidden md:block text-white w-full md:w-[70%] text-sm md:text-lg mx-auto md:mx-0">
+            We’re passionate about serving freshly cooked Nigerian meals made
+            with love, care, and uncompromising hygiene standards.
+          </p>
+        </div>
       </div>
-      <div></div>
     </section>
   );
 };
