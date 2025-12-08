@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import { IoArrowBack } from "react-icons/io5";
 import Abt2 from "@/assets/Abt2.svg";
 import Logo from "@/assets/Logo.jpeg";
 
@@ -70,11 +71,21 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen px-4 lg:px-10 bg-[#fffcfa]">
       {/* Logo */}
-      <div className="py-5 flex justify-center lg:justify-start">
+      {/* Logo */}
+      <div className="py-5 flex justify-start">
         <img src={Logo} alt="Logo" className="h-16 lg:h-20" />
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 min-h-[600px] lg:max-h-[400px] w-full max-w-[90%] mx-auto rounded-lg overflow-hidden lg:overflow-visible">
+      <div className="mb-4 flex justify-start">
+        <button
+          onClick={() => window.history.back()}
+          className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors"
+        >
+          <IoArrowBack className="w-6 h-6 text-gray-700" />
+        </button>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 min-h-[600px] lg:max-h-[400px] w-full lg:max-w-[90%] mx-auto rounded-lg overflow-hidden lg:overflow-visible">
         {/* Left Side - Image Section (Hero for Mobile) */}
         <div className="w-full lg:w-1/2 h-[250px] lg:h-auto relative rounded-2xl overflow-hidden order-1">
           <img
@@ -97,7 +108,7 @@ const LoginPage = () => {
 
         {/* Right Side - Form Section */}
         <div className="w-full lg:w-1/2 flex items-center justify-center lg:px-8 order-2">
-          <div className="w-full max-w-md bg-white lg:bg-transparent p-6 lg:p-0 rounded-xl lg:rounded-none shadow-sm lg:shadow-none border lg:border-none border-gray-100">
+          <div className="w-full max-w-lg bg-white lg:bg-transparent p-6 lg:p-0 rounded-xl lg:rounded-none shadow-sm lg:shadow-none border lg:border-none border-gray-100">
             {/* Form */}
             <div className="space-y-5 lg:space-y-6">
               {/* Email Field */}

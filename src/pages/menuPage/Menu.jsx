@@ -17,10 +17,12 @@ import Image10 from "../../assets/sharwarma.jpeg";
 import Image11 from "../../assets/cake.jpeg";
 import DrinksSection from "./components/DrinksSection";
 import { MenuData } from "./MenuData";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // Active filter
+  const [searchTerm, setSearchTerm] = useState(""); // Input state
 
   const categories = [
     "All",
@@ -71,26 +73,42 @@ const Menu = () => {
           <input
             type="text"
             placeholder="Search Meals"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
+          <button
+            onClick={() => setSearchQuery(searchTerm)}
+            className="bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-700 whitespace-nowrap"
+          >
+            Search
+          </button>
         </div>
 
         {/* Category Filter Chips */}
-        <div className="flex flex-wrap gap-3 pb-2">
+        <div className="flex flex-wrap gap-4 pb-2">
           {categories.map((category) => (
-            <button
+            <div
               key={category}
+              className="flex items-center gap-2 cursor-pointer"
               onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                activeCategory === category
-                  ? "bg-orange-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
             >
-              {category}
-            </button>
+              <Checkbox
+                id={`mobile-${category}`}
+                checked={activeCategory === category}
+                onCheckedChange={() => setActiveCategory(category)}
+                className="w-5 h-5 border-gray-400 data-[state=checked]:bg-orange-600 data-[state=checked]:border-orange-600"
+              />
+              <span
+                className={`text-base font-medium ${
+                  activeCategory === category
+                    ? "text-orange-600"
+                    : "text-gray-700"
+                }`}
+              >
+                {category}
+              </span>
+            </div>
           ))}
         </div>
       </div>
