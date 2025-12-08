@@ -39,35 +39,37 @@ const ProductHeader = ({ product, item }) => {
   };
 
   return (
-    <section className="grid md:grid-cols-2 gap-10 mt-32 max-w-7xl mx-auto px-4">
-      <div className="w-[70%] ml-28 bg-white flex items-center justify-center py-16">
+    <section className="flex flex-col md:grid md:grid-cols-2 gap-10 mt-28 md:mt-32 max-w-7xl mx-auto px-4 pb-10">
+      <div className="w-full md:w-[80%] mx-auto bg-white flex items-center justify-center py-8 md:py-16 rounded-xl shadow-sm md:shadow-none border md:border-none border-gray-100">
         <img
           src={data.image}
           alt={data.name}
-          className="w-70 rounded-xl object-cover"
+          className="w-full max-w-[300px] md:max-w-none rounded-xl object-cover"
         />
       </div>
 
       {/* Product Info */}
       <div className="w-full space-y-5">
-        <h1 className="text-5xl font-bold leading-tight">{product.name}</h1>
-        <div className="flex text-center items-center space-x-4">
+        <h1 className="text-3xl md:text-5xl font-bold leading-tight text-center md:text-left">
+          {product.name}
+        </h1>
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-start space-y-2 md:space-y-0 md:space-x-4">
           <p className="text-2xl font-bold">£{data.price.toFixed(2)}</p>
-          <div className="text-sm text-gray-500 flex gap-1 text-center items-center justify-center">
+          <div className="text-sm text-gray-500 flex gap-1 items-center">
             <StarRating rating={5} size="md" />
             <span className="text-lg font-medium">(95 Reviews)</span>
           </div>
         </div>
 
         {cartQuantity > 0 && (
-          <div className="mb-3 p-3 bg-green-50 rounded-lg">
+          <div className="mb-3 p-3 bg-green-50 rounded-lg text-center md:text-left">
             <p className="text-sm text-green-700 font-medium">
               {cartQuantity} item{cartQuantity > 1 ? "s" : ""} in cart
             </p>
           </div>
         )}
 
-        <div className="flex items-center gap-10">
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
@@ -92,7 +94,7 @@ const ProductHeader = ({ product, item }) => {
 
           <Button
             onClick={handleAddToCart}
-            className="bg-orange-500 hover:bg-orange-600 text-white text-sm py-1 px-4 rounded-md "
+            className="w-full md:w-auto bg-orange-500 hover:bg-orange-600 text-white text-base py-6 md:py-2 px-8 rounded-lg font-bold"
           >
             Add to Cart
           </Button>

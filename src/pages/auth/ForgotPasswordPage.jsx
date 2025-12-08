@@ -178,7 +178,7 @@ const ForgotPasswordPage = () => {
                     onClick={handleBackToLogin}
                     className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-orange-500 font-bold transition-colors"
                   >
-                    <ArrowLeft className="w-4 h-4" />
+                    <IoArrowBack className="w-4 h-4" />
                     Go back to Log In
                   </button>
                 </div>
