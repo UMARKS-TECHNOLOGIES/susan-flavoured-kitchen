@@ -3,7 +3,7 @@ import Event1 from "@/assets/Abt1.jpg";
 
 const Hero = () => {
   return (
-    <section className="h-[150px] md:h-[550px] w-full p-4 mt-20 md:p-0 md:mt-0 relative">
+    <section className="h-[250px] md:h-[550px] w-full px-4 pt-4 pb-2 mt-20 md:p-0 md:mt-0 relative">
       <div className="w-full h-full relative rounded-[10px] md:rounded-b-[50px] md:rounded-t-none overflow-hidden">
         <img src={Event1} className="w-full h-full object-cover" alt="" />
         <div className="bg-black/50 w-full h-full absolute top-0 left-0"></div>

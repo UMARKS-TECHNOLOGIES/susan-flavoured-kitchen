@@ -2,7 +2,7 @@ import React from "react";
 import Abt2 from "@/assets/chefstory1.jpeg";
 const Story = () => {
   return (
-    <section className="mx-auto w-[90%] md:w-[85%] gap-[10%] mt-10 md:mt-15 flex flex-col md:flex-row">
+    <section className="mx-auto w-[90%] md:w-[85%] gap-[10%] mt-7 md:mt-15 flex flex-col md:flex-row">
       <h2 className="text-2xl font-bold pb-4 font-poppins text-center w-full md:hidden order-1">
         Our Story
       </h2>
