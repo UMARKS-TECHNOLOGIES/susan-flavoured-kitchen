@@ -110,9 +110,17 @@ const Herosection = () => {
         .swiper-pagination-bullet {
           background: #ccc;
           opacity: 1;
+          width: 6px !important;
+          height: 6px !important;
         }
         .swiper-pagination-bullet-active {
           background: #ff6e00;
+        }
+        @media (min-width: 1024px) {
+          .swiper-pagination-bullet {
+            width: 8px !important;
+            height: 8px !important;
+          }
         }
       `}</style>
     </section>

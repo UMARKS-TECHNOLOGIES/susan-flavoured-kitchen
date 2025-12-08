@@ -24,25 +24,35 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Function to hide loader
-    const hideLoader = () => {
-      setTimeout(() => setIsLoading(false), 1500); // 1.5s delay for smooth experience
+    const handleLoad = async () => {
+      // 1. Wait for window load if not already complete
+      if (document.readyState !== "complete") {
+        await new Promise((resolve) =>
+          window.addEventListener("load", resolve)
+        );
+      }
+
+      // 2. Explicitly wait for all images in the document to be fully loaded
+      const imagePromises = Array.from(document.images).map((img) => {
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve) => {
+          img.onload = resolve;
+          img.onerror = resolve; // Don't block on error
+        });
+      });
+
+      await Promise.all(imagePromises);
+
+      // 3. Add a small optional delay for animation smoothness
+      setTimeout(() => setIsLoading(false), 1500);
     };
 
-    // Check if page is already loaded
-    if (document.readyState === "complete") {
-      hideLoader();
-    } else {
-      window.addEventListener("load", hideLoader);
-    }
+    handleLoad();
 
-    // Safety fallback: ensure loader goes away after 4 seconds max even if load event lags
-    const timeout = setTimeout(hideLoader, 4000);
+    // Safety fallback: only force close after 15 seconds if something gets stuck
+    const timeout = setTimeout(() => setIsLoading(false), 15000);
 
-    return () => {
-      window.removeEventListener("load", hideLoader);
-      clearTimeout(timeout);
-    };
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
