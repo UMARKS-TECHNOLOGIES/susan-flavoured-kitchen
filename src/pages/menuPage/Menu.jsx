@@ -75,11 +75,11 @@ const Menu = () => {
             placeholder="Search Meals"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-[65%] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           <button
             onClick={() => setSearchQuery(searchTerm)}
-            className="bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-700 whitespace-nowrap"
+            className="w-[30%] bg-orange-600 text-white px-2 py-2 rounded-lg font-semibold hover:bg-orange-700 whitespace-nowrap flex items-center justify-center"
           >
             Search
           </button>
