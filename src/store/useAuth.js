@@ -1,7 +1,8 @@
 import create from 'zustand';
-import axios from 'axios';
+import api from '../lib/api';
+import { API } from '../lib/endpoints';
 
-export const useAuth = create((set, get) => ({
+export const useAuth = create(set => ({
   user: null,
   loading: false,
   error: null,
@@ -9,12 +10,11 @@ export const useAuth = create((set, get) => ({
   fetchUser: async () => {
     set({ loading: true });
     try {
-      const { data } = await axios.get('/api/auth/me', {
-        withCredentials: true,
-      });
+      const { data } = await api.get(`${API.AUTH}/me`);
       set({ user: data.user, error: null });
     } catch (e) {
       set({ user: null, error: e });
+      throw e;
     } finally {
       set({ loading: false });
     }
@@ -23,11 +23,7 @@ export const useAuth = create((set, get) => ({
   login: async (email, password) => {
     set({ loading: true });
     try {
-      const { data } = await axios.post(
-        '/api/auth/login',
-        { email, password },
-        { withCredentials: true }
-      );
+      const { data } = await api.post(`${API.AUTH}/login`, { email, password });
       set({ user: data.user, error: null });
       return true;
     } catch (e) {
@@ -41,11 +37,12 @@ export const useAuth = create((set, get) => ({
   signup: async (name, phone, email, password) => {
     set({ loading: true });
     try {
-      const { data } = await axios.post(
-        '/api/auth/register',
-        { name, phone, email, password },
-        { withCredentials: true }
-      );
+      const { data } = await api.post(`${API.AUTH}/register`, {
+        name,
+        phone,
+        email,
+        password,
+      });
       set({ user: data.user, error: null });
       return true;
     } catch (e) {
@@ -57,7 +54,12 @@ export const useAuth = create((set, get) => ({
   },
 
   logout: async () => {
-    await axios.post('/api/auth/logout', {}, { withCredentials: true });
-    set({ user: null });
+    try {
+      await api.post(`${API.AUTH}/logout`);
+    } catch {
+      // ignore
+    } finally {
+      set({ user: null });
+    }
   },
 }));

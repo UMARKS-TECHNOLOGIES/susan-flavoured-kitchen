@@ -1,130 +1,65 @@
-import React, { useState } from "react";
-import { useCart } from "../../store/useCart";
-import DeliveryDetails from "./components/DeliveryDetails";
-import PaymentMethod from "./components/PaymentMethod";
-import { Button } from "../../components/ui/button";
-import OrderSummary from "../cartPage/components/OrderSummary";
-import DeliveryMethod from "./components/DeliveryMethod";
-import Navbar from "../../components/layout/Navbar";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import PaymentSuccessModal from "./components/PaymentSuccessModal";
-import PaymentFailedModal from "./components/PaymentFailedModal";
+import React, { useState } from 'react';
+import { useCart } from '../../store/useCart';
+import DeliveryDetails from './components/DeliveryDetails';
+import { Button } from '../../components/ui/button';
+import OrderSummary from '../cartPage/components/OrderSummary';
+import DeliveryMethod from './components/DeliveryMethod';
+import Navbar from '../../components/layout/Navbar';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const Checkout = () => {
   const { getSubtotal, clearCart } = useCart();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-    city: "",
-    postcode: "",
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    postcode: '',
   });
-  const [selectedMethod, setSelectedMethod] = useState("express");
-  const [selectedPayment, setSelectedPayment] = useState("card");
-  const [cardDetails, setCardDetails] = useState({
-    number: "",
-    expiry: "",
-    cvv: "",
-    name: "",
-  });
-
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showFailedModal, setShowFailedModal] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState('express');
   const [isProcessing, setIsProcessing] = useState(false);
 
   const subtotal = getSubtotal();
   const delivery =
-    selectedMethod === "express"
+    selectedMethod === 'express'
       ? 3.0
-      : selectedMethod === "next-day"
+      : selectedMethod === 'next-day'
       ? 5.0
       : 0;
   const total = subtotal + delivery;
 
   const handleSubmit = async () => {
-    // Validation
     if (
       !formData.name ||
       !formData.phone ||
       !formData.email ||
       !formData.address
     ) {
-      alert("Please fill in all required fields");
+      alert('Please fill in all required fields');
       return;
     }
 
-    if (selectedPayment === "card") {
-      if (
-        !cardDetails.number ||
-        !cardDetails.expiry ||
-        !cardDetails.cvv ||
-        !cardDetails.name
-      ) {
-        alert("Please complete card details");
-        return;
-      }
-    }
     setIsProcessing(true);
 
-    // Simulate payment processing
     try {
-      // This is where you'd integrate with your payment API
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Simulate payment success/failure (70% success rate for demo)
-      const paymentSuccessful = Math.random() > 0.3;
-
-      if (paymentSuccessful) {
-        // Payment successful
-        console.log("Payment successful!", {
-          delivery: formData,
-          deliveryMethod: selectedMethod,
-          payment: selectedPayment,
-          total,
-        });
-
-        clearCart();
-        setShowSuccessModal(true);
-      } else {
-        // Payment failed
-        setShowFailedModal(true);
-      }
+      const res = await api.post(`${API.ORDERS}/place`, {
+        delivery: formData,
+        deliveryMethod: selectedMethod,
+      });
+      if (!res || !res.data) throw new Error('Order creation failed');
+      const { paymentUrl, order } = res.data;
+      clearCart();
+      window.location.href = paymentUrl; // Redirect to Stripe
     } catch (error) {
-      console.error("Payment error:", error);
-      setShowFailedModal(true);
+      alert('Order failed: ' + error.message);
     } finally {
       setIsProcessing(false);
     }
   };
-
-  const handleSuccessClose = () => {
-    setShowSuccessModal(false);
-    navigate("/"); // Redirect to home or orders page
-  };
-
-  const handleFailedClose = () => {
-    setShowFailedModal(false);
-  };
-
-  const handleRetry = () => {
-    setShowFailedModal(false);
-    // User can try again with the same form data
-  };
-
-  // Process payment
-  // console.log('Processing order...', {
-  //     delivery: formData,
-  //     deliveryMethod: selectedMethod,
-  //     payment: selectedPayment,
-  //     total
-  // });
-
-  // alert('Order placed successfully!');
-  // clearCart();
 
   return (
     <div className="min-h-screen bg-[#FFF9F4] pb-8">
@@ -148,34 +83,14 @@ const Checkout = () => {
                 selectedMethod={selectedMethod}
                 setSelectedMethod={setSelectedMethod}
               />
-              <PaymentMethod
-                selectedPayment={selectedPayment}
-                setSelectedPayment={setSelectedPayment}
-                cardDetails={cardDetails}
-                setCardDetails={setCardDetails}
-              />
 
-              {/* Complete Payment Button */}
-              <div className="flex items-center gap-2 mb-4">
-                <input
-                  type="checkbox"
-                  id="billing"
-                  className="w-5 h-5 accent-orange-500 rounded border-gray-300 text-orange-600 focus:ring-orange-500"
-                />
-                <label
-                  htmlFor="billing"
-                  className="text-sm font-medium text-gray-700"
-                >
-                  Use shipping address as billing address
-                </label>
-              </div>
-
+              {/* Complete Order Button */}
               <Button
                 onClick={handleSubmit}
                 disabled={isProcessing}
                 className="w-full bg-orange-500 hover:bg-orange-600 text-white py-6 text-lg font-bold rounded-lg shadow-md"
               >
-                {isProcessing ? "Processing..." : "Complete Payment"}
+                {isProcessing ? 'Processing...' : 'Complete Order'}
               </Button>
 
               {/* Footer Links */}
@@ -210,17 +125,6 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-      {/* Payment Modals */}
-      <PaymentSuccessModal
-        isOpen={showSuccessModal}
-        onClose={handleSuccessClose}
-      />
-
-      <PaymentFailedModal
-        isOpen={showFailedModal}
-        onClose={handleFailedClose}
-        onRetry={handleRetry}
-      />
     </div>
   );
 };

@@ -19,8 +19,12 @@ import SignupPage from './pages/auth/SignupPage';
 import CateringQuote from './pages/cateringQuotePage/CateringQuote';
 import AdminDashboardLayout from './pages/adminPage/components/AdminDashboardLayout';
 import AdminDashboard from './pages/adminPage/AdminDashboard';
+import PaymentSuccess from './pages/payment/PaymentSuccess';
+import PaymentCancel from './pages/payment/PaymentCancel';
+
 import ProtectedRoute from './routes/ProtectedRoute';
 import AdminRoute from './routes/AdminRoute';
+import UserDashboard from './pages/user/UserDashboard';
 
 const App = () => {
   return (
@@ -76,6 +80,16 @@ const App = () => {
               </AdminRoute>
             }
           />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <UserDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/payment/success" element={<PaymentSuccess />} />
+          <Route path="/payment/cancel" element={<PaymentCancel />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>

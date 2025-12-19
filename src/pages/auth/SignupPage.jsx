@@ -1,3 +1,4 @@
+import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -7,6 +8,7 @@ import Logo from '@/assets/Logo.jpeg';
 
 import { useAuth } from '../../store/useAuth';
 import { useNavigate } from 'react-router-dom';
+import usePasswordValidation from '@/hooks/usePasswordValidation';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -20,41 +22,22 @@ const SignupPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { signup, loading, error } = useAuth();
   const [localError, setLocalError] = useState(null);
-  const [passwordValidation, setPasswordValidation] = useState({
-    minLength: false,
-    hasUppercase: false,
-    hasSpecialChar: false,
-    hasSpecialChar: false,
-  });
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const navigate = useNavigate();
 
-  const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+  const { validations } = usePasswordValidation(formData.password);
 
-  // Validate password in real-time
-  useEffect(() => {
-    const password = formData.password;
-    setPasswordValidation({
-      minLength: password.length >= 8,
-      hasUppercase: /[A-Z]/.test(password),
-      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-    });
-  }, [formData.password]);
-
-  // Check if passwords match
-  useEffect(() => {
+  const passwordsMatch = useMemo(() => {
     if (formData.confirmPassword) {
-      setPasswordsMatch(formData.password === formData.confirmPassword);
-    } else {
-      setPasswordsMatch(true);
+      return formData.password === formData.confirmPassword;
     }
+    return true;
   }, [formData.password, formData.confirmPassword]);
 
+  const handleChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
   const validateForm = () => {
-    // Check all fields are filled
     if (
       !formData.name ||
       !formData.phone ||
@@ -66,33 +49,29 @@ const SignupPage = () => {
       return false;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      alert("Please enter a valid email address");
+      alert('Please enter a valid email address');
       return false;
     }
 
-    // Phone validation
     const phoneRegex = /^\d{10,}$/;
-    if (!phoneRegex.test(formData.phone.replace(/\s/g, ""))) {
-      alert("Please enter a valid phone number");
+    if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
+      alert('Please enter a valid phone number');
       return false;
     }
 
-    // Password validation
     if (
-      !passwordValidation.minLength ||
-      !passwordValidation.hasUppercase ||
-      !passwordValidation.hasSpecialChar
+      !validations.minLength ||
+      !validations.hasUppercase ||
+      !validations.hasSpecialChar
     ) {
       alert('Please meet all password requirements');
       return false;
     }
 
-    // Passwords match
     if (!passwordsMatch) {
-      alert("Passwords do not match");
+      alert('Passwords do not match');
       return false;
     }
 
@@ -124,14 +103,13 @@ const SignupPage = () => {
       handleSubmit();
     }
   };
+
   return (
     <div className="min-h-screen px-10 bg-[#fffcfa]">
-      {/* Logo */}
       <div className="py-5">
         <img src={Logo} alt="Logo" className="h-12" />
       </div>
       <div className="h-[500px] flex">
-        {/* Left Side - Image Section */}
         <div
           className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative rounded-lg"
           style={{
@@ -139,8 +117,6 @@ const SignupPage = () => {
           }}
         >
           <div className="absolute inset-0 bg-black opacity-40 rounded-lg"></div>
-
-          {/* Welcome Text */}
           <div className="relative z-10 flex flex-col items-center justify-center w-full text-white px-12">
             <h1 className="text-5xl font-bold mb-4">Create Account</h1>
             <p className="text-xl text-center max-w-md leading-relaxed">
@@ -150,15 +126,12 @@ const SignupPage = () => {
           </div>
         </div>
 
-        {/* Right Side - Form Section */}
         <div className="w-full lg:w-1/2 flex items-center justify-center px-8 py-12">
           <div className="w-full max-w-md">
-            {/* Mobile Logo */}
             <div className="lg:hidden mb-8 flex justify-center">
               <img src="/api/placeholder/150/60" alt="Logo" className="h-20" />
             </div>
 
-            {/* Mobile Heading */}
             <div className="lg:hidden mb-8 text-center">
               <h1 className="text-3xl font-bold mb-2">Create Account</h1>
               <p className="text-gray-600">
@@ -167,14 +140,13 @@ const SignupPage = () => {
               </p>
             </div>
 
-            {/* Form */}
             <div className="space-y-5">
               {(localError || error) && (
                 <div className="text-red-500 text-sm text-center">
                   {localError || error}
                 </div>
               )}
-              {/* Name Field */}
+
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-sm font-medium">
                   Name
@@ -190,7 +162,6 @@ const SignupPage = () => {
                 />
               </div>
 
-              {/* Phone Field */}
               <div className="space-y-2">
                 <Label htmlFor="phone" className="text-sm font-medium">
                   Phone Number
@@ -206,7 +177,6 @@ const SignupPage = () => {
                 />
               </div>
 
-              {/* Email Field */}
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm font-medium">
                   Email Address
@@ -222,7 +192,6 @@ const SignupPage = () => {
                 />
               </div>
 
-              {/* Password Field */}
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-sm font-medium">
                   Password
@@ -254,17 +223,16 @@ const SignupPage = () => {
                   </button>
                 </div>
 
-                {/* Password Requirements */}
                 {formData.password && (
                   <div className="space-y-1 text-xs mt-2">
                     <div
                       className={`flex items-center gap-1 ${
-                        passwordValidation.minLength
+                        validations.minLength
                           ? 'text-green-600'
                           : 'text-gray-500'
                       }`}
                     >
-                      {passwordValidation.minLength ? (
+                      {validations.minLength ? (
                         <Check className="w-3 h-3" />
                       ) : (
                         <X className="w-3 h-3" />
@@ -273,12 +241,12 @@ const SignupPage = () => {
                     </div>
                     <div
                       className={`flex items-center gap-1 ${
-                        passwordValidation.hasUppercase
+                        validations.hasUppercase
                           ? 'text-green-600'
                           : 'text-gray-500'
                       }`}
                     >
-                      {passwordValidation.hasUppercase ? (
+                      {validations.hasUppercase ? (
                         <Check className="w-3 h-3" />
                       ) : (
                         <X className="w-3 h-3" />
@@ -287,12 +255,12 @@ const SignupPage = () => {
                     </div>
                     <div
                       className={`flex items-center gap-1 ${
-                        passwordValidation.hasSpecialChar
+                        validations.hasSpecialChar
                           ? 'text-red-600'
                           : 'text-gray-500'
                       }`}
                     >
-                      {passwordValidation.hasSpecialChar ? (
+                      {validations.hasSpecialChar ? (
                         <Check className="w-3 h-3" />
                       ) : (
                         <X className="w-3 h-3" />
@@ -305,7 +273,6 @@ const SignupPage = () => {
                 )}
               </div>
 
-              {/* Confirm Password Field */}
               <div className="space-y-2">
                 <Label
                   htmlFor="confirmPassword"
@@ -341,8 +308,6 @@ const SignupPage = () => {
                     )}
                   </button>
                 </div>
-
-                {/* Password Match Error */}
                 {!passwordsMatch && formData.confirmPassword && (
                   <p className="text-xs text-red-600">
                     Passwords do not match.
@@ -350,7 +315,6 @@ const SignupPage = () => {
                 )}
               </div>
 
-              {/* Create Account Button */}
               <Button
                 onClick={handleSubmit}
                 disabled={loading}
@@ -359,7 +323,6 @@ const SignupPage = () => {
                 {loading ? 'Creating Account...' : 'Create Account'}
               </Button>
 
-              {/* Login Link */}
               <div className="text-center">
                 <span className="text-sm text-gray-600">
                   Already have an account?{' '}
@@ -378,9 +341,5 @@ const SignupPage = () => {
     </div>
   );
 };
-  );
-};
-
-export default SignupPage;
 
 export default SignupPage;

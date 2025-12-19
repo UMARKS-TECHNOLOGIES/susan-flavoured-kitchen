@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { CartContext } from '../../store/CartContext';
-import axios from 'axios';
+import api from '../../lib/api';
+import { API } from '../../lib/endpoints';
 import { useAuth } from '../../store/useAuth';
 
 export const CartProvider = ({ children }) => {
@@ -14,9 +15,10 @@ export const CartProvider = ({ children }) => {
       setCartItems([]);
       return;
     }
+
     try {
       setLoading(true);
-      const res = await axios.get('/api/cart', { withCredentials: true });
+      const res = await api.get(`${API.CART}`);
       setCartItems(res.data.items || []);
     } catch (err) {
       setCartItems([]);
@@ -34,12 +36,8 @@ export const CartProvider = ({ children }) => {
   // Add item to cart
   const addToCart = async (product, quantity = 1) => {
     try {
-      const res = await axios.post(
-        '/api/cart/add',
-        { product, quantity },
-        { withCredentials: true }
-      );
-      setCartItems(res.data.items);
+      const res = await api.post(`${API.CART}/add`, { product, quantity });
+      setCartItems(res.data.items || []);
     } catch (err) {
       console.error('Failed to add cart item:', err);
     }
@@ -48,10 +46,8 @@ export const CartProvider = ({ children }) => {
   // Remove item from cart
   const removeFromCart = async productId => {
     try {
-      const res = await axios.delete(`/api/cart/remove/${productId}`, {
-        withCredentials: true,
-      });
-      setCartItems(res.data.items);
+      const res = await api.delete(`${API.CART}/remove/${productId}`);
+      setCartItems(res.data.items || []);
     } catch (err) {
       console.error('Failed to remove item:', err);
     }
@@ -63,12 +59,11 @@ export const CartProvider = ({ children }) => {
       if (quantity < 1) {
         return removeFromCart(productId);
       }
-      const res = await axios.patch(
-        '/api/cart/update',
-        { productId, quantity },
-        { withCredentials: true }
-      );
-      setCartItems(res.data.items);
+      const res = await api.patch(`${API.CART}/update`, {
+        productId,
+        quantity,
+      });
+      setCartItems(res.data.items || []);
     } catch (err) {
       console.error('Failed to update quantity:', err);
     }
@@ -77,9 +72,7 @@ export const CartProvider = ({ children }) => {
   // Clear cart
   const clearCart = async () => {
     try {
-      const res = await axios.delete('/api/cart/clear', {
-        withCredentials: true,
-      });
+      const res = await api.delete(`${API.CART}/clear`);
       setCartItems(res.data.items || []);
     } catch (err) {
       console.error('Failed to clear cart:', err);
