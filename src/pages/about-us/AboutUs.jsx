@@ -9,7 +9,7 @@ import Quality from "./components/Quality";
 import Footer from "./components/Footer";
 const AboutUs = () => {
   return (
-    <section>
+    <section className="overflow-hidden">
       <Navbar />
       <Hero />
       <Story />

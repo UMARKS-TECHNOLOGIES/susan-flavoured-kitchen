@@ -75,40 +75,27 @@ const LoginPage = () => {
           <div className="absolute inset-0 bg-black opacity-40 rounded-lg"></div>
 
           {/* Welcome Text */}
-          <div className="relative z-10 flex flex-col items-center justify-center w-full text-white px-12">
-            <h1 className="text-5xl font-bold mb-4">Log In</h1>
-            <p className="text-xl text-center max-w-md">
+          <div className="relative z-10 flex flex-col items-center justify-center h-full w-full text-white px-6 lg:px-12 text-center">
+            <h1 className="text-3xl lg:text-5xl font-bold mb-2 lg:mb-4">
+              Log In
+            </h1>
+            <p className="text-base lg:text-xl max-w-md opacity-90">
               Welcome back! Please sign in to continue.
             </p>
           </div>
         </div>
 
         {/* Right Side - Form Section */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center px-8 py-12 ">
-          <div className="w-full max-w-md">
-            {/* Mobile Logo */}
-            <div className="lg:hidden mb-8 flex justify-center">
-              <img src={Logo} alt="Logo" className="h-12" />
-            </div>
-
-            {/* Mobile Heading */}
-            <div className="lg:hidden mb-8 text-center">
-              <h1 className="text-3xl font-bold mb-2">Log In</h1>
-              <p className="text-gray-600">
-                Welcome back! Please sign in to continue.
-              </p>
-            </div>
-
+        <div className="w-full lg:w-1/2 flex items-center justify-center lg:px-8 order-2">
+          <div className="w-full max-w-lg bg-white lg:bg-transparent p-6 lg:p-0 rounded-xl lg:rounded-none shadow-sm lg:shadow-none border lg:border-none border-gray-100">
             {/* Form */}
-            <div className="space-y-6">
-              {(localError || error) && (
-                <div className="text-red-500 text-sm text-center">
-                  {localError || error}
-                </div>
-              )}
+            <div className="space-y-5 lg:space-y-6">
               {/* Email Field */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">
+                <Label
+                  htmlFor="email"
+                  className="text-sm font-medium text-gray-700"
+                >
                   Email Address
                 </Label>
                 <Input
@@ -116,31 +103,34 @@ const LoginPage = () => {
                   type="email"
                   placeholder="Enter Your Email"
                   value={formData.email}
-                  onChange={e => handleChange('email', e.target.value)}
+                  onChange={(e) => handleChange("email", e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="h-12"
+                  className="h-12 bg-gray-50/50 border-gray-200"
                 />
               </div>
 
               {/* Password Field */}
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium">
+                <Label
+                  htmlFor="password"
+                  className="text-sm font-medium text-gray-700"
+                >
                   Password
                 </Label>
                 <div className="relative">
                   <Input
                     id="password"
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter Your Password"
                     value={formData.password}
-                    onChange={e => handleChange('password', e.target.value)}
+                    onChange={(e) => handleChange("password", e.target.value)}
                     onKeyPress={handleKeyPress}
-                    className="h-12 pr-10"
+                    className="h-12 pr-10 bg-gray-50/50 border-gray-200"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     {showPassword ? (
                       <EyeOff className="w-5 h-5" />
@@ -164,12 +154,39 @@ const LoginPage = () => {
               {/* Login Button */}
               <Button
                 onClick={handleSubmit}
+                disabled={isLoading}
+                className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white text-base font-bold rounded-lg shadow-md transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isLoading ? "Logging in..." : "Log In"}
+              </Button>
+              {/* Login Button */}
+              <Button
+                onClick={handleSubmit}
                 disabled={loading}
                 className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white text-base font-medium disabled:opacity-50"
               >
                 {loading ? 'Logging in...' : 'Log In'}
               </Button>
 
+              {/* Sign Up Link */}
+              <div className="text-center pt-2">
+                <span className="text-sm text-gray-600">
+                  Don't have an account?{" "}
+                </span>
+                <button
+                  onClick={handleSignUp}
+                  className="text-sm text-orange-500 hover:text-orange-600 font-bold transition-colors ml-1"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
               {/* Sign Up Link */}
               <div className="text-center">
                 <span className="text-sm text-gray-600">
@@ -189,5 +206,7 @@ const LoginPage = () => {
     </div>
   );
 };
+
+export default LoginPage;
 
 export default LoginPage;

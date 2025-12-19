@@ -24,12 +24,13 @@ const SignupPage = () => {
     minLength: false,
     hasUppercase: false,
     hasSpecialChar: false,
+    hasSpecialChar: false,
   });
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const navigate = useNavigate();
 
   const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   // Validate password in real-time
@@ -38,6 +39,7 @@ const SignupPage = () => {
     setPasswordValidation({
       minLength: password.length >= 8,
       hasUppercase: /[A-Z]/.test(password),
+      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
       hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
     });
   }, [formData.password]);
@@ -67,14 +69,14 @@ const SignupPage = () => {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      alert('Please enter a valid email address');
+      alert("Please enter a valid email address");
       return false;
     }
 
     // Phone validation
     const phoneRegex = /^\d{10,}$/;
-    if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
-      alert('Please enter a valid phone number');
+    if (!phoneRegex.test(formData.phone.replace(/\s/g, ""))) {
+      alert("Please enter a valid phone number");
       return false;
     }
 
@@ -90,7 +92,7 @@ const SignupPage = () => {
 
     // Passwords match
     if (!passwordsMatch) {
-      alert('Passwords do not match');
+      alert("Passwords do not match");
       return false;
     }
 
@@ -376,5 +378,9 @@ const SignupPage = () => {
     </div>
   );
 };
+  );
+};
+
+export default SignupPage;
 
 export default SignupPage;
