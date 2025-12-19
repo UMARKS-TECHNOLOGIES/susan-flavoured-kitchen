@@ -1,50 +1,53 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Logo from "../../assets/Logo.jpeg";
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import Logo from '../../assets/Logo.jpeg';
 import {
   MdOutlineSearch,
   MdKeyboardArrowDown,
   MdMenu,
   MdClose,
-} from "react-icons/md";
-import { BsPerson } from "react-icons/bs";
-import { GiShoppingCart } from "react-icons/gi";
+} from 'react-icons/md';
+import { BsPerson } from 'react-icons/bs';
+import { GiShoppingCart } from 'react-icons/gi';
 
-import { useCart } from "../../store/useCart";
+import { useCart } from '../../store/useCart';
+import { useAuth } from '../../store/useAuth';
 
 const Navbar = () => {
   const { getTotalItems } = useCart();
   const totalItems = getTotalItems();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const navLinks = [
     {
-      name: "Home",
-      href: "/",
+      name: 'Home',
+      href: '/',
     },
     {
-      name: "Menu",
+      name: 'Menu',
       dropdown: [
-        { name: "All", path: "/menu" },
-        { name: "Soups and Stew", path: "/menu"},
-        { name: "Rice", path: "/menu" },
-        { name: "Snacks & Pastries", path: "/menu" },
-        { name: "Drinks", path: "/menu" },
+        { name: 'All', path: '/menu' },
+        { name: 'Soups and Stew', path: '/menu' },
+        { name: 'Rice', path: '/menu' },
+        { name: 'Snacks & Pastries', path: '/menu' },
+        { name: 'Drinks', path: '/menu' },
       ],
-      href: "/menu",
+      href: '/menu',
     },
     {
-      name: "Event Catering",
-      href: "/event",
+      name: 'Event Catering',
+      href: '/event',
     },
     {
-      name: "About Us",
-      href: "/about",
+      name: 'About Us',
+      href: '/about',
     },
     {
-      name: "Contact",
-      href: "/contact-us",
+      name: 'Contact',
+      href: '/contact-us',
     },
   ];
 
@@ -53,11 +56,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto w-[95%] lg:w-[85%] py-4">
         {/* Desktop View */}
         <div className="hidden lg:flex justify-between items-center">
-          <div className="">
-            <img src={Logo} alt="" className="w-13" />
-          </div>
+          =
           <div className="flex items-center justify-center text-center">
-            {navLinks.map((link) =>
+            {navLinks.map(link =>
               link.dropdown ? (
                 <div key={link.name} className="relative">
                   <button
@@ -68,21 +69,21 @@ const Navbar = () => {
                     }
                     className={`px-4 py-2 font-medium hover:text-orange-600 focus:outline-none flex items-center gap-1 ${
                       openDropdown === link.name
-                        ? "text-orange-600"
-                        : "text-[#343333]"
+                        ? 'text-orange-600'
+                        : 'text-[#343333]'
                     }`}
                   >
                     {link.name}
                     <MdKeyboardArrowDown
                       className={`text-lg transition-transform duration-200 ${
-                        openDropdown === link.name ? "rotate-180" : ""
+                        openDropdown === link.name ? 'rotate-180' : ''
                       }`}
                     />
                   </button>
 
                   {openDropdown === link.name && (
                     <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50 border border-gray-100">
-                      {link.dropdown.map((item) => (
+                      {link.dropdown.map(item => (
                         <NavLink
                           key={item.name}
                           to={item.path}
@@ -101,8 +102,8 @@ const Navbar = () => {
                   to={link.href}
                   className={({ isActive }) =>
                     isActive
-                      ? "text-orange-400 mx-4 font-medium"
-                      : "text-[#343333] hover:text-[#00004d] px-5 py-2 text-medium font-medium"
+                      ? 'text-orange-400 mx-4 font-medium'
+                      : 'text-[#343333] hover:text-[#00004d] px-5 py-2 text-medium font-medium'
                   }
                 >
                   {link.name}
@@ -110,25 +111,60 @@ const Navbar = () => {
               )
             )}
           </div>
-
           <div className="flex items-center justify-center space-x-4 ">
-            <div className="">
+            <div>
               <Link to="/menu">
                 <MdOutlineSearch className="text-2xl" />
               </Link>
             </div>
-            <div className="">
-              <Link to={"/login"}>
-                <BsPerson className="text-2xl" />
-              </Link>
+            <div className="relative">
+              {user ? (
+                <>
+                  <button
+                    onClick={() => setShowUserMenu(v => !v)}
+                    className="focus:outline-none"
+                  >
+                    <BsPerson className="text-2xl" />
+                  </button>
+                  {showUserMenu && (
+                    <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-2 z-50 border border-gray-100">
+                      <div className="px-4 py-2 text-sm text-gray-700">
+                        {user.name || user.email}
+                      </div>
+                      {user.role === 'admin' && (
+                        <Link
+                          to="/admin"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                          onClick={() => setShowUserMenu(false)}
+                        >
+                          Admin Dashboard
+                        </Link>
+                      )}
+                      <button
+                        onClick={() => {
+                          logout();
+                          setShowUserMenu(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link to={'/login'}>
+                  <BsPerson className="text-2xl" />
+                </Link>
+              )}
             </div>
             <div className="relative">
-              <Link to={"/cart"}>
+              <Link to={'/cart'}>
                 <GiShoppingCart className="text-2xl" />
               </Link>
               {totalItems > 0 && (
                 <span className="bg-orange-600 w-5 h-5 text-xs font-medium flex items-center justify-center absolute rounded-full -top-2 -right-2 text-white">
-                  {totalItems > 99 ? "99+" : totalItems}
+                  {totalItems > 99 ? '99+' : totalItems}
                 </span>
               )}
             </div>
@@ -145,12 +181,12 @@ const Navbar = () => {
           {/* Right Icons: Cart & Hamburger */}
           <div className="flex items-center gap-4">
             <div className="relative">
-              <Link to={"/cart"}>
+              <Link to={'/cart'}>
                 <GiShoppingCart className="text-2xl text-gray-700" />
               </Link>
               {totalItems > 0 && (
                 <span className="bg-orange-600 w-4 h-4 text-[10px] font-medium flex items-center justify-center absolute rounded-full -top-1 -right-1 text-white">
-                  {totalItems > 99 ? "99+" : totalItems}
+                  {totalItems > 99 ? '99+' : totalItems}
                 </span>
               )}
             </div>
@@ -167,7 +203,7 @@ const Navbar = () => {
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-6 flex flex-col gap-4 h-screen overflow-y-auto pb-20">
-            {navLinks.map((link) => (
+            {navLinks.map(link => (
               <div key={link.name} className="border-b border-gray-100 pb-2">
                 {link.dropdown ? (
                   <div>
@@ -182,13 +218,13 @@ const Navbar = () => {
                       {link.name}
                       <MdKeyboardArrowDown
                         className={`transition-transform duration-200 ${
-                          openDropdown === link.name ? "rotate-180" : ""
+                          openDropdown === link.name ? 'rotate-180' : ''
                         }`}
                       />
                     </button>
                     {openDropdown === link.name && (
                       <div className="pl-4 mt-2 flex flex-col gap-2">
-                        {link.dropdown.map((item) => (
+                        {link.dropdown.map(item => (
                           <Link
                             key={item.name}
                             to={item.path}
