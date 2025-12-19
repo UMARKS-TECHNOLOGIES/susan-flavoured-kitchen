@@ -7,20 +7,19 @@ import Abt2 from '@/assets/Abt2.svg';
 import Logo from '@/assets/Logo.jpeg';
 import { useAuth } from '../../store/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../../components/shared/ErrorToastProvider';
 
 const LoginPage = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const { login, loading, error } = useAuth();
+  const { login } = useAuth();
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const [localError, setLocalError] = useState(null);
+  const { showSuccess, showError } = useToast();
 
-  const handleChange = (field, value) => {
+  const handleChange = (field, value) =>
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
 
   const handleSubmit = async () => {
     setLocalError(null);
@@ -33,30 +32,30 @@ const LoginPage = () => {
       setLocalError('Please enter a valid email address');
       return;
     }
-    const success = await login(formData.email, formData.password);
-    if (success) {
-      // Get fresh user from store (login sets user)
-      const currentUser = useAuth.getState().user;
-      if (currentUser?.role === 'admin') {
-        navigate('/admin', { replace: true });
-      } else {
-        navigate('/', { replace: true });
+
+    setSubmitting(true);
+    try {
+      const success = await login(formData.email, formData.password);
+      if (success) {
+        const currentUser = useAuth.getState().user;
+        showSuccess(`Welcome back, ${currentUser?.name || 'User'}!`);
+        if (currentUser?.role === 'admin') {
+          navigate('/admin', { replace: true });
+        } else {
+          navigate('/dashboard', { replace: true });
+        }
       }
+    } catch (e) {
+      showError(e?.message || 'Login failed');
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  const handleForgotPassword = () => {
-    navigate('/forgotpassword');
-  };
-
-  const handleSignUp = () => {
-    navigate('/signup');
-  };
-
+  const handleForgotPassword = () => navigate('/forgotpassword');
+  const handleSignUp = () => navigate('/signup');
   const handleKeyPress = e => {
-    if (e.key === 'Enter') {
-      handleSubmit();
-    }
+    if (e.key === 'Enter') handleSubmit();
   };
 
   return (
@@ -68,11 +67,9 @@ const LoginPage = () => {
       <div className="h-[500px] flex">
         <div
           className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative rounded-lg"
-          style={{
-            backgroundImage: `url(${Abt2})`,
-          }}
+          style={{ backgroundImage: `url(${Abt2})` }}
         >
-          <div className="absolute inset-0 bg-black opacity-40 rounded-lg"></div>
+          <div className="absolute inset-0 bg-black opacity-40 rounded-lg" />
           <div className="relative z-10 flex flex-col items-center justify-center h-full w-full text-white px-6 lg:px-12 text-center">
             <h1 className="text-3xl lg:text-5xl font-bold mb-2 lg:mb-4">
               Log In
@@ -86,9 +83,9 @@ const LoginPage = () => {
         <div className="w-full lg:w-1/2 flex items-center justify-center lg:px-8 order-2">
           <div className="w-full max-w-lg bg-white lg:bg-transparent p-6 lg:p-0 rounded-xl lg:rounded-none shadow-sm lg:shadow-none border lg:border-none border-gray-100">
             <div className="space-y-5 lg:space-y-6">
-              {(localError || error) && (
+              {localError && (
                 <div className="text-red-500 text-sm text-center">
-                  {localError || error}
+                  {localError}
                 </div>
               )}
 
@@ -152,10 +149,10 @@ const LoginPage = () => {
 
               <Button
                 onClick={handleSubmit}
-                disabled={loading}
+                disabled={submitting}
                 className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white text-base font-bold rounded-lg shadow-md transition-all disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                {loading ? 'Logging in...' : 'Log In'}
+                {submitting ? 'Logging in...' : 'Log In'}
               </Button>
 
               <div className="text-center pt-2">

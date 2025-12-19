@@ -7,21 +7,38 @@ import { Separator } from '../../components/ui/separator';
 import api from '../../lib/api';
 import { API } from '../../lib/endpoints';
 
-const DashboardHeader = ({ user }) => (
-  <div className="flex items-center gap-4 mb-6">
-    <img
-      src={user.avatar || '/assets/default-avatar.png'}
-      alt="User Avatar"
-      className="w-16 h-16 rounded-full border-2 border-orange-500"
-    />
-    <div>
-      <h2 className="text-2xl font-bold text-orange-600">
-        Welcome, {user.name || user.email}!
-      </h2>
-      <p className="text-gray-600">Your personal dashboard</p>
+const DashboardHeader = ({ user }) => {
+  const displayName = user?.name || user?.email || 'User';
+  const firstName = String(displayName).split(' ')[0];
+  const role = (user?.role || 'user').toLowerCase();
+
+  const roleLabel =
+    role === 'admin' ? 'Admin' : role === 'user' ? 'Customer' : role;
+
+  return (
+    <div className="flex items-center gap-4 mb-6">
+      <img
+        src={user?.avatar || '/assets/default-avatar.png'}
+        alt="User Avatar"
+        className="w-16 h-16 rounded-full border-2 border-orange-500"
+      />
+      <div>
+        <h2 className="text-2xl font-bold text-orange-600">
+          Welcome back, {firstName}!
+        </h2>
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-gray-600">Your personal dashboard</p>
+          <span
+            aria-hidden
+            className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-700"
+          >
+            {roleLabel}
+          </span>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const DashboardStats = ({ orders }) => (
   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -79,7 +96,7 @@ const UserDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [_loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) {

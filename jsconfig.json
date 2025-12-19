@@ -1,5 +1,9 @@
 {
   "references": [],
+  "typeAcquisition": {
+    "enable": true,
+    "include": ["react"]
+  },
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
