@@ -19,8 +19,8 @@ import SignupPage from './pages/auth/SignupPage';
 import CateringQuote from './pages/cateringQuotePage/CateringQuote';
 import AdminDashboardLayout from './pages/adminPage/components/AdminDashboardLayout';
 import AdminDashboard from './pages/adminPage/AdminDashboard';
-import PaymentSuccess from './pages/payment/PaymentSuccess';
-import PaymentCancel from './pages/payment/PaymentCancel';
+import PaymentSuccess from './pages/Payment/PaymentSuccess';
+import PaymentCancel from './pages/Payment/PaymentCancel';
 
 import ProtectedRoute from './routes/ProtectedRoute';
 import AdminRoute from './routes/AdminRoute';
