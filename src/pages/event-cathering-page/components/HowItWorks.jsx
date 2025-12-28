@@ -1,5 +1,5 @@
 import React from "react";
-import How from "@/assets/How.svg";
+import How from "@/assets/How.jpeg";
 const HowItWorks = () => {
   return (
     <section className="bg-[#FFF9F4] relative pt-8 pb-11 ">

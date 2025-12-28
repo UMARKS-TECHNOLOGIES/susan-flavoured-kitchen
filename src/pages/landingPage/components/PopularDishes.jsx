@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "../../../components/ui/button";
 import { useCart } from "../../../store/useCart";
-import Image3 from "../../../assets/amalaEwedu.jpeg";
-import Image4 from "../../../assets/okrosoup.jpeg";
+import Image3 from "../../../assets/peppered.jpeg";
+import Image4 from "../../../assets/canapes.jpeg";
 import Image5 from "../../../assets/jollof-rice.jpg";
 import Image6 from "../../../assets/friedRice.jpeg";
 
@@ -13,16 +13,16 @@ const PopularDishes = () => {
   const popularDish = [
     {
       id: 1, // Unique ID
-      name: "Egusi Soup & Pounded Yam",
-      description: "Rich melon seed soup simmered with assorted meat.",
-      price: 10.0,
+      name: "Peppered Chicken",
+      description: "Our mouth watering peppered chicken.",
+      price: 15.0,
       image: Image3,
     },
     {
       id: 2, // Unique ID
-      name: "Jollof Rice & Grilled Chicken",
+      name: "Canapes",
       description: "Long-grain rice cooked in our signature smoky pepper base.",
-      price: 8.5,
+      price: 1.90,
       image: Image4,
     },
     // {

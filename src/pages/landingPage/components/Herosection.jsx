@@ -1,7 +1,7 @@
 import React from "react";
-import Plate from "../../../assets/image1.svg";
+import Plate from "../../../assets/hero_food_2.png";
 import Plate2 from "../../../assets/hero_food_2.png";
-import Plate3 from "../../../assets/hero_food_3.png";
+import Plate3 from "../../../assets/hero_food_2.png";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,23 +14,23 @@ const Herosection = () => {
   const heroSlides = [
     {
       id: 1,
-      title: "Hygienic meals, unforgettable taste.",
+      title: "Good food, delicious in everyway.",
       description:
-        "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
+        "Discover the taste of premium, freshly cooked meals made with passion, quality, and the finest ingredients.",
       image: Plate,
     },
     {
       id: 2,
-      title: "Hygienic meals, unforgettable taste.",
+      title: "Good food, delicious in everyway.",
       description:
-        "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
+        "Discover the taste of premium, freshly cooked meals made with passion, quality, and the finest ingredients.",
       image: Plate2,
     },
     {
       id: 3,
-      title: "Hygienic meals, unforgettable taste.",
+      title: "Good food, delicious in everyway.",
       description:
-        "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
+        "Discover the taste of premium, freshly cooked meals made with passion, quality, and the finest ingredients.",
       image: Plate3,
     },
   ];
@@ -108,7 +108,7 @@ const Herosection = () => {
       {/* Custom Pagination Styles */}
       <style jsx global>{`
         .swiper-pagination-bullet {
-          background: #ccc;
+          background: #f5f0f0ff;
           opacity: 1;
           width: 6px !important;
           height: 6px !important;

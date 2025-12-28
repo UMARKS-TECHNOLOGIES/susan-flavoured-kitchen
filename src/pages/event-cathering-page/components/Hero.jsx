@@ -1,5 +1,5 @@
 import React from "react";
-import Event1 from "@/assets/Event1.jpg";
+import Event1 from "@/assets/catering1.jpeg";
 import { Link } from "react-router-dom";
 const Hero = () => {
   return (

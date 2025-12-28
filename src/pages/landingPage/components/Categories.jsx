@@ -1,23 +1,23 @@
 import React from "react";
 import { Button } from "../../../components/ui/button";
-import Soup from "../../../assets/image2.png";
-import Drink from "../../../assets/image3.png";
-import Rice from "../../../assets/image4.png";
-import Events from "../../../assets/image7.jpg";
+import Soup from "../../../assets/soupandstew.jpeg";
+import Drink from "../../../assets/drink1.jpeg";
+import Rice from "../../../assets/smoky.jpeg";
+import Events from "../../../assets/catering1.jpeg";
 import Cakes from "../../../assets/image5.jpg";
-import Pastries from "../../../assets/image6.png";
+import Pastries from "../../../assets/pastries.jpeg";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
   const categoryItems = [
     {
       id: 1,
-      name: "Soup & Stews",
+      name: "Soup & Stew",
       imageUrl: Soup,
     },
     {
       id: 2,
-      name: "Drinks",
+      name: "Drink",
       imageUrl: Drink,
     },
     {

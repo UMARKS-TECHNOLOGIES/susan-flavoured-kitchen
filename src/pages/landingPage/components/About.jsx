@@ -21,15 +21,11 @@ const About = () => {
           {/* Text Content */}
           <div className="flex-1">
             <p className="text-gray-600 text-base lg:text-lg leading-relaxed mb-6 text-justify lg:text-left">
-              At Susan Flavoured Kitchen, we bring the heart of home cooking to
-              your table. Our passion for authentic flavors and fresh
-              ingredients ensures every meal is a delightful experience. Whether
-              you're craving a quick lunch or planning a special dinner, we are
-              here to serve you with love and excellence.
+              Welcome to Susan Flavoured Kitchen Limited, a fast-growing food and catering business based in Nottingham, United Kingdom. Founded in 2020 by Susan Chioma Nwobo, SFK was born from a lifelong passion for cooking and the joy of bringing people together through food.
+S             usan’s culinary journey began more than 20 years ago when she catered her own birthday celebrations at ages 16 and 20. 
               <br className="hidden lg:block" />
               <br className="hidden lg:block" />
-              Join us on a culinary journey where tradition meets modern taste.
-              We believe in creating memories through food, one dish at a time.
+              With every dish she prepared for family, friends, and community events, her love for cooking grew into a purposeful mission—and today, that mission is the heart of SFK.
             </p>
 
             <Button    
