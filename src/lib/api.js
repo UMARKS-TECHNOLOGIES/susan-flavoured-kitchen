@@ -24,9 +24,9 @@ const api = axios.create({
 
 // OPTIONAL: attach token if you even have auth
 api.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
   if (token) {
-    config.headers['x-token'] = token;
+    config.headers['x-token'] = JSON.parse(token);
   }
 
   return config;

@@ -45,15 +45,23 @@ export const useAuth = create(set => ({
     try {
       const res = await api.post(`${API.AUTH}/login`, { email, password });
       const payload = res?.data?.data || res?.data || {};
-      const token = payload?.token;
+      const token =
+        payload?.token?.accessToken || payload.data?.token?.accessToken || null;
+      const refreshToken = payload?.token?.refreshToken || null;
+
+      console.log('response:', payload);
+
       if (!token) {
         console.error('No token found in login response');
+        console.log('Login response data:', payload);
         set({ error: 'Invalid login response' });
         reportError('Invalid login response');
         return false;
       }
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('accessToken', JSON.stringify(token));
+      localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+
       const userFromPayload = payload?.user || payload;
       const user = {
         id: userFromPayload?.id || userFromPayload?.userId || null,
