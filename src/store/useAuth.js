@@ -11,10 +11,12 @@ export const useAuth = create(set => ({
   fetchUser: async () => {
     const token = localStorage.getItem('token');
     if (!token) {
+      console.log('No token found, skipping fetchUser');
       set({ user: null, error: null, loading: false });
       return;
     }
     set({ loading: true });
+
     try {
       const { data } = await api.get(`${API.AUTH}/me`);
       // server might return payload under data.data or data.user
@@ -28,6 +30,7 @@ export const useAuth = create(set => ({
       };
       set({ user, error: null });
     } catch (e) {
+      console.error('Error fetching user:', e);
       const message =
         e?.response?.data?.message || e?.message || 'Failed to fetch user';
       set({ user: null, error: message });
@@ -38,13 +41,27 @@ export const useAuth = create(set => ({
 
   login: async (email, password) => {
     set({ loading: true });
+
     try {
       const res = await api.post(`${API.AUTH}/login`, { email, password });
       const payload = res?.data?.data || res?.data || {};
-      const token = payload?.token?.accessToken || payload?.accessToken || null;
-      if (token) {
-        localStorage.setItem('token', token);
+      const token =
+        payload?.token?.accessToken || payload.data?.token?.accessToken || null;
+      const refreshToken = payload?.token?.refreshToken || null;
+
+      console.log('response:', payload);
+
+      if (!token) {
+        console.error('No token found in login response');
+        console.log('Login response data:', payload);
+        set({ error: 'Invalid login response' });
+        reportError('Invalid login response');
+        return false;
       }
+
+      localStorage.setItem('accessToken', JSON.stringify(token));
+      localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+
       const userFromPayload = payload?.user || payload;
       const user = {
         id: userFromPayload?.id || userFromPayload?.userId || null,
