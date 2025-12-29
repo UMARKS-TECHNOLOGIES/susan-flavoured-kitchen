@@ -18,7 +18,7 @@ export default function UserMenu({ user, logout, setShowUserMenu }) {
       )}
       <button
         onClick={() => {
-          B;
+          // B;
           logout();
           setShowUserMenu(false);
         }}

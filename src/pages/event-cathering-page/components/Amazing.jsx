@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Amazing = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000); // 1s delay
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="w-full mt-10 lg:mt-15 pb-10 lg:pb-15 h-auto lg:h-[200px] flex flex-col items-center justify-center gap-4">
+        <div className="w-[90%] lg:w-[80%] mx-auto flex flex-col items-center text-center gap-3">
+          <Skeleton width="60%" height={32} />
+          <Skeleton width="80%" height={20} />
+          <Skeleton width="70%" height={20} />
+        </div>
+
+        <div className="w-full lg:w-[60%] mx-auto mt-8 lg:mt-15 flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8">
+          <Skeleton width="200px" height={48} />
+          <Skeleton width="200px" height={48} />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="w-full mt-10 lg:mt-15 pb-10 lg:pb-15 h-auto lg:h-[200px]">
       <div className="w-[90%] lg:w-[80%] mx-auto">

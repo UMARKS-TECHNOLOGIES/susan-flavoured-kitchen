@@ -5,7 +5,7 @@ import { reportError, reportSuccess } from '../lib/errorHandler';
 
 export const useAuth = create(set => ({
   user: null,
-  loading: false,
+  loading: true,
   error: null,
 
   fetchUser: async () => {
@@ -25,6 +25,7 @@ export const useAuth = create(set => ({
         email: payload?.email || null,
         phone: payload?.phone || null,
         role: payload?.role || 'user',
+        createdAt: payload?.createdAt || null,
       };
       set({ user, error: null });
     } catch (e) {
@@ -52,6 +53,7 @@ export const useAuth = create(set => ({
         email: userFromPayload?.email || null,
         phone: userFromPayload?.phone || null,
         role: userFromPayload?.role || 'user',
+        createdAt: userFromPayload?.createdAt || null,
       };
       set({ user, error: null });
       reportSuccess('Logged in successfully');
@@ -84,6 +86,7 @@ export const useAuth = create(set => ({
         email: userFromPayload?.email || null,
         phone: userFromPayload?.phone || null,
         role: userFromPayload?.role || 'user',
+        createdAt: userFromPayload?.createdAt || null,
       };
       set({ user, error: null });
       return true;

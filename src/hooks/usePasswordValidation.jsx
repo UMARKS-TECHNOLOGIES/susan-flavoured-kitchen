@@ -1,16 +1,20 @@
 import React from 'react';
 
 /**
- * Small hook to centralize password validation rules.
- * Returns validation flags and a helper to check matching.
+ * Centralized password validation rules
+ * Requirements:
+ * - Min 8 characters
+ * - At least one uppercase letter
+ * - At least one number OR (&, @, %)
  */
 export default function usePasswordValidation(password = '') {
   const validations = React.useMemo(() => {
+    const hasNumberOrAllowedSymbol = /[0-9&@%]/.test(password);
+
     return {
       minLength: password.length >= 8,
       hasUppercase: /[A-Z]/.test(password),
-      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-      hasNumber: /\d/.test(password),
+      hasNumberOrSymbol: hasNumberOrAllowedSymbol,
     };
   }, [password]);
 

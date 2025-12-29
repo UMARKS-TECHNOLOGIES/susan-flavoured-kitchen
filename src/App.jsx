@@ -1,4 +1,6 @@
-import React from 'react';
+import {useEffect} from 'react';
+import {useAuth} from './store/useAuth';
+import {registerAuthHandler} from './lib/api';
 
 import Home from './pages/landingPage/Home';
 import Menu from './pages/menuPage/Menu';
@@ -25,8 +27,17 @@ import PaymentCancel from './pages/Payment/PaymentCancel';
 import ProtectedRoute from './routes/ProtectedRoute';
 import AdminRoute from './routes/AdminRoute';
 import UserDashboard from './pages/user/UserDashboard';
+import UserProfile from './pages/user/UserProfile';
 
 const App = () => {
+  const fetchUser = useAuth(state => state.fetchUser);
+  const logout = useAuth(state => state.logout);
+
+  useEffect(() => {
+    fetchUser();
+    registerAuthHandler(logout); // auto-logout if token is invalid
+  }, [fetchUser, logout]);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -88,6 +99,12 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          } />
           <Route path="/payment/success" element={<PaymentSuccess />} />
           <Route path="/payment/cancel" element={<PaymentCancel />} />
         </Routes>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import LoginSkeleton from './LoginSkeleton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,7 +7,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import Abt2 from '@/assets/Abt2.svg';
 import Logo from '@/assets/Logo.jpeg';
 import { useAuth } from '../../store/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/shared/ErrorToastProvider';
 
 const LoginPage = () => {
@@ -17,6 +18,11 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [localError, setLocalError] = useState(null);
   const { showSuccess, showError } = useToast();
+
+  const [loading, setLoading] = useState(true);
+
+  
+
 
   const handleChange = (field, value) =>
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -52,23 +58,33 @@ const LoginPage = () => {
     }
   };
 
-  const handleForgotPassword = () => navigate('/forgotpassword');
-  const handleSignUp = () => navigate('/signup');
   const handleKeyPress = e => {
     if (e.key === 'Enter') handleSubmit();
   };
 
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    setLoading(false);
+  }, 2000); 
+
+  return () => clearTimeout(timer);
+}, []);
+
+if (loading) {
+    return <LoginSkeleton />;
+  }
+
   return (
     <div className="min-h-screen px-10 bg-[#fffcfa]">
       <div className="py-5">
-        <img src={Logo} alt="Logo" className="h-20" />
+        <img src={Logo} loading='lazy' alt="Logo" className="h-20" />
       </div>
 
-      <div className="h-[500px] flex">
+<div className="min-h-screen lg:h-[500px] flex flex-col lg:flex-row">
         <div
-          className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative rounded-lg"
-          style={{ backgroundImage: `url(${Abt2})` }}
-        >
+  className="h-[300px] sm:h-[450px] lg:h-full flex flex-col lg:w-1/2 bg-cover bg-center relative rounded-lg"
+  style={{ backgroundImage: `url(${Abt2})` }}
+>
           <div className="absolute inset-0 bg-black opacity-40 rounded-lg" />
           <div className="relative z-10 flex flex-col items-center justify-center h-full w-full text-white px-6 lg:px-12 text-center">
             <h1 className="text-3xl lg:text-5xl font-bold mb-2 lg:mb-4">
@@ -103,7 +119,7 @@ const LoginPage = () => {
                   value={formData.email}
                   onChange={e => handleChange('email', e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="h-12 bg-gray-50/50 border-gray-200"
+                  className="h-14 lg:h-12 text-base lg:text-sm px-4 bg-gray-50/50 border-gray-200"
                 />
               </div>
 
@@ -122,7 +138,7 @@ const LoginPage = () => {
                     value={formData.password}
                     onChange={e => handleChange('password', e.target.value)}
                     onKeyPress={handleKeyPress}
-                    className="h-12 pr-10 bg-gray-50/50 border-gray-200"
+                    className="h-14 lg:h-12 pr-12 text-base lg:text-sm px-4 bg-gray-50/50 border-gray-200"
                   />
                   <button
                     type="button"
@@ -139,12 +155,12 @@ const LoginPage = () => {
               </div>
 
               <div className="flex justify-end">
-                <button
-                  onClick={handleForgotPassword}
+                <Link
+                  to="/forgotpassword"
                   className="text-sm text-orange-500 hover:text-orange-600 font-medium"
                 >
                   Forgot Password?
-                </button>
+                </Link>
               </div>
 
               <Button
@@ -159,12 +175,12 @@ const LoginPage = () => {
                 <span className="text-sm text-gray-600">
                   Don't have an account?{' '}
                 </span>
-                <button
-                  onClick={handleSignUp}
+                <Link
+                  to="/signup"
                   className="text-sm text-orange-500 hover:text-orange-600 font-bold transition-colors ml-1"
                 >
                   Sign Up
-                </button>
+                </Link>
               </div>
             </div>
           </div>

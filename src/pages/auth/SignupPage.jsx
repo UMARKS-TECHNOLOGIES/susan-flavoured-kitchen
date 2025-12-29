@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,7 +10,28 @@ import { useAuth } from '../../store/useAuth';
 import { useNavigate } from 'react-router-dom';
 import usePasswordValidation from '@/hooks/usePasswordValidation';
 
+const Skeleton = ({ className = '' }) => (
+  <div className={`animate-pulse bg-gray-200 rounded-md ${className}`} />
+);
+
+const SignupSkeleton = () => (
+  <div className="min-h-screen px-10 py-12 bg-[#fffcfa] flex gap-8">
+    <div className="hidden lg:block w-1/2">
+      <Skeleton className="h-[500px] w-full rounded-lg" />
+    </div>
+
+    <div className="w-full lg:w-1/2 max-w-md mx-auto space-y-4">
+      <Skeleton className="h-8 w-2/3" />
+      <Skeleton className="h-12 w-full" />
+      <Skeleton className="h-12 w-full" />
+      <Skeleton className="h-12 w-full" />
+      <Skeleton className="h-12 w-full" />
+      <Skeleton className="h-12 w-full" />
+    </div>
+  </div>
+);
 const SignupPage = () => {
+    const [pageLoading, setPageLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -20,9 +41,14 @@ const SignupPage = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { signup, loading, error } = useAuth();
+  const { signup, signupLoading, error } = useAuth();
   const [localError, setLocalError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => setPageLoading(false), 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const { validations } = usePasswordValidation(formData.password);
 
@@ -62,13 +88,16 @@ const SignupPage = () => {
     }
 
     if (
-      !validations.minLength ||
-      !validations.hasUppercase ||
-      !validations.hasSpecialChar
-    ) {
-      alert('Please meet all password requirements');
-      return false;
-    }
+  !validations.minLength ||
+  !validations.hasUppercase ||
+  !validations.hasNumberOrSymbol
+) {
+  alert(
+    'Password must be at least 8 characters, include one uppercase letter, and one number or symbol (&, @, %)'
+  );
+  return false;
+}
+
 
     if (!passwordsMatch) {
       alert('Passwords do not match');
@@ -104,27 +133,36 @@ const SignupPage = () => {
     }
   };
 
+  const passwordValue = formData.password;
+  const errors = {};
+
+
+  if (pageLoading) {
+    return <SignupSkeleton />;
+  }
+
+
+
   return (
     <div className="min-h-screen px-10 bg-[#fffcfa]">
       <div className="py-5">
         <img src={Logo} alt="Logo" className="h-12" />
       </div>
-      <div className="h-[500px] flex">
-        <div
-          className="hidden lg:flex lg:w-1/2 bg-cover bg-center relative rounded-lg"
-          style={{
-            backgroundImage: `url(${Abt2})`,
-          }}
-        >
-          <div className="absolute inset-0 bg-black opacity-40 rounded-lg"></div>
-          <div className="relative z-10 flex flex-col items-center justify-center w-full text-white px-12">
-            <h1 className="text-5xl font-bold mb-4">Create Account</h1>
-            <p className="text-xl text-center max-w-md leading-relaxed">
-              Join us and enjoy fresh, authentic meals delivered cleanly and
-              fast.
-            </p>
-          </div>
-        </div>
+      <div className="min-h-screen lg:h-[500px] flex flex-col lg:flex-row">
+              <div
+        className="h-[300px] sm:h-[450px] lg:h-full flex flex-col lg:w-1/2 bg-cover bg-center relative rounded-lg"
+        style={{ backgroundImage: `url(${Abt2})` }}
+      >
+                <div className="absolute inset-0 bg-black opacity-40 rounded-lg" />
+                <div className="relative z-10 flex flex-col items-center justify-center h-full w-full text-white px-6 lg:px-12 text-center">
+                  <h1 className="text-3xl lg:text-5xl font-bold mb-2 lg:mb-4">
+                    Create Account
+                  </h1>
+                  <p className="text-base lg:text-xl max-w-md opacity-90">
+                    Join us and enjoy fresh, authentic meals delivered cleanly and fast.
+                  </p>
+                </div>
+              </div>
 
         <div className="w-full lg:w-1/2 flex items-center justify-center px-8 py-12">
           <div className="w-full max-w-md">
@@ -223,54 +261,62 @@ const SignupPage = () => {
                   </button>
                 </div>
 
-                {formData.password && (
-                  <div className="space-y-1 text-xs mt-2">
-                    <div
-                      className={`flex items-center gap-1 ${
-                        validations.minLength
-                          ? 'text-green-600'
-                          : 'text-gray-500'
-                      }`}
-                    >
-                      {validations.minLength ? (
-                        <Check className="w-3 h-3" />
-                      ) : (
-                        <X className="w-3 h-3" />
-                      )}
-                      <span>Minimum 8 characters</span>
-                    </div>
-                    <div
-                      className={`flex items-center gap-1 ${
-                        validations.hasUppercase
-                          ? 'text-green-600'
-                          : 'text-gray-500'
-                      }`}
-                    >
-                      {validations.hasUppercase ? (
-                        <Check className="w-3 h-3" />
-                      ) : (
-                        <X className="w-3 h-3" />
-                      )}
-                      <span>At least one uppercase letter</span>
-                    </div>
-                    <div
-                      className={`flex items-center gap-1 ${
-                        validations.hasSpecialChar
-                          ? 'text-red-600'
-                          : 'text-gray-500'
-                      }`}
-                    >
-                      {validations.hasSpecialChar ? (
-                        <Check className="w-3 h-3" />
-                      ) : (
-                        <X className="w-3 h-3" />
-                      )}
-                      <span>
-                        At least one number or special symbol (!,@,#,$)
-                      </span>
-                    </div>
-                  </div>
+                {errors.password && (
+            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+          )}
+
+          {/* Password Rules */}
+          {passwordValue.length > 0 && (
+            <div className="mt-3 bg-gray-50 border p-3 rounded-lg">
+
+              <div className="flex items-center gap-2 mb-2">
+                {/.{8,}/.test(passwordValue) ? (
+                  <Check className="w-5 h-5 text-green-600" />
+                ) : (
+                  <X className="w-5 h-5 text-red-400" />
                 )}
+                <span
+                  className={
+                    /.{8,}/.test(passwordValue) ? "text-green-600" : "text-red-700"
+                  }
+                >
+                  Minimum 8 characters
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 mb-2">
+                {/[A-Z]/.test(passwordValue) ? (
+                  <Check className="w-5 h-5 text-green-600" />
+                ) : (
+                  <X className="w-5 h-5 text-red-400" />
+                )}
+                <span
+                  className={
+                    /[A-Z]/.test(passwordValue) ? "text-green-600" : "text-red-700"
+                  }
+                >
+                  At least one uppercase letter
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/[0-9&@%]/.test(passwordValue) ? (
+                  <Check className="w-5 h-5 text-green-600" />
+                ) : (
+                  <X className="w-5 h-5 text-red-400" />
+                )}
+                <span
+                  className={
+                    /[0-9&@%]/.test(passwordValue)
+                      ? "text-green-600"
+                      : "text-red-700"
+                  }
+                >
+                  At least one number or symbol (&, @, %)
+                </span>
+              </div>
+            </div>
+          )}
               </div>
 
               <div className="space-y-2">
@@ -316,12 +362,19 @@ const SignupPage = () => {
               </div>
 
               <Button
-                onClick={handleSubmit}
-                disabled={loading}
-                className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white text-base font-medium disabled:opacity-50"
-              >
-                {loading ? 'Creating Account...' : 'Create Account'}
-              </Button>
+  onClick={handleSubmit}
+  disabled={signupLoading}
+  className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white"
+>
+  {signupLoading ? (
+    <div className="flex items-center gap-2">
+      <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+      Creating Account...
+    </div>
+  ) : (
+    'Create Account'
+  )}
+</Button>
 
               <div className="text-center">
                 <span className="text-sm text-gray-600">
