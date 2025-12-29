@@ -20,13 +20,14 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: false,
 });
 
 // OPTIONAL: attach token if you even have auth
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('accessToken');
   if (token) {
-    config.headers['x-token'] = JSON.parse(token);
+    config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
   }
 
   return config;
