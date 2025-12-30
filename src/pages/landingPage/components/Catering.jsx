@@ -1,5 +1,5 @@
 import React from "react";
-import Picture from "../../../assets/catering.jpg";
+import Picture from "../../../assets/bigcatering.jpeg";
 import { Button } from "../../../components/ui/button";
 const Catering = () => {
   return (

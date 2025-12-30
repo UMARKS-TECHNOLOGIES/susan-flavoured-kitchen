@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import Logo from '../../assets/Logo.jpeg';
+import Logo from '../../assets/newlogo.jpeg';
 import {
   MdOutlineSearch,
   MdKeyboardArrowDown,

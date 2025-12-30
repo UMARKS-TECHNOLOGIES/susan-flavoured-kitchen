@@ -45,12 +45,12 @@ const Footer = () => {
           <div className="flex flex-col lg:flex-row text-center justify-center items-center leading-relaxed my-4 tracking-wider text-white text-base lg:text-lg font-medium gap-2 lg:gap-0">
             <span className="flex items-center gap-2">
               <HiOutlineDevicePhoneMobile />
-              07387044524
+              +447387044524
             </span>
             <span className="hidden lg:block mx-1">|</span>
             <span className="flex items-center gap-2">
               <MdOutlineMail />
-              Susanflavouredkitchen@gmail.com
+              info@susanflavouredkitchen.uk
             </span>
           </div>
           <div className="flex items-center gap-3 mt-4 lg:mt-0">
