@@ -24,74 +24,84 @@ import PaymentCancel from './pages/Payment/PaymentCancel';
 
 import ProtectedRoute from './routes/ProtectedRoute';
 import AdminRoute from './routes/AdminRoute';
-import UserDashboard from './pages/user/UserDashboard';
+import DashboardLayout from './pages/user/dashboard/DashboardLayout';
+import DashboardOrders from './pages/user/dashboard/DashboardOrders';
+import DashboardCart from './pages/user/dashboard/DashboardCart';
+import DashboardProducts from './pages/user/dashboard/DashboardProducts';
+import DashboardHome from './pages/user/dashboard/DashboardHome';
+import AccountSettings from './pages/user/dashboard/AccountSettings';
 
 const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <CartProvider>
-        <Routes>
-          {/* auth route */}
+      <Routes>
+        {/* auth route */}
 
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-          <Route path="/resetpassword" element={<ResetPasswordPage />} />
-          <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+        <Route path="/resetpassword" element={<ResetPasswordPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
-          {/* dynamic product route */}
-          <Route path="/product/:id" element={<ProductDetails />} />
-          {/* other routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route
-            path="/cart"
-            element={
-              <ProtectedRoute>
-                <Cart />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/checkout"
-            element={
-              <ProtectedRoute>
-                <Checkout />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/orderconfirmation"
-            element={
-              <ProtectedRoute>
-                <OrderConfirmation />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/event" element={<HomeEvent />} />
-          <Route path="/catering-quote" element={<CateringQuote />} />
-          <Route
-            path="/admin"
-            element={
-              <AdminRoute>
-                <AdminDashboard />
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <UserDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/payment/success" element={<PaymentSuccess />} />
-          <Route path="/payment/cancel" element={<PaymentCancel />} />
-        </Routes>
-      </CartProvider>
+        {/* dynamic product route */}
+        <Route path="/product/:id" element={<ProductDetails />} />
+        {/* other routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orderconfirmation"
+          element={
+            <ProtectedRoute>
+              <OrderConfirmation />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/event" element={<HomeEvent />} />
+        <Route path="/catering-quote" element={<CateringQuote />} />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<DashboardHome />} />
+          <Route path="products" element={<DashboardProducts />} />
+          <Route path="cart" element={<DashboardCart />} />
+          <Route path="orders" element={<DashboardOrders />} />
+          <Route path="account" element={<AccountSettings />} />
+        </Route>
+
+        <Route path="/payment/success" element={<PaymentSuccess />} />
+        <Route path="/payment/cancel" element={<PaymentCancel />} />
+      </Routes>
     </BrowserRouter>
   );
 };

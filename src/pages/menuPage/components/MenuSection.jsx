@@ -1,5 +1,5 @@
-import React from "react";
-import Card from "./Card";
+import React from 'react';
+import Card from './Card';
 
 const MenuSection = ({ title, items = [], showMore }) => {
   // Safety check for items
@@ -27,19 +27,14 @@ const MenuSection = ({ title, items = [], showMore }) => {
         )}
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 md:gap-6">
-        {items.map((item) => {
+        {items.map(item => {
           // Safety check for each item
           if (!item || !item.id) {
-            console.warn("MenuSection: Skipping invalid item", item);
+            console.warn('MenuSection: Skipping invalid item', item);
             return null;
           }
 
-          return (
-            <Card
-              key={item.id} // Use item.id instead of index
-              item={item}
-            />
-          );
+          return <Card key={item.id} item={item} />;
         })}
       </div>
     </section>
