@@ -21,6 +21,8 @@ const AdminDashboardLayout = () => {
         setStats(res.data.stats || { total: 0, pending: 0, completed: 0 });
         setRecentOrders(res.data.recentOrders || []);
       } catch (err) {
+        reportError(err.message);
+        console.error('Failed to fetch admin dashboard data:', err);
         setStats({ total: 0, pending: 0, completed: 0 });
         setRecentOrders([]);
       } finally {
