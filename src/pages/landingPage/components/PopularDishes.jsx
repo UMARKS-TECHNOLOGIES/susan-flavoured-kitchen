@@ -15,14 +15,14 @@ const PopularDishes = () => {
       id: 1, // Unique ID
       name: "Peppered Chicken",
       description: "Our mouth watering peppered chicken.",
-      price: 15.0,
+      price: 0.0,
       image: Image3,
     },
     {
       id: 2, // Unique ID
       name: "Canapes",
       description: "Long-grain rice cooked in our signature smoky pepper base.",
-      price: 1.90,
+      price: 0.0,
       image: Image4,
     },
     // {
