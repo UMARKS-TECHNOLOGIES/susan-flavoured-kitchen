@@ -23,16 +23,27 @@ export default function LoginSubmitHandler(
 
     setSubmitting(true);
     try {
-      const success = await login(formData.email, formData.password);
-      if (success) {
-        const currentUser = useAuth.getState().user;
+      const { status, role } = await login(formData.email, formData.password);
+      let currentUser;
+
+      if (status && role === 'user') {
+        currentUser = useAuth.getState().user;
         showSuccess(`Welcome back, ${currentUser?.name || 'User'}!`);
-        if (currentUser?.role === 'admin') {
-          navigate('/admin', { replace: true });
-        } else {
-          navigate('/dashboard', { replace: true });
-        }
+        navigate('/dashboard', { replace: true });
+        return;
       }
+
+      if (status && role === 'admin') {
+        currentUser = useAuth.getState().admin;
+        showSuccess(
+          `You are Welcome to your Admin Dashboard, ${
+            currentUser?.name || 'Admin'
+          }!`
+        );
+        navigate('/admin', { replace: true });
+        return;
+      }
+      setLocalError('Invalid email or password');
     } catch (e) {
       showError(e?.message || 'Login failed');
     } finally {

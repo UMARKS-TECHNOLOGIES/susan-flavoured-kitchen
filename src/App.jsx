@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Home from './pages/landingPage/Home';
 import Menu from './pages/menuPage/Menu';
@@ -30,8 +30,15 @@ import DashboardCart from './pages/user/dashboard/DashboardCart';
 import DashboardProducts from './pages/user/dashboard/DashboardProducts';
 import DashboardHome from './pages/user/dashboard/DashboardHome';
 import AccountSettings from './pages/user/dashboard/AccountSettings';
+import { useAuth } from './store/useAuth';
 
 const App = () => {
+  const { initializeAuth } = useAuth();
+
+  useEffect(() => {
+    initializeAuth();
+  }, [initializeAuth]);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
