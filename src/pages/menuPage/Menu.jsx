@@ -42,7 +42,7 @@ const Menu = () => {
     })();
   }, []);
 
-  // 🔥 Group items by category dynamically
+  //Group items by category dynamically
   const groupedMenu = useMemo(() => {
     const filtered = menuItems.filter(item =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase())

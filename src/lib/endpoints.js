@@ -2,7 +2,7 @@ export const API = {
   AUTH: import.meta.env.VITE_API_AUTH_PATH || '/api/v1/user',
   PRODUCTS: import.meta.env.VITE_API_PRODUCTS_PATH || '/api/v1/products',
   CART: import.meta.env.VITE_API_CART_PATH || '/api/v1/cart',
-  ORDERS: import.meta.env.VITE_API_ORDERS_PATH || '/api/v1/order',
+  ORDER: import.meta.env.VITE_API_ORDERS_PATH || '/api/v1/order',
   ADMIN: import.meta.env.VITE_API_ADMIN_PATH || '/api/v1/admin',
-  USERS: import.meta.env.VITE_API_USERS_PATH || '/api/v1/user',
+  USER: import.meta.env.VITE_API_USERS_PATH || '/api/v1/user',
 };

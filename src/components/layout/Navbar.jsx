@@ -11,12 +11,10 @@ import { BsPerson } from 'react-icons/bs';
 import { GiShoppingCart } from 'react-icons/gi';
 
 import api from '@/lib/api';
-import { useCart } from '../../store/useCart';
 import { useAuth } from '../../store/useAuth';
 
 const Navbar = () => {
-  const { getTotalItems } = useCart();
-  const totalItems = getTotalItems();
+  const totalItems = 0;
   const { user, logout } = useAuth();
 
   const [openDropdown, setOpenDropdown] = useState(null);

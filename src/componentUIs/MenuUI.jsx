@@ -3,6 +3,7 @@ import Navbar from '@/components/layout/Navbar';
 import EmptyMenuState from '@/components/loaders/EmptyMenuState';
 import EmptySearchState from '@/components/loaders/EmptySearchState';
 import MenuSkeleton from '@/components/loaders/MenuSkeleton';
+import MenuSection from '@/pages/menuPage/components/MenuSection';
 
 function MenuUI({
   loading,
