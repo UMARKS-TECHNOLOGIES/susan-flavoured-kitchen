@@ -17,8 +17,7 @@ import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import ResetPasswordPage from './pages/auth/ResetPasswordPage';
 import SignupPage from './pages/auth/SignupPage';
 import CateringQuote from './pages/cateringQuotePage/CateringQuote';
-import AdminDashboardLayout from './pages/adminPage/components/AdminDashboardLayout';
-import AdminDashboard from './pages/adminPage/AdminDashboard';
+import AdminDashboard from './pages/admin/Index';
 import PaymentSuccess from './pages/Payment/PaymentSuccess';
 import PaymentCancel from './pages/Payment/PaymentCancel';
 
@@ -31,6 +30,13 @@ import DashboardProducts from './pages/user/dashboard/DashboardProducts';
 import DashboardHome from './pages/user/dashboard/DashboardHome';
 import AccountSettings from './pages/user/dashboard/AccountSettings';
 import { useAuth } from './store/useAuth';
+import Categories from './pages/admin/pages/menu/Categories';
+import Products from './pages/admin/pages/menu/Products';
+import OrdersManagement from './pages/admin/pages/OrdersManagement';
+import Users from './pages/admin/pages/Users';
+import Payments from './pages/admin/pages/Payments';
+import AdminLayout from './pages/admin/AdminLayout';
+import Index from './pages/admin/Index';
 
 const App = () => {
   const { initializeAuth } = useAuth();
@@ -83,14 +89,25 @@ const App = () => {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/event" element={<HomeEvent />} />
         <Route path="/catering-quote" element={<CateringQuote />} />
+
+        {/* admin */}
         <Route
           path="/admin"
           element={
             <AdminRoute>
-              <AdminDashboard />
+              <AdminLayout />
             </AdminRoute>
           }
-        />
+        >
+          <Route index path={'*'} element={<Index />} />
+          <Route path="categories" element={<Categories />} />
+          <Route path="products" element={<Products />} />
+          <Route path="orders" element={<OrdersManagement />} />
+          <Route path="users" element={<Users />} />
+          <Route path="payments" element={<Payments />} />
+        </Route>
+
+        {/* user */}
         <Route
           path="/dashboard"
           element={

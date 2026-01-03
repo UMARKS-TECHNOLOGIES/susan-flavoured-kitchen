@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Bell, TrendingUp, Users, DollarSign, Settings } from 'lucide-react';
-export default function DashboardHome() {
+export default function Index() {
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
@@ -74,6 +74,10 @@ export default function DashboardHome() {
             </Button>
             <Button variant="outline" className="w-full">
               Manage Users
+            </Button>
+
+            <Button variant="outline" className="w-full">
+              view all orders
             </Button>
           </CardContent>
         </Card>

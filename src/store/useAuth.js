@@ -59,8 +59,6 @@ export const useAuth = create(set => ({
     } catch (err) {
       set({ error: err.message });
       console.error('Error fetching user or admin data:', err);
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('AdminAccessToken');
       set({ user: null, admin: null });
     } finally {
       set({ loading: false });
@@ -93,7 +91,7 @@ export const useAuth = create(set => ({
         console.log('admin=true');
         localStorage.setItem(
           'AdminAccessToken',
-          JSON.stringify(res.data.admin.token)
+          JSON.stringify(res.data.token)
         );
 
         const payload = res.data.admin;

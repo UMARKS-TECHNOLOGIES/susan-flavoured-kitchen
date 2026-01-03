@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useAuth } from '@/store/useAuth';
 
 //set baseURL based on node environment variables
 let baseURL =
@@ -23,9 +24,19 @@ const api = axios.create({
   withCredentials: false,
 });
 
+console.log('Initial user state:', useAuth.getState().user);
+
+if (useAuth.getState().user === 'admin') {
+  console.log('Admin user detected');
+  console.log('Admin token:', localStorage.getItem('AdminAccessToken'));
+}
+
 // OPTIONAL: attach token if you even have auth
 api.interceptors.request.use(config => {
-  const token = localStorage.getItem('accessToken');
+  const token =
+    useAuth.getState().user === 'admin'
+      ? localStorage.getItem('AdminAccessToken')
+      : localStorage.getItem('accessToken');
   if (token) {
     config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
   }
