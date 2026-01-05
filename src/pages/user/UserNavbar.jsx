@@ -64,6 +64,22 @@ const UserNavbar = () => {
 
             <hr className="my-1 border-t border-gray-200" />
 
+            {/* addess */}
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  to="/addresses"
+                  className={`block w-full px-4 py-2 text-sm text-gray-700 rounded-md ${
+                    active ? 'bg-orange-100 text-orange-700' : ''
+                  }`}
+                >
+                  Manage Addresses
+                </Link>
+              )}
+            </Menu.Item>
+
+            <hr className="my-1 border-t border-gray-200" />
+
             {/* Sign Out */}
             <Menu.Item>
               {({ active }) => (

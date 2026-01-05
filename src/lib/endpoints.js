@@ -10,4 +10,11 @@ export const API = {
     import.meta.env.VITE_API_CHANGE_PASSWORD_PATH ||
     '/api/v1/user/change-password',
   LOGOUT: import.meta.env.VITE_API_LOGOUT_PATH || '/api/v1/user/logout',
+
+  ADDRESSES: '/api/v1/address',
+EDIT_ADDRESS: (id) => `/api/v1/address/${id}`,
+DELETE_ADDRESS: (id) => `/api/v1/address/${id}`,
+SET_DEFAULT: (id) => `/api/v1/address/${id}/default`,
+GET_DEFAULT: '/api/v1/address/default',
+
 };

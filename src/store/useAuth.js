@@ -8,107 +8,82 @@ export const useAuth = create(set => ({
   loading: true,
   error: null,
 
+  setUser: user => set({ user }),
+
+  // FETCH AUTHENTICATED USER
   fetchUser: async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
+
     if (!token) {
-      set({ user: null, error: null, loading: false });
+      set({ user: null, loading: false, error: null });
       return;
     }
+
     set({ loading: true });
+
     try {
       const { data } = await api.get(`${API.AUTH}/me`);
-      // server might return payload under data.data or data.user
       const payload = data?.data || data?.user || data;
-      const user = {
-        id: payload?.id || payload?.userId || null,
-        name: payload?.name || payload?.fullName || null,
-        email: payload?.email || null,
-        phone: payload?.phone || null,
-        role: payload?.role || 'user',
-        createdAt: payload?.createdAt || null,
-      };
-      set({ user, error: null });
+
+      set({
+        user: {
+          id: payload?.id || payload?.userId || null,
+          name: payload?.name || payload?.fullName || null,
+          email: payload?.email || null,
+          phone: payload?.phone || null,
+          address: payload?.address || null,
+          role: payload?.role || 'user',
+          createdAt: payload?.createdAt || null,
+        },
+        error: null,
+      });
     } catch (e) {
-      const message =
-        e?.response?.data?.message || e?.message || 'Failed to fetch user';
-      set({ user: null, error: message });
+      set({
+        user: null,
+        error:
+          e?.response?.data?.message ||
+          e?.message ||
+          'Failed to fetch user',
+      });
     } finally {
       set({ loading: false });
     }
   },
 
+  // LOGIN
   login: async (email, password) => {
     set({ loading: true });
+
     try {
       const res = await api.post(`${API.AUTH}/login`, { email, password });
       const payload = res?.data?.data || res?.data || {};
-      const token = payload?.token?.accessToken || payload?.accessToken || null;
-      if (token) {
-        localStorage.setItem('token', token);
+
+      const accessToken =
+        payload?.token?.accessToken || payload?.accessToken;
+
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken);
       }
-      const userFromPayload = payload?.user || payload;
-      const user = {
-        id: userFromPayload?.id || userFromPayload?.userId || null,
-        name: userFromPayload?.name || userFromPayload?.fullName || null,
-        email: userFromPayload?.email || null,
-        phone: userFromPayload?.phone || null,
-        role: userFromPayload?.role || 'user',
-        createdAt: userFromPayload?.createdAt || null,
-      };
-      set({ user, error: null });
+
+      set({ user: payload?.user || payload, error: null });
       reportSuccess('Logged in successfully');
       return true;
     } catch (e) {
-      const message =
-        e?.response?.data?.message || e?.message || 'Login failed';
-      set({ error: message });
-      reportError(message);
+      reportError(e?.response?.data?.message || 'Login failed');
+      set({ error: e?.response?.data?.message });
       return false;
     } finally {
       set({ loading: false });
     }
   },
 
-  signup: async (name, phone, email, password) => {
-    set({ loading: true });
-    try {
-      const { data } = await api.post(`${API.AUTH}/register`, {
-        name,
-        phone,
-        email,
-        password,
-      });
-      const payload = data?.data || data;
-      const userFromPayload = payload?.user || payload;
-      const user = {
-        id: userFromPayload?.id || null,
-        name: userFromPayload?.name || null,
-        email: userFromPayload?.email || null,
-        phone: userFromPayload?.phone || null,
-        role: userFromPayload?.role || 'user',
-        createdAt: userFromPayload?.createdAt || null,
-      };
-      set({ user, error: null });
-      return true;
-    } catch (e) {
-      const message =
-        e?.response?.data?.message || e?.message || 'Signup failed';
-      set({ error: message });
-      reportError(message);
-      return false;
-    } finally {
-      set({ loading: false });
-    }
-  },
-
+  // LOGOUT
   logout: async () => {
     try {
       await api.post(`${API.AUTH}/logout`);
-    } catch {
-      // ignore
     } finally {
-      localStorage.removeItem('token');
-      set({ user: null });
+      localStorage.removeItem('accessToken');
+      set({ user: null, error: null });
     }
   },
 }));

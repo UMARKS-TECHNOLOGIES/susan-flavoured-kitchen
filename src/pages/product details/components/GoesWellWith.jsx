@@ -63,9 +63,11 @@ const GoesWellWith = ({ currentProductId }) => {
             >
               <div className="flex items-center justify-center">
                 <img
-                  src={item.image}
-                  className="w-32 h-32 md:w-40 md:h-40 object-cover bg-center rounded-full"
-                />
+  src={item.image}
+  alt={item.name}
+  className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-full"
+/>
+
               </div>
 
               <div className="space-y-2">

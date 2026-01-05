@@ -1,6 +1,6 @@
-import {useEffect} from 'react';
-import {useAuth} from './store/useAuth';
-import {registerAuthHandler} from './lib/api';
+import React from 'react';
+// import {useAuth} from './store/useAuth';
+// import {registerAuthHandler} from './lib/api';
 
 import Home from './pages/landingPage/Home';
 import Menu from './pages/menuPage/Menu';
@@ -28,15 +28,16 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import AdminRoute from './routes/AdminRoute';
 import UserDashboard from './pages/user/UserDashboard';
 import UserProfile from './pages/user/UserProfile';
+import UserAddresses from './pages/user/UserAddresses';
 
 const App = () => {
-  const fetchUser = useAuth(state => state.fetchUser);
-  const logout = useAuth(state => state.logout);
+  // const fetchUser = useAuth(state => state.fetchUser);
+  // const logout = useAuth(state => state.logout);
 
-  useEffect(() => {
-    fetchUser();
-    registerAuthHandler(logout); // auto-logout if token is invalid
-  }, [fetchUser, logout]);
+  // useEffect(() => {
+  //   fetchUser();
+  //   registerAuthHandler(logout); // auto-logout if token is invalid
+  // }, [fetchUser, logout]);
 
   return (
     <BrowserRouter>
@@ -103,6 +104,13 @@ const App = () => {
           <Route path="/profile" element={
             <ProtectedRoute>
               <UserProfile />
+            </ProtectedRoute>
+          } />
+
+          {/* protected addres */}
+          <Route path="/addresses" element={
+            <ProtectedRoute>
+              <UserAddresses />
             </ProtectedRoute>
           } />
           <Route path="/payment/success" element={<PaymentSuccess />} />

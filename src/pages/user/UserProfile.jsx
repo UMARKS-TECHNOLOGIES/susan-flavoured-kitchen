@@ -1,17 +1,82 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '../../store/useAuth';
 import UserNavbar from './UserNavbar';
-import { MdOutlineModeEdit } from "react-icons/md";
+import { MdOutlineModeEdit } from 'react-icons/md';
 import Footer from '@/components/layout/Footer';
+import api from '@/lib/api';
+import { API } from '@/lib/endpoints';
+import Modal from './Modal';
+import UserAccountCreated from './UserAccountCreated';
+
+const InputField = ({
+  label,
+  name,
+  value,
+  editable,
+  onEdit,
+  onChange,
+  type = 'text',
+  readOnly,
+  error,
+  hideEditIcon = false,
+}) => (
+  <div className="flex flex-col gap-2 mt-6 sm:ml-[82px] ml-0">
+    <label className="font-bold text-gray-700 w-full sm:w-36">
+      {label}:
+    </label>
+
+    <div className="relative w-full max-w-[596px]">
+      <input
+        type={type}
+        name={name}
+        value={value}
+        readOnly={readOnly || !editable}
+        onChange={onChange}
+        className={`w-full p-2 pr-10 border rounded-md
+          ${editable ? 'border-blue-400' : 'border-gray-300 bg-gray-100'}
+          ${error ? 'border-red-500' : ''}
+        `}
+      />
+
+      {!hideEditIcon && !readOnly && !editable && (
+        <button
+          type="button"
+          onClick={() => onEdit(name)}
+          className="
+            absolute right-2 top-1/2 -translate-y-1/2
+            text-xl text-gray-600
+            hover:text-orange-600
+            sm:text-xl text-lg
+          "
+          aria-label={`Edit ${label}`}
+        >
+          <MdOutlineModeEdit />
+        </button>
+      )}
+    </div>
+
+    {error && <p className="text-sm text-red-500">{error}</p>}
+  </div>
+);
+
+const Section = ({ title, children }) => (
+  <section className="mb-8 border rounded-md px-6 py-6">
+    <h2 className="text-xl font-bold mb-6">{title}</h2>
+    {children}
+  </section>
+);
+
 
 const UserProfile = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
+
+  const [modal, setModal] = useState({ visible: false, type: '', message: '' });
+  const [errors, setErrors] = useState({});
 
   const [editableFields, setEditableFields] = useState({
     name: false,
     phone: false,
-    email: false,
-    address: false,
+    address: false, // UI only
     currentPassword: false,
     newPassword: false,
     confirmPassword: false,
@@ -21,169 +86,224 @@ const UserProfile = () => {
     name: user?.name || '',
     phone: user?.phone || '',
     email: user?.email || '',
-    address: '',
+    address: user?.address || '',
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   });
 
-  const toggleEdit = (field) => {
-    setEditableFields((prev) => ({
-      ...prev,
-      [field]: true,
-    }));
-  };
 
-  const handleChange = (e) => {
+  const toggleEdit = field =>
+    setEditableFields(prev => ({ ...prev, [field]: true }));
+
+  const handleChange = e => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+    setErrors(prev => ({ ...prev, [name]: null }));
   };
 
-  const handleSave = () => {
-    console.log('Send this data to backend:', formData);
-    setEditableFields({
+  const hasProfileChanges = useMemo(
+    () => ['name', 'phone'].some(f => editableFields[f]),
+    [editableFields]
+  );
+
+  const hasPasswordChanges = useMemo(
+    () =>
+      ['currentPassword', 'newPassword', 'confirmPassword'].some(
+        f => editableFields[f]
+      ),
+    [editableFields]
+  );
+
+  const saveProfile = async () => {
+  try {
+    const payload = {};
+    if (editableFields.name) payload.name = formData.name;
+    if (editableFields.phone) payload.phone = formData.phone;
+
+    const res = await api.put(`${API.AUTH}/profile`, payload);
+
+    const updatedUser =
+      res?.data?.data?.user ||
+      res?.data?.data ||
+      payload; // safe fallback
+
+    setUser({
+      ...user,
+      ...updatedUser,
+    });
+
+    setModal({
+      visible: true,
+      type: 'success',
+      message: res?.data?.message || 'Profile updated successfully',
+    });
+
+    setEditableFields(prev => ({
+      ...prev,
       name: false,
       phone: false,
-      email: false,
-      address: false,
-      currentPassword: false,
-      newPassword: false,
-      confirmPassword: false,
+    }));
+  } catch (err) {
+    console.error('PROFILE UPDATE ERROR:', err);
+
+    setModal({
+      visible: true,
+      type: 'error',
+      message:
+        err?.response?.data?.message ||
+        err?.message ||
+        'Failed to update profile',
     });
+  }
+};
+
+  const changePassword = async () => {
+    if (formData.newPassword !== formData.confirmPassword) {
+      setErrors({ confirmPassword: 'Passwords do not match' });
+      return;
+    }
+
+    try {
+      await api.put(`${API.AUTH}/change-password`, {
+        currentPassword: formData.currentPassword,
+        newPassword: formData.newPassword,
+      });
+
+      setModal({
+        visible: true,
+        type: 'success',
+        message: 'Password changed successfully',
+      });
+
+      setFormData(prev => ({
+        ...prev,
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      }));
+
+      setEditableFields(prev => ({
+        ...prev,
+        currentPassword: false,
+        newPassword: false,
+        confirmPassword: false,
+      }));
+    } catch (err) {
+      setModal({
+        visible: true,
+        type: 'error',
+        message: err?.response?.data?.message || 'Failed to change password',
+      });
+    }
   };
+
+
+  useEffect(() => {
+    if (!modal.visible) return;
+    const timer = setTimeout(
+      () => setModal(m => ({ ...m, visible: false })),
+      2000
+    );
+    return () => clearTimeout(timer);
+  }, [modal.visible]);
+
 
   return (
     <>
-    <div className="max-w-4xl mx-auto p-6 bg-white-50 rounded-lg shadow-md">
-      {/* Header */}
-      <section className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <div className="mb-4">
-          <h1 className="text-3xl font-semibold text-gray-800">My Profile</h1>
-          <p className="text-gray-600">Manage your personal information and delivery details</p>
-        </div>
-        <div>
-          <UserNavbar />
-        </div>
-      </section>
-
-      <hr className="my-6 border-gray-300" />
-
-      {/* Personal Information */}
-      <section className="mb-8 border border-black rounded-md px-4 sm:px-6 md:px-10 py-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-700 mb-6">Personal Information</h2>
-        <form className="space-y-4">
-          {[
-            { label: 'Full Name', name: 'name', type: 'text' },
-            { label: 'Phone Number', name: 'phone', type: 'text' },
-            { label: 'Email Address', name: 'email', type: 'email' },
-          ].map((field) => (
-            <div key={field.name} className=" relative flex flex-col ml-[82px] mt-[32px] items-start gap-3">
-              <label className="w-36 font-bold text-gray-700">{field.label}:</label>
-              <input
-                type={field.type}
-                name={field.name}
-                value={formData[field.name]}
-                readOnly={field.name === 'email' ? true : !editableFields[field.name]}
-                onChange={handleChange}
-                className={`w-full max-w-[596px] text-1xl font-medium h-15 sm-h-[56px] p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-                  editableFields[field.name] ? 'border-blue-400' : 'border-gray-300 bg-gray-100'
-                }`}
-              />
-              {field.name !== 'email' && !editableFields[field.name] && (
-  <MdOutlineModeEdit
-  onClick={() => toggleEdit(field.name)}
-  className="
-    absolute 
-    top-1/2 
-    -translate-y-1/2 
-    right-2
-    text-xl md:text-2xl  
-    text-gray-500 
-    hover:text-blue-500 
-    cursor-pointer
-    md:mr-[40px]  
-  "
-/>
-
-)}
-            </div>
-          ))}
-        </form>
-      </section>
-
-      {/* Delivery Address */}
-      <section className="mb-8 border border-black rounded-md px-4 sm:px-6 md:px-10 py-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-700 mb-6">Delivery Address</h2>
-        <form className="space-y-4">
-          <div className="flex items-center gap-3">
-            <label className="w-36 text-gray-700 font-medium">Address Line:</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              readOnly={!editableFields.address}
-              onChange={handleChange}
-              className={`flex-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-                editableFields.address ? 'border-blue-400' : 'border-gray-300 bg-gray-100'
-              }`}
-            />
-            {!editableFields.address && (
-              <MdOutlineModeEdit
-                onClick={() => toggleEdit('address')}
-                className="text-gray-500 hover:text-blue-500 cursor-pointer"
-              />
-            )}
+      <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+        <section className="flex justify-between mb-6">
+          <div>
+            <h1 className="text-3xl font-semibold">My Profile</h1>
+            <p className="text-gray-600">Manage your account</p>
           </div>
-        </form>
-      </section>
+          <UserNavbar />
+        </section>
 
-      {/* Security */}
-      <section className="mb-8 border border-black rounded-md px-4 sm:px-6 md:px-10 py-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-700 mb-6">Security</h2>
-        <form className="space-y-4">
+        <Section title="Personal Information">
+          {[
+            { label: 'Full Name', name: 'name' },
+            { label: 'Phone Number', name: 'phone' },
+            { label: 'Email Address', name: 'email', readOnlyEmail: true },
+          ].map(f => (
+            <InputField
+              key={f.name}
+              {...f}
+              value={formData[f.name]}
+              editable={editableFields[f.name]}
+              onEdit={toggleEdit}
+              onChange={handleChange}
+              error={errors[f.name]}
+            />
+          ))}
+        </Section>
+        
+        {user?.addresses?.length > 0 && (
+  <Section title="Default Address">
+    <InputField
+      label="Address"
+      name="defaultAddress"
+      value={
+        user.addresses.find(addr => addr.isDefault)
+          ? `${user.addresses.find(addr => addr.isDefault).street}, ${user.addresses.find(addr => addr.isDefault).city}`
+          : 'No default address set'
+      }
+      editable={false}
+      readOnly
+      hideEditIcon
+    />
+  </Section>
+)}
+
+        <Section title="Security">
           {[
             { label: 'Current Password', name: 'currentPassword', type: 'password' },
             { label: 'New Password', name: 'newPassword', type: 'password' },
             { label: 'Confirm New Password', name: 'confirmPassword', type: 'password' },
-          ].map((field) => (
-            <div key={field.name} className="flex items-center gap-3">
-              <label className="w-36 text-gray-700 font-medium">{field.label}:</label>
-              <input
-                type={field.type}
-                name={field.name}
-                value={formData[field.name]}
-                readOnly={!editableFields[field.name]}
-                onChange={handleChange}
-                className={`flex-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-                  editableFields[field.name] ? 'border-blue-400' : 'border-gray-300 bg-gray-100'
-                }`}
-              />
-              {!editableFields[field.name] && (
-                <MdOutlineModeEdit
-                  onClick={() => toggleEdit(field.name)}
-                  className="text-gray-500 hover:text-blue-500 cursor-pointer"
-                />
-              )}
-            </div>
+          ].map(f => (
+            <InputField
+              key={f.name}
+              {...f}
+              value={formData[f.name]}
+              editable={editableFields[f.name]}
+              onEdit={toggleEdit}
+              onChange={handleChange}
+              error={errors[f.name]}
+            />
           ))}
-        </form>
-      </section>
+        </Section>
 
-      {/* Save Button */}
-      <div className="text-center">
-        <button
-          onClick={handleSave}
-          className="px-6 py-2 bg-orange-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors"
-        >
-          Save Changes
-        </button>
+        <div className="flex justify-center gap-6">
+          <button
+            disabled={!hasProfileChanges}
+            onClick={saveProfile}
+            className="px-6 py-2 bg-orange-600 text-white rounded disabled:bg-gray-400"
+          >
+            Save Profile
+          </button>
+
+          <button
+            disabled={!hasPasswordChanges}
+            onClick={changePassword}
+            className="px-6 py-2 bg-blue-600 text-white rounded disabled:bg-gray-400"
+          >
+            Change Password
+          </button>
+        </div>
       </div>
 
-    </div>
-    <Footer />
+      <UserAccountCreated user={user} />
+
+
+      <Footer />
+
+      {modal.visible && (
+        <Modal
+          type={modal.type}
+          message={modal.message}
+          onClose={() => setModal(m => ({ ...m, visible: false }))}
+        />
+      )}
     </>
   );
 };
