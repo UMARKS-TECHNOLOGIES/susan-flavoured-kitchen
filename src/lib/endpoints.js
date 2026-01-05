@@ -1,3 +1,5 @@
+import { Menu } from 'lucide-react';
+
 export const API = {
   AUTH: import.meta.env.VITE_API_AUTH_PATH || '/api/v1/user',
   PRODUCTS: import.meta.env.VITE_API_PRODUCTS_PATH || '/api/v1/products',
@@ -5,4 +7,5 @@ export const API = {
   ORDER: import.meta.env.VITE_API_ORDERS_PATH || '/api/v1/order',
   ADMIN: import.meta.env.VITE_API_ADMIN_PATH || '/api/v1/admin',
   USER: import.meta.env.VITE_API_USERS_PATH || '/api/v1/user',
+  MENU: import.meta.env.VITE_API_MENU_PATH || '/api/v1/menu',
 };

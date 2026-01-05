@@ -30,12 +30,12 @@ import DashboardProducts from './pages/user/dashboard/DashboardProducts';
 import DashboardHome from './pages/user/dashboard/DashboardHome';
 import AccountSettings from './pages/user/dashboard/AccountSettings';
 import { useAuth } from './store/useAuth';
-import Categories from './pages/admin/pages/menu/Categories';
-import Products from './pages/admin/pages/menu/Products';
-import OrdersManagement from './pages/admin/pages/OrdersManagement';
-import Users from './pages/admin/pages/Users';
-import Payments from './pages/admin/pages/Payments';
-import AdminLayout from './pages/admin/AdminLayout';
+import Categories from './pages/admin/menu/Categories';
+import Products from './pages/admin/menu/Products';
+import OrdersManagement from './pages/admin/OrdersManagement';
+import Users from './pages/admin/Users';
+import Payments from './pages/admin/Payments';
+import AdminLayout from './pages/admin/adminLayout/AdminLayout';
 import Index from './pages/admin/Index';
 
 const App = () => {

@@ -36,12 +36,12 @@ export default function Index() {
           icon={Users}
           hint="Auth system"
         />
-        <StatCard
+        {/* <StatCard
           title="Growth"
           value="0%"
           icon={TrendingUp}
           hint="Analytics"
-        />
+        /> */}
         <StatCard
           title="Notifications"
           value="0"

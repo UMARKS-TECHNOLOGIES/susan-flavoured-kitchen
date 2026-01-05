@@ -33,10 +33,14 @@ if (useAuth.getState().user === 'admin') {
 
 // OPTIONAL: attach token if you even have auth
 api.interceptors.request.use(config => {
-  const token =
-    useAuth.getState().user === 'admin'
-      ? localStorage.getItem('AdminAccessToken')
-      : localStorage.getItem('accessToken');
+  let token = null;
+
+  if (useAuth.getState().admin) {
+    token = localStorage.getItem('AdminAccessToken');
+  } else if (useAuth.getState().user) {
+    token = localStorage.getItem('accessToken');
+  }
+
   if (token) {
     config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
   }

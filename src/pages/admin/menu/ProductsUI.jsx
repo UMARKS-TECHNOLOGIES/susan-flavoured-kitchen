@@ -1,57 +1,20 @@
-import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import ProductService from './services/product.service';
-import CategoryService from './services/category.service';
 
-export default function Products() {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  const [form, setForm] = useState({
-    name: '',
-    price: '',
-    categoryId: '',
-    inStock: true,
-  });
-
-  const load = async () => {
-    const [pRes, cRes] = await Promise.all([
-      ProductService.getAll(),
-      CategoryService.getAll(),
-    ]);
-
-    setProducts(pRes.data.data || []);
-    setCategories(cRes.data.data || []);
-  };
-
-  const createProduct = async () => {
-    await ProductService.create({
-      ...form,
-      price: Number(form.price),
-    });
-    setForm({ name: '', price: '', categoryId: '', inStock: true });
-    load();
-  };
-
-  const toggleStock = async product => {
-    await ProductService.update(product.id, {
-      inStock: !product.inStock,
-    });
-    load();
-  };
-
-  const deleteProduct = async id => {
-    await ProductService.remove(id);
-    load();
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
-
+function ProductsUI({
+  form,
+  setForm,
+  categories,
+  createProduct,
+  loading,
+  products,
+  toggleStock,
+  deleteProduct,
+}) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Products</h2>
+      <h2 className="text-xl font-semibold capitalize">
+        welcome to Menu Management..!
+      </h2>
 
       {/* Create Product */}
       <div className="grid md:grid-cols-4 gap-3 bg-white p-4 border rounded-xl">
@@ -73,13 +36,27 @@ export default function Products() {
           className="border rounded px-3 py-2"
         >
           <option value="">Select category</option>
-          {categories.map(c => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
+          {categories.length > 0 ? (
+            categories.map(c => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))
+          ) : (
+            <option disabled>No categories available</option>
+          )}
         </select>
-        <Button onClick={createProduct}>Create</Button>
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={e => setForm({ ...form, image: e.target.files[0] })}
+          className="border rounded px-3 py-2"
+        />
+
+        <Button onClick={createProduct} disabled={loading}>
+          {loading ? 'Creating…' : 'Create'}
+        </Button>
       </div>
 
       {/* Products List */}
@@ -108,3 +85,4 @@ export default function Products() {
     </div>
   );
 }
+export default ProductsUI;
