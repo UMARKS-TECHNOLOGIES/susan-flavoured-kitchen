@@ -32,7 +32,7 @@ import AccountSettings from './pages/user/dashboard/AccountSettings';
 import { useAuth } from './store/useAuth';
 import Categories from './pages/admin/menu/Categories';
 import Products from './pages/admin/menu/Products';
-import OrdersManagement from './pages/admin/OrdersManagement';
+import OrdersManagement from './pages/admin/order-management/OrdersManagement';
 import Users from './pages/admin/users/Users';
 import Payments from './pages/admin/Payments';
 import AdminLayout from './pages/admin/adminLayout/AdminLayout';
