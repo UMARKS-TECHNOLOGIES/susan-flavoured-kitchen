@@ -4,7 +4,7 @@ import DeliveryDetails from './components/DeliveryDetails';
 import { Button } from '../../components/ui/button';
 import OrderSummary from '../cartPage/components/OrderSummary';
 import DeliveryMethod from './components/DeliveryMethod';
-import Navbar from '../../components/layout/Navbar';
+import Navbar from '../../components/layout/Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 

@@ -1,5 +1,5 @@
 import Footer from '@/components/layout/Footer';
-import Navbar from '@/components/layout/Navbar';
+import Navbar from '@/components/layout/Navbar/Navbar';
 import EmptyMenuState from '@/components/loaders/EmptyMenuState';
 import EmptySearchState from '@/components/loaders/EmptySearchState';
 import MenuSkeleton from '@/components/loaders/MenuSkeleton';

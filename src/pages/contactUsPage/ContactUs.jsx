@@ -1,45 +1,45 @@
-import React, { useState } from "react";
-import Navbar from "../../components/layout/Navbar";
-import Footer from "../../components/layout/Footer";
+import React, { useState } from 'react';
+import Navbar from '../../components/layout/Navbar/Navbar';
+import Footer from '../../components/layout/Footer';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../components/ui/dialog";
-import { Card, CardContent } from "../../components/ui/card";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "../../components/ui/input";
+} from '../../components/ui/dialog';
+import { Card, CardContent } from '../../components/ui/card';
+import { Label } from '@radix-ui/react-label';
+import { Input } from '../../components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../components/ui/select";
-import { Button } from "../../components/ui/button";
-import { Textarea } from "../../components/ui/textarea";
-import { Instagram, Mail, Phone } from "lucide-react";
-import HeroImage from "../../assets/contactImg.jpg";
-import { Separator } from "@radix-ui/react-separator";
+} from '../../components/ui/select';
+import { Button } from '../../components/ui/button';
+import { Textarea } from '../../components/ui/textarea';
+import { Instagram, Mail, Phone } from 'lucide-react';
+import HeroImage from '../../assets/contactImg.jpg';
+import { Separator } from '@radix-ui/react-separator';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPhoneOpen, setIsPhoneOpen] = useState(false);
 
   const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     // Validation
@@ -49,7 +49,7 @@ const ContactUs = () => {
       !formData.subject ||
       !formData.message
     ) {
-      alert("Please fill in all required fields");
+      alert('Please fill in all required fields');
       return;
     }
 
@@ -57,30 +57,30 @@ const ContactUs = () => {
 
     try {
       // Replace with your actual API endpoint
-      console.log("Submitting form:", formData);
+      console.log('Submitting form:', formData);
 
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       alert("Message sent successfully! We'll get back to you soon.");
 
       // Reset form
       setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: '',
       });
     } catch (error) {
-      console.error("Error sending message:", error);
-      alert("Failed to send message. Please try again.");
+      console.error('Error sending message:', error);
+      alert('Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const subjects = ["Order Inquiry", "Catering", "Feedback", "Other"];
+  const subjects = ['Order Inquiry', 'Catering', 'Feedback', 'Other'];
   return (
     <div className="min-h-screen bg-[#fff9f4]">
       <Navbar />
@@ -89,8 +89,8 @@ const ContactUs = () => {
         className="relative h-64 mt-17 mb-10  bg-cover bg-center flex items-center justify-center"
         style={{
           backgroundImage: `url(${HeroImage})`,
-          backgroundBlendMode: "overlay",
-          backgroundColor: "rgba(0, 0, 0, 0.2)",
+          backgroundBlendMode: 'overlay',
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -194,7 +194,7 @@ const ContactUs = () => {
                   id="name"
                   placeholder="Enter Your Full Name"
                   value={formData.name}
-                  onChange={(e) => handleChange("name", e.target.value)}
+                  onChange={e => handleChange('name', e.target.value)}
                   required
                 />
               </div>
@@ -208,7 +208,7 @@ const ContactUs = () => {
                   type="email"
                   placeholder="Enter Your Email"
                   value={formData.email}
-                  onChange={(e) => handleChange("email", e.target.value)}
+                  onChange={e => handleChange('email', e.target.value)}
                   required
                 />
               </div>
@@ -225,7 +225,7 @@ const ContactUs = () => {
                   type="tel"
                   placeholder="Enter Your Number"
                   value={formData.phone}
-                  onChange={(e) => handleChange("phone", e.target.value)}
+                  onChange={e => handleChange('phone', e.target.value)}
                 />
               </div>
 
@@ -235,13 +235,13 @@ const ContactUs = () => {
                 </Label>
                 <Select
                   value={formData.subject}
-                  onValueChange={(value) => handleChange("subject", value)}
+                  onValueChange={value => handleChange('subject', value)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
-                    {subjects.map((subject) => (
+                    {subjects.map(subject => (
                       <SelectItem key={subject} value={subject}>
                         {subject}
                       </SelectItem>
@@ -261,7 +261,7 @@ const ContactUs = () => {
                 placeholder="Type Your Message"
                 rows={10}
                 value={formData.message}
-                onChange={(e) => handleChange("message", e.target.value)}
+                onChange={e => handleChange('message', e.target.value)}
                 required
                 className="resize-none"
               />
@@ -275,7 +275,7 @@ const ContactUs = () => {
                 disabled={isSubmitting}
                 className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-base disabled:opacity-50"
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
             </div>
           </div>
