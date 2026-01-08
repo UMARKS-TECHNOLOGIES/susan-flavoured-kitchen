@@ -5,6 +5,7 @@ import { BiCart } from 'react-icons/bi';
 import { IoPerson } from 'react-icons/io5';
 import { useAuth } from '@/store/useAuth';
 import { Link } from 'react-router-dom';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 export function NavRightIcon({
   categories,
@@ -52,15 +53,22 @@ export function NavRightIcon({
       {/* USER */}
       <div className="relative">
         {user ? (
-          <>
+          <div>
             <button onClick={() => setShowUserMenu(v => !v)}>
               <IoPerson className="text-2xl" />
             </button>
 
             {showUserMenu && (
               <div className="absolute right-0 mt-2 w-44 bg-white rounded-md shadow-lg py-2 border">
-                <div className="px-4 py-2 text-sm text-gray-700">
-                  {user.name || user.email}
+                <div
+                  onClick={
+                    user.role === 'user'
+                      ? navigate('/dashboard')
+                      : navigate('/admin')
+                  }
+                  className="cursor-pointer px-4 w-full hover:text-orange-500 py-2 text-sm flex items-center text-gray-700"
+                >
+                  <p>DashBoard</p> <FaArrowRight />
                 </div>
 
                 {user.role === 'admin' && (
@@ -83,7 +91,7 @@ export function NavRightIcon({
                 </button>
               </div>
             )}
-          </>
+          </div>
         ) : (
           <Link to="/login">
             <IoPerson className="text-2xl" />
