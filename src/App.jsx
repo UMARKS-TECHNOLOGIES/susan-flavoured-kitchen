@@ -37,6 +37,7 @@ import Users from './pages/admin/users/Users';
 import Payments from './pages/admin/Payments';
 import AdminLayout from './pages/admin/adminLayout/AdminLayout';
 import Index from './pages/admin/Index';
+import SearchPage from './components/layout/Navbar/SearchPage';
 
 const App = () => {
   const { initializeAuth } = useAuth();
@@ -69,6 +70,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/checkout"
           element={
@@ -85,6 +87,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/event" element={<HomeEvent />} />

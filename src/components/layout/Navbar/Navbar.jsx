@@ -4,6 +4,7 @@ import { navLinks } from './dataCenter';
 import { DeskTopNavBar } from './DeskTopNavbar';
 import { API } from '@/lib/endpoints';
 import { NavMobile } from './NavMobile';
+import CategoryOverlay from './CategoryOverlay';
 
 const Navbar = () => {
   const totalItems = 0;
@@ -16,6 +17,7 @@ const Navbar = () => {
   const [categories, setCategories] = useState([]);
   const [catLoading, setCatLoading] = useState(false);
   const [catError, setCatError] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(null);
 
   // Fetch menu categories
   useEffect(() => {
@@ -24,7 +26,7 @@ const Navbar = () => {
       setCatError(false);
 
       try {
-        const res = await api.get(`${API.MENU}/`);
+        const res = await api.get(`${API.MENU}/categories`);
         const data = res.data?.data || res.data || [];
 
         if (!Array.isArray(data) || data.length === 0) {
@@ -61,7 +63,16 @@ const Navbar = () => {
           setShowUserMenu={setShowUserMenu}
           showUserMenu={showUserMenu}
           totalItems={totalItems}
+          onCategorySelect={setActiveCategory}
+          categories={categories}
         />
+
+        {activeCategory && (
+          <CategoryOverlay
+            category={activeCategory}
+            onClose={() => setActiveCategory(null)}
+          />
+        )}
 
         {/* ================= MOBILE ================= */}
         <NavMobile

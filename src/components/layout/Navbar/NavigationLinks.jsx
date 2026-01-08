@@ -1,5 +1,5 @@
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { MdKeyboardArrowDown } from 'react-icons/md';
+import { NavLink } from 'react-router-dom';
 
 export default function NavigationLinks({
   navLinks,
@@ -7,9 +7,10 @@ export default function NavigationLinks({
   openDropdown,
   catLoading,
   catError,
+  onCategorySelect,
 }) {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-evenly w-full">
       {navLinks.map(link =>
         link.dropdown ? (
           <div key={link.name} className="relative">
@@ -33,14 +34,22 @@ export default function NavigationLinks({
 
             {openDropdown === link.name && (
               <div className="absolute top-full left-0 mt-2 w-52 bg-white rounded-md shadow-lg py-2 border border-gray-100 z-50">
+                {/* Loading */}
                 {catLoading && (
-                  <div className="px-4 py-2 text-sm text-gray-400">
-                    Loading menu…
+                  <div className="p-3 space-y-2">
+                    {[...Array(4)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="h-4 w-28 bg-gray-200 rounded-md animate-pulse"
+                      />
+                    ))}
                   </div>
                 )}
 
+                {/* Error */}
                 {!catLoading && catError && (
-                  <div className="px-4 py-2 text-sm text-red-500">
+                  <div className="px-4 py-3 text-sm text-gray-500 flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-orange-500" />
                     Menu unavailable
                   </div>
                 )}
@@ -48,14 +57,16 @@ export default function NavigationLinks({
                 {!catLoading &&
                   !catError &&
                   link.dropdown.map(category => (
-                    <NavLink
-                      key={category}
-                      to={`/menu?category=${encodeURIComponent(category)}`}
-                      onClick={() => setOpenDropdown(null)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                    <button
+                      key={category._id}
+                      onClick={() => {
+                        onCategorySelect(category);
+                        setOpenDropdown(null);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
                     >
-                      {category}
-                    </NavLink>
+                      {category.name}
+                    </button>
                   ))}
               </div>
             )}
