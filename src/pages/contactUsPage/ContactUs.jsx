@@ -83,7 +83,6 @@ const ContactUs = () => {
   const subjects = ['Order Inquiry', 'Catering', 'Feedback', 'Other'];
   return (
     <div className="min-h-screen bg-[#fff9f4]">
-      <Navbar />
       {/* Hero Section */}
       <div
         className="relative h-64 mt-17 mb-10  bg-cover bg-center flex items-center justify-center"
@@ -281,7 +280,6 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

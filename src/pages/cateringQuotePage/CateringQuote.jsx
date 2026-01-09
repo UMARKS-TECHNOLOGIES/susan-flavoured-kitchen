@@ -4,8 +4,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { X, Smile, Frown } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -15,7 +13,6 @@ import {
 } from '@/components/ui/select';
 import RequestSubmittedModal from './components/RequestSubmittedModal';
 import RequestFailedModal from './components/RequestFailedModal';
-import Navbar from '@/components/layout/Navbar/Navbar';
 
 const CateringQuote = () => {
   const [formData, setFormData] = useState({
@@ -148,7 +145,6 @@ const CateringQuote = () => {
   };
   return (
     <div className="bg-[#fffcfa]">
-      <Navbar />
       <div className="max-w-5xl mx-auto px-4 py-12 mt-20">
         <div className="bg-white rounded-lg shadow-sm p-8">
           {/* Event Details Section */}

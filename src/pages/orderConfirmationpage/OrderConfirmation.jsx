@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '../../components/ui/button';
 import OrderItem from './components/OrderItem';
 import { CheckCircle2 } from 'lucide-react';
-import Navbar from '../../components/layout/Navbar/Navbar';
 import Footer from '../../components/layout/Footer';
 import Image5 from '../../assets/jollof-rice.jpg';
 import Image10 from '../../assets/sharwarma.jpeg';
@@ -58,7 +57,6 @@ const OrderConfirmation = () => {
   };
   return (
     <div className="min-h-screen bg-[#fff9f4] pt-8">
-      <Navbar />
       <div className="max-w-7xl mx-auto px-4 my-20">
         {/* Success Header */}
         <div className="mb-8">

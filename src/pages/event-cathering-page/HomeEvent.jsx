@@ -11,7 +11,6 @@ import Eventswiper from './components/Eventswiper';
 const HomeEvent = () => {
   return (
     <section>
-      <Navbar />
       <Hero />
       <WhyChooseUs />
       <HowItWorks />
@@ -19,7 +18,6 @@ const HomeEvent = () => {
       <Eventswiper />
       <ClientReview />
       <Amazing />
-      <Footer />
     </section>
   );
 };

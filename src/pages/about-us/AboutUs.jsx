@@ -10,14 +10,12 @@ import Footer from './components/Footer';
 const AboutUs = () => {
   return (
     <section className="overflow-hidden">
-      <Navbar />
       <Hero />
       <Story />
       <Mission />
       <Auth />
       <Commitment />
       <Quality />
-      <Footer />
     </section>
   );
 };

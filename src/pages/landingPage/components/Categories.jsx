@@ -1,77 +1,95 @@
-import React from "react";
-import { Button } from "../../../components/ui/button";
-import Soup from "../../../assets/image2.png";
-import Drink from "../../../assets/image3.png";
-import Rice from "../../../assets/image4.png";
-import Events from "../../../assets/image7.jpg";
-import Cakes from "../../../assets/image5.jpg";
-import Pastries from "../../../assets/image6.png";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Button } from '../../../components/ui/button';
+import { Link } from 'react-router-dom';
+import api from '@/lib/api';
+import { API } from '@/lib/endpoints';
+import Placeholder from '../../../assets/chickenChps.jpeg';
 
 const Categories = () => {
-  const categoryItems = [
-    {
-      id: 1,
-      name: "Soup & Stews",
-      imageUrl: Soup,
-    },
-    {
-      id: 2,
-      name: "Drinks",
-      imageUrl: Drink,
-    },
-    {
-      id: 3,
-      name: "Rice Dishes",
-      imageUrl: Rice,
-    },
-    {
-      id: 4,
-      name: "Event Catering",
-      imageUrl: Events,
-    },
-    {
-      id: 5,
-      name: "Cakes",
-      imageUrl: Cakes,
-    },
-    {
-      id: 6,
-      name: "Pastries",
-      imageUrl: Pastries,
-    },
-  ];
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
+      setError(false);
+
+      try {
+        const res = await api.get(`${API.MENU}/categories`);
+        const data = res.data?.data || [];
+        setCategories(data);
+      } catch (err) {
+        console.error('Failed to fetch categories', err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  if (loading)
+    return (
+      <p className="text-center mt-10 text-gray-500">Loading categories…</p>
+    );
+  if (error)
+    return (
+      <p className="text-center mt-10 text-red-500">
+        Failed to load categories
+      </p>
+    );
 
   return (
-    <section className="w-full lg:max-w-5xl mx-auto mt-4 lg:mt-0 relative top-0 lg:top-16 px-4 lg:px-0">
-      <h3 className="text-2xl lg:text-3xl font-medium mb-4 lg:mb-0">
-        Categories
-      </h3>
+    <section className="w-full lg:max-w-7xl mx-auto mt-6 px-4 lg:px-0">
+      <h2 className="text-3xl font-semibold mb-6">Categories</h2>
 
-      {/* Mobile: Horizontal Scroll, Desktop: Grid */}
-      <div className="my-5 flex flex-nowrap overflow-x-auto scrollbar-hide gap-4 pb-4 -mx-4 px-4 snap-x snap-mandatory lg:pb-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-9 lg:mx-0 lg:px-0">
-        {categoryItems.map((item) => (
-          <div
-            key={item.id}
-            className="relative min-w-[280px] h-[200px] lg:w-80 lg:h-50 items-center text-center flex justify-center bg-cover bg-no-repeat rounded-br-lg rounded-tl-lg shrink-0 snap-center"
-            style={{
-              backgroundImage: `url(${item.imageUrl})`,
-            }}
-          >
-            <div className="bg-white/70 px-6 py-2 rounded-br-lg rounded-tl-lg backdrop-blur-sm">
-              <h3 className="text-xl lg:text-2xl font-bold">{item.name}</h3>
-              <Link to='/admin'>
-                <Button
-                  className="my-3 lg:my-4 bg-orange-600 rounded-br-lg rounded-tl-lg cursor-pointer hover:bg-orange-500 text-white font-medium text-sm lg:text-base h-9 lg:h-11"
-                  size="lg"
-                >
-                  View Menu
-                </Button>
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+      {categories.length === 0 ? (
+        <p className="text-center text-gray-400 mt-20">
+          No categories available.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {categories.map(cat => {
+            const imageUrl = cat.imageUrl
+              ? `${API.BASEURL}${cat.imageUrl}`
+              : Placeholder;
+
+            return (
+              <div
+                key={cat._id}
+                className="relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-1 cursor-pointer group"
+              >
+                {/* Category Image */}
+                <img
+                  src={imageUrl}
+                  alt={cat.name}
+                  className="h-56 w-full object-cover rounded-xl transition-transform group-hover:scale-110"
+                />
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-center p-4 rounded-xl">
+                  <h3 className="text-lg font-semibold text-white">
+                    {cat.name}
+                  </h3>
+                  <p className="text-gray-200 text-sm mt-1">
+                    {cat.items?.length || 0} items
+                  </p>
+                  <Link
+                    to={`/menu?category=${cat._id}`}
+                    state={{ catItems: cat.items }}
+                  >
+                    <Button className="mt-3 bg-orange-600 hover:bg-orange-500 text-white text-sm rounded-lg py-2 w-full">
+                      View Menu
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 };

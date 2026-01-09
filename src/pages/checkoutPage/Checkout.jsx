@@ -4,7 +4,6 @@ import DeliveryDetails from './components/DeliveryDetails';
 import { Button } from '../../components/ui/button';
 import OrderSummary from '../cartPage/components/OrderSummary';
 import DeliveryMethod from './components/DeliveryMethod';
-import Navbar from '../../components/layout/Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
@@ -63,7 +62,6 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-[#FFF9F4] pb-8">
-      <Navbar />
       <div className="max-w-5xl mx-auto px-4 pt-24 lg:pt-32">
         <button
           onClick={() => navigate(-1)}

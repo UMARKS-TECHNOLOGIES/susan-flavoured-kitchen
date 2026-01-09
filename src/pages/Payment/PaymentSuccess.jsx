@@ -38,7 +38,6 @@ const PaymentSuccess = () => {
 
   return (
     <div className="min-h-screen bg-[#fff9f4]">
-      <Navbar />
       <main className="max-w-4xl mx-auto px-4 py-24">
         <h1 className="text-2xl font-bold mb-4">Payment Successful</h1>
 

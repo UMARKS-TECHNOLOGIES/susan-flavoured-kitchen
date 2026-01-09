@@ -38,6 +38,7 @@ import Payments from './pages/admin/Payments';
 import AdminLayout from './pages/admin/adminLayout/AdminLayout';
 import Index from './pages/admin/Index';
 import SearchPage from './components/layout/Navbar/SearchPage';
+import PublicLayout from './components/PublicLayout/PublicLayout';
 
 const App = () => {
   const { initializeAuth } = useAuth();
@@ -49,51 +50,54 @@ const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
-        {/* auth route */}
 
+      <Routes>
+        {/* ================= PUBLIC LAYOUT ================= */}
+        <Route element={<PublicLayout/>}>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/event" element={<HomeEvent />} />
+          <Route path="/catering-quote" element={<CateringQuote />} />
+
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/orderconfirmation"
+            element={
+              <ProtectedRoute>
+                <OrderConfirmation />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+
+        {/* ================= AUTH  ================= */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
         <Route path="/resetpassword" element={<ResetPasswordPage />} />
-        <Route path="/signup" element={<SignupPage />} />
 
-        {/* dynamic product route */}
-        <Route path="/product/:id" element={<ProductDetails />} />
-        {/* other routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/checkout"
-          element={
-            <ProtectedRoute>
-              <Checkout />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/orderconfirmation"
-          element={
-            <ProtectedRoute>
-              <OrderConfirmation />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/event" element={<HomeEvent />} />
-        <Route path="/catering-quote" element={<CateringQuote />} />
-
-        {/* admin */}
+        {/* ================= ADMIN DASHBOARD ================= */}
         <Route
           path="/admin"
           element={
@@ -102,7 +106,7 @@ const App = () => {
             </AdminRoute>
           }
         >
-          <Route index path={'*'} element={<Index />} />
+          <Route index element={<Index />} />
           <Route path="categories" element={<Categories />} />
           <Route path="products" element={<Products />} />
           <Route path="orders" element={<OrdersManagement />} />
@@ -110,7 +114,7 @@ const App = () => {
           <Route path="payments" element={<Payments />} />
         </Route>
 
-        {/* user */}
+        {/* ================= USER DASHBOARD ================= */}
         <Route
           path="/dashboard"
           element={
@@ -126,6 +130,7 @@ const App = () => {
           <Route path="account" element={<AccountSettings />} />
         </Route>
 
+        {/* ================= PAYMENT ================= */}
         <Route path="/payment/success" element={<PaymentSuccess />} />
         <Route path="/payment/cancel" element={<PaymentCancel />} />
       </Routes>
