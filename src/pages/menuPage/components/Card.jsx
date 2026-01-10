@@ -10,36 +10,6 @@ const Card = ({ product, item }) => {
   const [loading, setLoading] = useState(false);
   const [added, setAdded] = useState(false);
 
-  const addToCart = async () => {
-    if (loading || added) return;
-
-    try {
-      setLoading(true);
-
-      const res = await api.post(`${API.CART}/add-to-cart`, {
-        productId: data.id,
-        quantity: 1,
-      });
-
-      if (res.status !== 200) {
-        console.log('Res:', res.data.message);
-        setAdded(false);
-        reportError(res.data.message);
-        return;
-      }
-
-      setAdded(true);
-      setTimeout(() => {
-        setAdded(false);
-      }, 2000);
-    } catch (err) {
-      console.error('Add to cart failed', err);
-      reportError(err.message || 'Add to cart failed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="bg-white p-2 md:p-4 rounded-lg shadow-sm border border-gray-200">
       <div className="flex items-center justify-center">
@@ -62,19 +32,7 @@ const Card = ({ product, item }) => {
           £{data.price.toFixed(2)}
         </p>
 
-        <Button
-          onClick={addToCart}
-          disabled={loading}
-          size="sm"
-          className={`py-1 px-1.5 md:px-3 text-[10px] md:text-sm rounded-md
-            ${
-              added
-                ? 'bg-green-600 hover:bg-green-600'
-                : 'bg-orange-600 hover:bg-orange-700'
-            }`}
-        >
-          {loading ? 'Adding...' : added ? 'Added ✓' : 'Add to Cart'}
-        </Button>
+        <CartButton item={item} />
       </div>
     </div>
   );

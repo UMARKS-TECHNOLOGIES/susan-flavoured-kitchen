@@ -1,5 +1,3 @@
-import { Menu } from 'lucide-react';
-
 export const API = {
   AUTH: import.meta.env.VITE_API_AUTH_PATH || '/api/v1/user',
   PRODUCTS: import.meta.env.VITE_API_PRODUCTS_PATH || '/api/v1/products',
@@ -10,15 +8,18 @@ export const API = {
   MENU: import.meta.env.VITE_API_MENU_PATH || '/api/v1/menu',
 
   PROFILE: import.meta.env.VITE_API_PROFILE_PATH || '/api/v1/user/profile',
-  CHANGEPASSWORD:
-    import.meta.env.VITE_API_CHANGE_PASSWORD_PATH ||
-    '/api/v1/user/change-password',
+  CHANGEPASSWORD: import.meta.env.VITE_API_CHANGE_PASSWORD_PATH || '/api/v1/user/change-password',
   LOGOUT: import.meta.env.VITE_API_LOGOUT_PATH || '/api/v1/user/logout',
   FORGOTTPASSWORD: import.meta.env.VITE_API_FORGOTTPASSWORD_PATH || '/api/v1/user/forgot-password',
   RESETPASSWORD: import.meta.env.VITE_API_RESETPASSWORD || '/api/v1/user/reset-password',
-    ADDRESSES: '/api/v1/address',
-EDIT_ADDRESS: (id) => `/api/v1/address/${id}`,
-DELETE_ADDRESS: (id) => `/api/v1/address/${id}`,
-SET_DEFAULT: (id) => `/api/v1/address/${id}/default`,
-GET_DEFAULT: '/api/v1/address/default',
+
+  ADDRESSES: '/api/v1/address',
+  EDIT_ADDRESS: (id) => `/api/v1/address/${id}`,
+  DELETE_ADDRESS: (id) => `/api/v1/address/${id}`,
+  SET_DEFAULT: (id) => `/api/v1/address/${id}/default`,
+  GET_DEFAULT: '/api/v1/address/default',
+
+  BASEURL: import.meta.env.VITE_NODE_ENV === 'production'
+    ? import.meta.env.VITE_API_BASE_URL
+    : import.meta.env.VITE_DEV_SERVER,
 };

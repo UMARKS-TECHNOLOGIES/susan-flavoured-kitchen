@@ -13,10 +13,10 @@ function SideBar({ logout, navigate }) {
   const links = [
     { to: '*', label: 'Dashboard', Icon: LayoutDashboard },
     { to: 'orders', label: 'Orders', Icon: ShoppingBag },
-    { to: 'products', label: 'Menu', Icon: Utensils },
     { to: 'payments', label: 'Payments', Icon: CreditCard },
     { to: 'users', label: 'Users', Icon: Users },
-    { to: 'categories', label: 'Create-Category', Icon: BiCategoryAlt },
+    { to: 'products', label: 'Prdouct-Management', Icon: Utensils },
+    { to: 'categories', label: 'Category-Management', Icon: BiCategoryAlt },
   ];
 
   return (

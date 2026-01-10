@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Minus, Plus } from "lucide-react";
-import ProductAccordion from "./ProductAccordion";
-import StarRating from "../../../components/layout/StarRating";
-import { useCart } from "../../../store/useCart";
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Minus, Plus } from 'lucide-react';
+import ProductAccordion from './ProductAccordion';
+import StarRating from '../../../components/layout/StarRating';
+import { useCart } from '../../../store/useCart';
 
 const ProductHeader = ({ product, item }) => {
   const { addToCart, getItemQuantity } = useCart();
@@ -12,7 +12,7 @@ const ProductHeader = ({ product, item }) => {
   const data = product || item;
 
   if (!data) {
-    console.error("ProductHeader: No product/item prop provided");
+    console.error('ProductHeader: No product/item prop provided');
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
         <p className="text-gray-500">Product not found</p>
@@ -21,7 +21,7 @@ const ProductHeader = ({ product, item }) => {
   }
 
   if (!data.id) {
-    console.error("ProductHeader: Product missing id", data);
+    console.error('ProductHeader: Product missing id', data);
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
         <p className="text-gray-500">Invalid product data</p>
@@ -64,7 +64,7 @@ const ProductHeader = ({ product, item }) => {
         {cartQuantity > 0 && (
           <div className="mb-3 p-3 bg-green-50 rounded-lg text-center md:text-left">
             <p className="text-sm text-green-700 font-medium">
-              {cartQuantity} item{cartQuantity > 1 ? "s" : ""} in cart
+              {cartQuantity} item{cartQuantity > 1 ? 's' : ''} in cart
             </p>
           </div>
         )}
@@ -92,12 +92,7 @@ const ProductHeader = ({ product, item }) => {
             </Button>
           </div>
 
-          <Button
-            onClick={handleAddToCart}
-            className="w-full md:w-auto bg-orange-500 hover:bg-orange-600 text-white text-base py-6 md:py-2 px-8 rounded-lg font-bold"
-          >
-            Add to Cart
-          </Button>
+          <CartButton item={item} />
         </div>
 
         <ProductAccordion product={data} />

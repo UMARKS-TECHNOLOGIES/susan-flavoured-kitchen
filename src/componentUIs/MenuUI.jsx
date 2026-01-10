@@ -1,5 +1,3 @@
-import Footer from '@/components/layout/Footer';
-import Navbar from '@/components/layout/Navbar';
 import EmptyMenuState from '@/components/loaders/EmptyMenuState';
 import EmptySearchState from '@/components/loaders/EmptySearchState';
 import MenuSkeleton from '@/components/loaders/MenuSkeleton';
@@ -16,12 +14,10 @@ function MenuUI({
   groupedMenu,
   searchQuery,
 }) {
-  //   const shouldShowCategory = category =>
-  //     activeCategory === 'All' || activeCategory === category;
+
 
   return (
     <div className="bg-[#fffcfa] overflow-hidden">
-      <Navbar />
 
       {/* MOBILE SEARCH */}
       <div className="px-4 mt-24 mb-6 lg:hidden">
@@ -91,7 +87,6 @@ function MenuUI({
           })}
       </section>
 
-      <Footer />
     </div>
   );
 }

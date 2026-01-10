@@ -7,8 +7,7 @@ export async function getAllCategories() {
     const res = await CategoryService.getAll();
     if (res.status !== 200)
       throw new Error(res.data.error || 'Unable to fetch categories');
-    console.log(res.data);
-    return res.data || [];
+    return res.data.data || [];
   } catch (err) {
     reportError(err.message);
     console.error('getAllCategories error:', err.message);

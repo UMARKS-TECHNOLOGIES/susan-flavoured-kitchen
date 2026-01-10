@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useAuth } from '@/store/useAuth';
 
 //set baseURL based on node environment variables
 let baseURL =
@@ -18,26 +17,19 @@ if (import.meta.env.VITE_NODE_ENV !== 'production' && devServer) {
 }
 const api = axios.create({
   baseURL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
   withCredentials: false,
 });
-
-console.log('Initial user state:', useAuth.getState().user);
-
-if (useAuth.getState().user === 'admin') {
-  console.log('Admin user detected');
-  console.log('Admin token:', localStorage.getItem('AdminAccessToken'));
-}
 
 // OPTIONAL: attach token if you even have auth
 api.interceptors.request.use(config => {
   let token = null;
+  if (!(config.data instanceof FormData)) {
+    config.headers['Content-Type'] = 'application/json';
+  }
 
-  if (useAuth.getState().admin) {
+  if (localStorage.getItem('admin-Role')) {
     token = localStorage.getItem('AdminAccessToken');
-  } else if (useAuth.getState().user) {
+  } else {
     token = localStorage.getItem('accessToken');
   }
 
@@ -45,6 +37,10 @@ api.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
   }
 
+  return config;
+});
+
+api.interceptors.request.use(config => {
   return config;
 });
 

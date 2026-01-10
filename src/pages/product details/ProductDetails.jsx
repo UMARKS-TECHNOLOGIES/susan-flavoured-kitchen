@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
 import ProductHeader from './components/ProductHeader';
 import GoesWellWith from './components/GoesWellWith';
 import ReviewList from './components/ReviewList';
@@ -34,9 +32,7 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <section className="bg-[#fffcfa] min-h-screen">
-        <Navbar />
         <div className="flex items-center justify-center py-20">Loading...</div>
-        <Footer />
       </section>
     );
   }
@@ -44,7 +40,6 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <section className="bg-[#fffcfa] min-h-screen">
-        <Navbar />
         <div className="flex flex-col items-center justify-center py-20">
           <h2 className="text-3xl font-bold mb-4">Product Not Found</h2>
           <p className="text-gray-600 mb-6">
@@ -57,21 +52,18 @@ const ProductDetails = () => {
             Browse Menu
           </Button>
         </div>
-        <Footer />
       </section>
     );
   }
 
   return (
     <section className="bg-[#fffcfa]">
-      <Navbar />
       <div className="pt-10 pb-20 space-y-12">
         <ProductHeader product={product} />
         <hr className="border-gray-300 border" />
         <GoesWellWith currentProductId={product.id} />
         <ReviewList />
       </div>
-      <Footer />
     </section>
   );
 };
