@@ -18,18 +18,24 @@ const CartPage = () => {
   const items = cart?.items;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8 ">
-      {/* LEFT: ITEMS */}
-      <div className="lg:col-span-2 space-y-6">
-        <h1 className="text-2xl font-semibold">Your Cart ({items?.length})</h1>
+    <section className="max-w-7xl mx-auto px-4 pt-24 pb-10">
+      <h1 className="text-2xl font-semibold mb-6">
+        Your Cart ({items.length})
+      </h1>
 
-        {items.map(item => {
-          return <CartItem key={item?._id} item={item} />;
-        })}
+      <div className="flex flex-col lg:flex-row gap-8 items-start">
+        {/* LEFT */}
+        <div className="w-full lg:flex-2 space-y-6">
+          {items.map(item => (
+            <CartItem key={item._id} item={item} />
+          ))}
+        </div>
+
+        {/* RIGHT */}
+        <div className="w-full lg:flex-1">
+          <CartSummary subtotal={cart.subtotal} />
+        </div>
       </div>
-
-      {/* RIGHT: SUMMARY */}
-      <CartSummary subtotal={cart?.subtotal} />
     </section>
   );
 };
