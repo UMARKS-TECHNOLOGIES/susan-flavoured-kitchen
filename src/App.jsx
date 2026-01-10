@@ -37,6 +37,8 @@ import Users from './pages/admin/Users';
 import Payments from './pages/admin/Payments';
 import AdminLayout from './pages/admin/adminLayout/AdminLayout';
 import Index from './pages/admin/Index';
+import UserAddresses from './pages/user/dashboard/UserAddresses';
+import { DangerZone } from './pages/user/dashboard/DangerZone';
 
 const App = () => {
   const { initializeAuth } = useAuth();
@@ -121,6 +123,8 @@ const App = () => {
           <Route path="cart" element={<DashboardCart />} />
           <Route path="orders" element={<DashboardOrders />} />
           <Route path="account" element={<AccountSettings />} />
+          <Route path="addresses" element={<UserAddresses />} />
+          <Route path="logout" element={<DangerZone />} />
         </Route>
 
         <Route path="/payment/success" element={<PaymentSuccess />} />

@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Eye, EyeOff } from 'lucide-react';
+import { IoArrowBack } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 export default function LoginUI(props) {
   return (
@@ -114,6 +116,17 @@ export default function LoginUI(props) {
                   Sign Up
                 </button>
               </div>
+
+              <div className="text-center">
+  <Link
+    to="/"
+    className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-orange-500 font-bold transition-colors"
+  >
+    <IoArrowBack className="w-4 h-4" />
+    Back to Home
+  </Link>
+</div>
+
             </div>
           </div>
         </div>

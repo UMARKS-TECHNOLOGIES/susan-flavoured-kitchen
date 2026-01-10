@@ -62,11 +62,13 @@ const GoesWellWith = ({ currentProductId }) => {
               className="min-w-[280px] md:min-w-[320px] bg-white rounded-lg shadow-sm border border-gray-200 p-4 space-y-3 flex flex-col justify-between"
             >
               <div className="flex items-center justify-center">
-                <img
-                  src={item.image}
-                  className="w-32 h-32 md:w-40 md:h-40 object-cover bg-center rounded-full"
-                />
-              </div>
+  <img
+    src={item.image}
+    alt={item.name || "Menu item image"}
+    className="w-32 h-32 md:w-40 md:h-40 object-cover bg-center rounded-full"
+  />
+</div>
+
 
               <div className="space-y-2">
                 <h3 className="font-bold text-xl md:text-2xl text-center md:text-left">

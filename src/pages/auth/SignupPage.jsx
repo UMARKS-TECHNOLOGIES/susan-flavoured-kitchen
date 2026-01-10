@@ -229,7 +229,7 @@ const SignupPage = () => {
                       className={`flex items-center gap-1 ${
                         validations.minLength
                           ? 'text-green-600'
-                          : 'text-gray-500'
+                          : 'text-red-500'
                       }`}
                     >
                       {validations.minLength ? (
@@ -243,7 +243,7 @@ const SignupPage = () => {
                       className={`flex items-center gap-1 ${
                         validations.hasUppercase
                           ? 'text-green-600'
-                          : 'text-gray-500'
+                          : 'text-red-500'
                       }`}
                     >
                       {validations.hasUppercase ? (
@@ -256,8 +256,8 @@ const SignupPage = () => {
                     <div
                       className={`flex items-center gap-1 ${
                         validations.hasSpecialChar
-                          ? 'text-red-600'
-                          : 'text-gray-500'
+                          ? 'text-green-600'
+                          : 'text-red-500'
                       }`}
                     >
                       {validations.hasSpecialChar ? (

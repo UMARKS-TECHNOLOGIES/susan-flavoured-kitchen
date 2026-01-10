@@ -12,6 +12,8 @@ export const useAuth = create(
       loading: true,
       error: null,
 
+      setUser: (user) => set({ user }),
+
       initializeAuth: async () => {
         const accessToken = localStorage.getItem('accessToken');
         const adminToken = localStorage.getItem('AdminAccessToken');
@@ -35,6 +37,8 @@ export const useAuth = create(
                 name: payload?.name,
                 email: payload?.email,
                 role: payload?.role || 'user',
+                addresses: payload?.addresses || [],
+                createdAt: payload?.createdAt || null,
               },
             });
 
@@ -152,10 +156,61 @@ export const useAuth = create(
         }
       },
 
-      logout: () => {
-        localStorage.clear();
-        set({ user: null, admin: null });
-      },
+      requestPasswordReset: async (email) => {
+  try {
+    const res = await api.post(API.FORGOTTPASSWORD, { email });
+    return { status: true, message: res.data.message };
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    return {
+      status: false,
+      message: err.response?.data?.message || 'Failed to send reset link',
+    };
+  }
+},
+
+resetPassword: async (token, newPassword) => {
+  try {
+    const res = await api.post(API.RESETPASSWORD, { token, password: newPassword });
+    return { status: true, message: res.data.message };
+  } catch (err) {
+    console.error('Reset password error:', err);
+    return {
+      status: false,
+      message: err.response?.data?.message || 'Failed to reset password',
+    };
+  }
+},
+
+
+      logout: async () => {
+  try {
+    const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+    const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
+
+    if (!accessToken || !refreshToken) {
+      localStorage.clear();
+      set({ user: null, admin: null });
+      return;
+    }
+
+    await api.post(
+      `${API.AUTH}/logout`,
+      { refreshToken }, // 👈 matches your backend
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`, // 👈 token param
+        },
+      }
+    );
+  } catch (err) {
+    console.error('Logout failed:', err);
+  } finally {
+    // ALWAYS clear client state
+    localStorage.clear();
+    set({ user: null, admin: null });
+  }
+},
     }),
     'auth-store'
   )

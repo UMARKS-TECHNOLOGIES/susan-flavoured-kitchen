@@ -5,6 +5,8 @@ import {
   ShoppingCart,
   CreditCard,
   User,
+  MapPin,
+  LogOut
 } from 'lucide-react';
 
 const DashboardLayout = () => {
@@ -35,6 +37,14 @@ const DashboardLayout = () => {
 
           <NavLinkItem to="/dashboard/account" icon={<User />}>
             Account
+          </NavLinkItem>
+
+          <NavLinkItem to="/dashboard/addresses" icon={<MapPin />}>
+            Addresses
+          </NavLinkItem>
+
+          <NavLinkItem to="/dashboard/logout" icon={<LogOut />}>
+          Sign out
           </NavLinkItem>
         </nav>
       </aside>
