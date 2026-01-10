@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { API } from '@/lib/endpoints';
+import CartButton from '@/pages/cartPage/CartButton';
 
 function fuzzyMatch(text, query) {
   return text.toLowerCase().includes(query.toLowerCase());
@@ -110,17 +111,7 @@ export default function SearchResults() {
                                 {item.available ? 'available' : 'not available'}
                               </p>
 
-                              <button
-                                disabled={!item.available}
-                                className={`mt-3 w-full py-2 rounded-md text-white font-semibold transition ${
-                                  item.available
-                                    ? 'bg-orange-600 hover:bg-orange-700'
-                                    : 'bg-gray-400 cursor-not-allowed'
-                                }`}
-                                onClick={() => console.log('added to cart')}
-                              >
-                                Add to Cart
-                              </button>
+                              <CartButton item={item} />
                             </div>
                           </div>
                         ))}
@@ -159,12 +150,7 @@ export default function SearchResults() {
                       </p>
                       <p className="font-semibold">₦{item.price}</p>
 
-                      <button
-                        onClick={() => ''}
-                        className="mt-3 w-full py-2 text-sm rounded-lg bg-orange-600 text-white hover:bg-orange-700 transition"
-                      >
-                        Add to Cart
-                      </button>
+                      <CartButton item={item} />
                     </div>
                   </div>
                 ))}

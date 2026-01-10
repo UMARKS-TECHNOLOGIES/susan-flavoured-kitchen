@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useCart } from '../../store/useCart';
 import DeliveryDetails from './components/DeliveryDetails';
 import { Button } from '../../components/ui/button';
-import OrderSummary from '../cartPage/components/OrderSummary';
 import DeliveryMethod from './components/DeliveryMethod';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -112,14 +111,14 @@ const Checkout = () => {
             </div>
 
             {/* Right Column - Order Summary */}
-            <div className="order-1 lg:order-2 lg:col-span-1">
+            {/* <div className="order-1 lg:order-2 lg:col-span-1">
               <OrderSummary
                 subtotal={subtotal}
                 delivery={delivery}
                 total={total}
                 showCheckoutButton={false}
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

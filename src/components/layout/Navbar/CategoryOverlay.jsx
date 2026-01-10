@@ -1,4 +1,5 @@
 import { API } from '@/lib/endpoints';
+import CartButton from '@/pages/cartPage/CartButton';
 import { X } from 'lucide-react';
 
 export default function CategoryOverlay({ category, onClose }) {
@@ -65,17 +66,7 @@ export default function CategoryOverlay({ category, onClose }) {
                     {item.available ? 'In stock' : 'Out of stock'}
                   </p>
                 </div>
-                <button
-                  disabled={!item.available}
-                  className={`mt-3 w-full py-2 rounded-md text-white font-semibold transition ${
-                    item.available
-                      ? 'bg-orange-600 hover:bg-orange-700'
-                      : 'bg-gray-400 cursor-not-allowed'
-                  }`}
-                  onClick={() => console.log('added to cart')}
-                >
-                  Add to Cart
-                </button>
+                <CartButton item={item} />
               </div>
             ))}
           </div>

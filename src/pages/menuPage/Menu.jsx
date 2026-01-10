@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 import api from '@/lib/api';
 import { API } from '@/lib/endpoints';
 import Placeholder from '@/assets/chickenChps.jpeg';
-import { Button } from '@/components/ui/button';
+import { useCart } from '@/store/useCart';
+import CartButton from '../cartPage/CartButton';
 
 const Menu = () => {
   const location = useLocation();
@@ -126,12 +127,7 @@ const Menu = () => {
                     </p>
                   )}
 
-                  <Button
-                    disabled={!item.available}
-                    className="mt-3 bg-orange-600 hover:bg-orange-500 text-white rounded-lg"
-                  >
-                    {item.available ? 'Add to Cart' : 'Unavailable'}
-                  </Button>
+                  <CartButton item={item} />
                 </div>
               </div>
             );

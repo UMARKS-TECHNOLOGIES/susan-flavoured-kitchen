@@ -4,6 +4,7 @@ import Image3 from '../../../assets/amalaEwedu.jpeg';
 import Image4 from '../../../assets/okrosoup.jpeg';
 import Image5 from '../../../assets/jollof-rice.jpg';
 import Image6 from '../../../assets/friedRice.jpeg';
+import CartButton from '@/pages/cartPage/CartButton';
 
 const PopularDishes = () => {
   // Make sure each dish has a UNIQUE id
@@ -75,18 +76,7 @@ const PopularDishes = () => {
                   <h3 className="mt-2 text-lg font-bold capitalize truncate">
                     {dish.name}
                   </h3>
-                  <div className="flex justify-between items-center mt-2">
-                    <p className="text-lg font-bold">
-                      £{dish.price.toFixed(2)}
-                    </p>
-                    <Button
-                      size="md"
-                      // onClick={() => handleAddToCart(dish)}
-                      className="ml-4 px-4 py-2 bg-orange-500 rounded-md text-sm font-medium hover:bg-orange-600 text-white cursor-pointer"
-                    >
-                      Add to Cart
-                    </Button>
-                  </div>
+                  <CartButton item={dish} />
                 </div>
               </div>
             );
