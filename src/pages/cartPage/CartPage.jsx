@@ -18,7 +18,7 @@ const CartPage = () => {
   const items = cart?.items;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 pt-24 pb-10">
+    <section className="max-w-7xl  px-4 md:-mt-92 ">
       <h1 className="text-2xl font-semibold mb-6">
         Your Cart ({items.length})
       </h1>
