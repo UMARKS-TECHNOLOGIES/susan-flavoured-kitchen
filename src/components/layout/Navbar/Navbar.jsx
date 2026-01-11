@@ -5,6 +5,7 @@ import { DeskTopNavBar } from './DeskTopNavbar';
 import { API } from '@/lib/endpoints';
 import { NavMobile } from './NavMobile';
 import CategoryOverlay from './CategoryOverlay';
+import { NavMobileDropdown } from './NavMobileDropdown';
 
 const Navbar = () => {
   const totalItems = 0;

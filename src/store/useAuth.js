@@ -32,6 +32,7 @@ export const useAuth = create((set) => ({
             id: payload?.id,
             name: payload?.name,
             email: payload?.email,
+            phone: payload?.phone,
             role: payload?.role || 'user',
             addresses: payload?.addresses || [],
             createdAt: payload?.createdAt || null,
