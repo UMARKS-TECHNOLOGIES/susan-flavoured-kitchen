@@ -119,7 +119,7 @@ const Popular = () => {
 
         <div className="flex mx-auto justify-center mt-6">
           <Link
-            to={"/quote"}
+            to={"/catering-quote"}
             className="bg-[#FF6E00] text-white px-5 py-3 rounded rounded-tr-none rounded-bl-none font-bold hover:bg-orange-600 transition-colors"
           >
             Request Quote

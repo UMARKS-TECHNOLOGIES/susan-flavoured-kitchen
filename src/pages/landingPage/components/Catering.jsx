@@ -1,6 +1,8 @@
 import React from "react";
 import Picture from "../../../assets/catering.jpg";
 import { Button } from "../../../components/ui/button";
+import { Link } from "react-router-dom";
+
 const Catering = () => {
   return (
     <section className="my-10">
@@ -29,12 +31,12 @@ const Catering = () => {
                   </p>
                 </div>
                 <div className="flex items-center justify-center lg:justify-center mt-4 lg:mt-0">
-                  <Button
+                  <Link to={"/event"}
                     className="bg-orange-600 rounded-br-lg rounded-tl-lg cursor-pointer hover:bg-orange-500 text-white font-medium px-8 py-6 lg:px-4 lg:py-2"
                     size="lg"
                   >
                     Plan Your Event
-                  </Button>
+                  </Link>
                 </div>
               </div>
             </div>

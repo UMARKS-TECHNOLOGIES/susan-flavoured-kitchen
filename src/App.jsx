@@ -32,6 +32,8 @@ import Products from './pages/admin/menu/Products';
 import OrdersManagement from './pages/admin/order-management/OrdersManagement';
 import Users from './pages/admin/users/Users';
 import Payments from './pages/admin/Payments';
+import Message from './pages/admin/Message';
+import Catering from './pages/admin/Catering';
 import AdminLayout from './pages/admin/adminLayout/AdminLayout';
 import Index from './pages/admin/Index';
 import UserAddresses from './pages/user/dashboard/UserAddresses';
@@ -118,21 +120,26 @@ const App = () => {
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
           <Route path="/resetpassword" element={<ResetPasswordPage />} />
 
-          {/* ================= ADMIN DASHBOARD ================= */}
           <Route
             path="/admin"
             element={
-              <AdminRoute>
+                <AdminRoute>
                 <AdminLayout />
-              </AdminRoute>
+              </AdminRoute> 
             }
           >
+
+          {/* <AdminRoute>
+                <AdminLayout />
+              </AdminRoute> */}
             <Route index element={<Index />} />
             <Route path="categories" element={<Categories />} />
             <Route path="products" element={<Products />} />
             <Route path="orders" element={<OrdersManagement />} />
             <Route path="users" element={<Users />} />
             <Route path="payments" element={<Payments />} />
+            <Route path="contacts" element={<Message/>}/>
+            <Route path="catering-request" element={<Catering/>} />
           </Route>
 
           {/* ================= USER DASHBOARD ================= */}

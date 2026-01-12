@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Picture from "../../../assets/chefstory1.jpeg";
 import { Button } from "../../../components/ui/button";
 
 const About = () => {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <section className="mt-10 lg:mt-20">
       <div className="w-full lg:max-w-5xl mx-auto px-4 lg:px-0">
@@ -20,7 +22,11 @@ const About = () => {
 
           {/* Text Content */}
           <div className="flex-1">
-            <p className="text-gray-600 text-base lg:text-lg leading-relaxed mb-6 text-justify lg:text-left">
+            <p
+              className={`text-gray-600 text-base lg:text-lg leading-relaxed mb-6 text-justify lg:text-left
+                overflow-hidden transition-all duration-500 ease-in-out
+                ${expanded ? "max-h-[1000px]" : "max-h-[120px]"}`}
+            >
               At Susan Flavoured Kitchen, we bring the heart of home cooking to
               your table. Our passion for authentic flavors and fresh
               ingredients ensures every meal is a delightful experience. Whether
@@ -32,13 +38,13 @@ const About = () => {
               We believe in creating memories through food, one dish at a time.
             </p>
 
-            <Button    
-              className="bg-orange-600 hover:bg-orange-500 text-white font-medium px-8 py-2 h-11"
-              size="lg" 
-            > 
-              Learn More
+            <Button
+              className="bg-orange-600 hover:bg-orange-500 text-white font-medium px-8 py-2 h-11 transition-all"
+              size="lg"
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded ? "Show Less" : "Learn More"}
             </Button>
-      
           </div>
         </div>
       </div>
