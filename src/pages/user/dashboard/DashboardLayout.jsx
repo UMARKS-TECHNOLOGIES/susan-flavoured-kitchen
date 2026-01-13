@@ -6,7 +6,7 @@ import {
   CreditCard,
   User,
   MapPin,
-  LogOut
+  LogOut,
 } from 'lucide-react';
 
 const DashboardLayout = () => {
@@ -44,13 +44,12 @@ const DashboardLayout = () => {
           </NavLinkItem>
 
           <NavLinkItem to="/dashboard/logout" icon={<LogOut />}>
-          Sign out
+            Sign out
           </NavLinkItem>
         </nav>
       </aside>
 
-      {/* Main content */}
-      <main className="flex-1 p-6 md:p-10">
+      <main className="p-6 md:p-10 md:ml-64">
         <Outlet />
       </main>
     </div>

@@ -69,6 +69,9 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const getSubtotal = () => cart?.subtotal;
+  const CartItemTotal = () => cart?.items?.length;
+
   useEffect(() => {
     loadCart();
   }, []);
@@ -76,6 +79,8 @@ export const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider
       value={{
+        CartItemTotal,
+        getSubtotal,
         cart,
         loading,
         loadingId,

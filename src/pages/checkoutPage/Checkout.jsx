@@ -1,124 +1,213 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../../store/useCart';
-import DeliveryDetails from './components/DeliveryDetails';
 import { Button } from '../../components/ui/button';
+import DeliveryDetails from './components/DeliveryDetails';
 import DeliveryMethod from './components/DeliveryMethod';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import api from '../../lib/api';
+import { API } from '../../lib/endpoints';
+import { ShieldCheck } from 'lucide-react';
+import PaymentMethod from './components/PaymentMethod';
+import toast from 'react-hot-toast';
+import { validateCheckoutFields } from './Validation';
 
 const Checkout = () => {
-  const { getSubtotal, clearCart } = useCart();
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
+  const { getSubtotal, clearCart, loading } = useCart();
+  const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [delivery, setDelivery] = useState({
     address: '',
     city: '',
     postcode: '',
+    country: '',
+    state: '',
   });
-  const [selectedMethod, setSelectedMethod] = useState('express');
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [deliveryMethod, setDeliveryMethod] = useState('delivery');
+  const [paymentType, setPaymentType] = useState('card');
 
   const subtotal = getSubtotal();
-  const delivery =
-    selectedMethod === 'express'
-      ? 3.0
-      : selectedMethod === 'next-day'
-      ? 5.0
-      : 0;
-  const total = subtotal + delivery;
+
+  // Estimation ONLY
+  const estimatedDeliveryFee = deliveryMethod === 'delivery' ? 1500 : 0;
+  const estimatedTotal = subtotal + estimatedDeliveryFee;
+
+  useEffect(() => {
+    const { isValid, errors } = validateCheckoutFields(
+      delivery,
+      deliveryMethod,
+      paymentType
+    );
+
+    setErrors(errors);
+    setIsFormValid(isValid);
+  }, [delivery, deliveryMethod, paymentType]);
 
   const handleSubmit = async () => {
-    if (
-      !formData.name ||
-      !formData.phone ||
-      !formData.email ||
-      !formData.address
-    ) {
-      alert('Please fill in all required fields');
+    const { isValid } = validateCheckoutFields(
+      delivery,
+      deliveryMethod,
+      paymentType
+    );
+
+    if (!isValid) {
+      toast.error('Please fix the highlighted fields');
       return;
     }
 
     setIsProcessing(true);
 
     try {
-      const res = await api.post(`${API.ORDERS}/place`, {
-        delivery: formData,
-        deliveryMethod: selectedMethod,
+      const res = await api.post(`${API.ORDER}/`, {
+        deliveryMethod,
+        deliveryAddress: delivery,
+        paymentType,
       });
-      if (!res || !res.data) throw new Error('Order creation failed');
-      const { paymentUrl, order } = res.data;
-      clearCart();
-      window.location.href = paymentUrl; // Redirect to Stripe
-    } catch (error) {
-      alert('Order failed: ' + error.message);
+
+      const { order, paymentUrl, paymentError } = res.data.data;
+
+      if (paymentError) {
+        navigate(`/payment-failed/${order._id}`);
+        toast.error(`Payment initialization failed: ${paymentError}`);
+        return;
+      }
+
+      if (paymentUrl) {
+        window.location.href = paymentUrl;
+        return;
+      }
+
+      // If payment type is cash and no payment needed
+      navigate(`/order-success/${order._id}`);
+    } catch (err) {
+      console.log(err.message);
+      toast.error('Order failed');
     } finally {
       setIsProcessing(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF9F4] pb-8">
-      <div className="max-w-5xl mx-auto px-4 pt-24 lg:pt-32">
-        <button
-          onClick={() => navigate(-1)}
-          className="mb-6 hover:bg-gray-100 p-2 rounded-full transition-colors"
-        >
-          <ArrowLeft className="w-6 h-6 text-gray-700" />
-        </button>
+    <div className="min-h-screen bg-[#FFF9F4] p">
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8">Checkout</h1>
 
-        <h1 className="text-3xl font-bold mb-8 hidden lg:block">Checkout</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* LEFT */}
+          <div className="lg:col-span-2 space-y-6">
+            <DeliveryDetails delivery={delivery} setDelivery={setDelivery} />
 
-        <div>
-          <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8">
-            {/* Left Column - Forms */}
-            <div className="order-2 lg:order-1 lg:col-span-2 space-y-8">
-              <DeliveryDetails formData={formData} setFormData={setFormData} />
-              <DeliveryMethod
-                selectedMethod={selectedMethod}
-                setSelectedMethod={setSelectedMethod}
-              />
+            <DeliveryMethod
+              deliveryMethod={deliveryMethod}
+              setDeliveryMethod={setDeliveryMethod}
+            />
 
-              {/* Complete Order Button */}
-              <Button
-                onClick={handleSubmit}
-                disabled={isProcessing}
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-6 text-lg font-bold rounded-lg shadow-md"
-              >
-                {isProcessing ? 'Processing...' : 'Complete Order'}
-              </Button>
+            <PaymentMethod
+              paymentType={paymentType}
+              setPaymentType={setPaymentType}
+            />
+          </div>
 
-              {/* Footer Links */}
-              <div className="flex flex-wrap gap-4 justify-center text-sm text-gray-500 mt-6">
-                <a href="#" className="hover:underline">
-                  Terms & Conditions
-                </a>
-                <a href="#" className="hover:underline">
-                  Privacy Policy
-                </a>
-                <a href="#" className="hover:underline">
-                  Refund Policy
-                </a>
-                <a href="#" className="hover:underline">
-                  Contact
-                </a>
-                <a href="#" className="hover:underline">
-                  Cancellations
-                </a>
+          {/* RIGHT */}
+          <div className="bg-white p-6 rounded-xl shadow-sm space-y-6 h-fit">
+            <h2 className="text-lg font-semibold">
+              {loading ? (
+                <div className="h-6 w-32 bg-gray-200 rounded animate-pulse"></div>
+              ) : (
+                'Order Summary'
+              )}
+            </h2>
+
+            <div className="space-y-2 text-sm text-gray-600">
+              {/* Subtotal */}
+              <div className="flex justify-between">
+                <span>
+                  {loading ? (
+                    <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+                  ) : (
+                    'Subtotal'
+                  )}
+                </span>
+                <span>
+                  {loading ? (
+                    <div className="h-4 w-12 bg-gray-200 rounded animate-pulse"></div>
+                  ) : (
+                    `₦${subtotal}`
+                  )}
+                </span>
               </div>
+
+              {/* Estimated delivery */}
+              <div className="flex justify-between">
+                <span>
+                  {loading ? (
+                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                  ) : (
+                    'Estimated delivery'
+                  )}
+                </span>
+                <span>
+                  {loading ? (
+                    <div className="h-4 w-12 bg-gray-200 rounded animate-pulse"></div>
+                  ) : (
+                    `₦${estimatedDeliveryFee}`
+                  )}
+                </span>
+              </div>
+
+              {/* Estimated total */}
+              <div className="border-t pt-3 flex justify-between font-semibold text-gray-800">
+                <span>
+                  {loading ? (
+                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                  ) : (
+                    'Estimated total'
+                  )}
+                </span>
+                <span>
+                  {loading ? (
+                    <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+                  ) : (
+                    `₦${estimatedTotal}`
+                  )}
+                </span>
+              </div>
+
+              {/* Final note */}
+              <p className="text-xs italic text-gray-500">
+                {loading ? (
+                  <div className="h-3 w-40 bg-gray-200 rounded animate-pulse"></div>
+                ) : (
+                  'Final amount confirmed before payment'
+                )}
+              </p>
             </div>
 
-            {/* Right Column - Order Summary */}
-            {/* <div className="order-1 lg:order-2 lg:col-span-1">
-              <OrderSummary
-                subtotal={subtotal}
-                delivery={delivery}
-                total={total}
-                showCheckoutButton={false}
-              />
-            </div> */}
+            {/* Button */}
+            <button
+              onClick={handleSubmit}
+              disabled={!isFormValid || isProcessing || loading}
+              className={`w-full py-5 rounded-xl transition ${
+                !isFormValid || isProcessing || loading
+                  ? 'bg-gray-300 cursor-not-allowed'
+                  : 'bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg'
+              }`}
+            >
+              {isProcessing ? 'Processing...' : 'Place Order'}
+            </button>
+
+            {/* Footer */}
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              {loading ? (
+                <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+              ) : (
+                <>
+                  <ShieldCheck className="w-4 h-4 text-green-600" />
+                  Secure payment. No card details stored.
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
