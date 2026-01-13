@@ -93,7 +93,7 @@ const Herosection = () => {
                       Order Now
                     </Button>
                   </Link>
-                  <Link to="/book-us" className="flex-1 lg:flex-none">
+                  <Link to="/contact-us" className="flex-1 lg:flex-none">
                     <Button className="bg-transparent w-full lg:w-[140px] h-10 text-white hover:bg-white/10 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none">
                       Book Catering
                     </Button>

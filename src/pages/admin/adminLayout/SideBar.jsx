@@ -6,6 +6,8 @@ import {
   CreditCard,
   Users,
   LogOut,
+  MessageCircle,
+  GitPullRequestDraft 
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
@@ -17,6 +19,8 @@ function SideBar({ logout, navigate }) {
     { to: 'users', label: 'Users', Icon: Users },
     { to: 'products', label: 'Prdouct-Management', Icon: Utensils },
     { to: 'categories', label: 'Category-Management', Icon: BiCategoryAlt },
+    { to: 'contacts', label: 'Message', Icon: MessageCircle},
+    { to: 'catering-request', label: 'Catering', Icon: GitPullRequestDraft}
   ];
 
   return (

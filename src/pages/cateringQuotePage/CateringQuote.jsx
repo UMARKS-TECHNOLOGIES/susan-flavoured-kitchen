@@ -1,340 +1,403 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
+import React, { useState, useEffect, useRef } from "react";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import RequestSubmittedModal from './components/RequestSubmittedModal';
-import RequestFailedModal from './components/RequestFailedModal';
+  FaUtensils,
+  FaCalendarAlt,
+  FaUsers,
+  FaMapMarkerAlt,
+  FaUser,
+  FaEnvelope,
+  FaPhone,
+  FaCheckCircle,
+  FaSearch,
+  FaTimes,
+} from "react-icons/fa";
+import nigerianFoods from "./nigerianFoods";
 
-const CateringQuote = () => {
-  const [formData, setFormData] = useState({
-    eventType: '',
-    dateTime: '',
-    numberOfGuests: '',
-    venue: '',
-    additionalNotes: '',
-    name: '',
-    email: '',
-    phone: '',
+const API_BASE =
+  "https://susanfalvoredkitchen-backend-oz62.onrender.com/api/v1/catering";
+
+export default function CateringQuote() {
+  const [form, setForm] = useState({
+    eventType: "Wedding",
+    dateTime: "",
+    numberOfGuests: "",
+    venue: "",
+    additionalNotes: "",
     preferredDishes: [],
+    name: "",
+    email: "",
+    phone: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [showRequestSubmitted, setShowRequestSubmitted] = useState(false);
-  const [showRequestFailed, setShowRequestFailed] = useState(false);
 
-  const eventTypes = [
-    'Wedding',
-    'Corporate Event',
-    'Birthday Party',
-    'Anniversary',
-    'Conference',
-    'Private Party',
-    'Other',
-  ];
-  const dishes = [
-    { id: 'jollof', label: 'Jollof Rice' },
-    { id: 'egusi', label: 'Egusi Soup' },
-    { id: 'chicken', label: 'Chicken' },
-    { id: 'fufu', label: 'Moi Moi' },
-    { id: 'gofoosoup', label: 'Snacks' },
-    { id: 'pepper', label: 'Pepper Soup' },
-    { id: 'assorted', label: 'Assorted Drinks' },
-    { id: 'fried', label: 'Fried Plantain' },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [requestId, setRequestId] = useState("");
+  const [status, setStatus] = useState(null);
+  const [error, setError] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showStatusModal, setShowStatusModal] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  const dropdownRef = useRef();
 
-  const handleDishToggle = dishId => {
-    setFormData(prev => ({
-      ...prev,
-      preferredDishes: prev.preferredDishes.includes(dishId)
-        ? prev.preferredDishes.filter(id => id !== dishId)
-        : [...prev.preferredDishes, dishId],
-    }));
-  };
-  const validateForm = () => {
-    // Required fields
-    if (
-      !formData.eventType ||
-      !formData.dateTime ||
-      !formData.numberOfGuests ||
-      !formData.venue ||
-      !formData.name ||
-      !formData.email ||
-      !formData.phone
-    ) {
-      alert('Please fill in all required fields');
-      return false;
-    }
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      alert('Please enter a valid email address');
-      return false;
-    }
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-    // Phone validation
-    const phoneRegex = /^\d{10,}$/;
-    if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
-      alert('Please enter a valid phone number');
-      return false;
-    }
-
-    // Number of guests validation
-    if (isNaN(formData.numberOfGuests) || formData.numberOfGuests < 1) {
-      alert('Please enter a valid number of guests');
-      return false;
-    }
-
-    return true;
-  };
-
-  const handleSubmit = async () => {
-    if (!validateForm()) return;
-
-    setIsLoading(true);
+  const submitRequest = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
     try {
-      // Replace with your actual API endpoint
-      console.log('Submitting catering request:', formData);
+      const res = await fetch(`${API_BASE}/catering/requests`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          numberOfGuests: Number(form.numberOfGuests),
+          preferredDishes: form.preferredDishes,
+        }),
+      });
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Submission failed");
 
-      // Simulate success/failure (90% success rate for demo)
-      const isSuccess = Math.random() > 0.1;
-
-      if (isSuccess) {
-        setShowRequestSubmitted(true);
-        // Reset form
-        setFormData({
-          eventType: '',
-          dateTime: '',
-          numberOfGuests: '',
-          venue: '',
-          additionalNotes: '',
-          name: '',
-          email: '',
-          phone: '',
-          preferredDishes: [],
-        });
-      } else {
-        setShowRequestFailed(true);
-      }
-    } catch (error) {
-      console.error('Error submitting catering request:', error);
-      setShowRequestFailed(true);
+      setRequestId(data._id);
+      setShowSuccessModal(true);
+    } catch (err) {
+      setError(err.message);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  const handleRetry = () => {
-    setShowRequestFailed(false);
+  const checkStatus = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/requests/${id}/status`);
+      const data = await res.json();
+      if (!res.ok) throw new Error("Failed to fetch status");
+      setStatus(data.status);
+      setShowStatusModal(true);
+    } catch (err) {
+      setError(err.message);
+    }
   };
+
   return (
-    <div className="bg-[#fffcfa]">
-      <div className="max-w-5xl mx-auto px-4 py-12 mt-20">
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          {/* Event Details Section */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-6">Event Details</h2>
+    <div style={styles.page}>
+      <div style={styles.card}>
+        <h2 style={styles.title}>
+          <FaUtensils /> Catering Quote Request
+        </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              {/* Event Type */}
-              <div className="space-y-2">
-                <Label htmlFor="eventType">
-                  Event Type <span className="text-red-500">*</span>
-                </Label>
-                <Select
-                  value={formData.eventType}
-                  onValueChange={value => handleChange('eventType', value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {eventTypes.map(type => (
-                      <SelectItem key={type} value={type}>
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+        <form onSubmit={submitRequest} style={styles.form}>
+          {/* Event Type */}
+          <label style={styles.label}>Event Type</label>
+          <select
+            name="eventType"
+            onChange={handleChange}
+            style={styles.input}
+          >
+            <option>Wedding</option>
+            <option>Corporate Event</option>
+            <option>Birthday Party</option>
+            <option>Anniversary</option>
+            <option>Conference</option>
+            <option>Private Party</option>
+            <option>Other</option>
+          </select>
 
-              {/* Date/Time */}
-              <div className="space-y-2">
-                <Label htmlFor="dateTime">
-                  Date/Time <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="dateTime"
-                  type="datetime-local"
-                  value={formData.dateTime}
-                  onChange={e => handleChange('dateTime', e.target.value)}
-                />
-              </div>
-            </div>
+          {/* Event Date & Time */}
+          <label style={styles.label}>Event Date & Time</label>
+          <Input
+            icon={<FaCalendarAlt />}
+            type="datetime-local"
+            name="dateTime"
+            onChange={handleChange}
+          />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              {/* Number of Guests */}
-              <div className="space-y-2">
-                <Label htmlFor="numberOfGuests">
-                  Number of Guests <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="numberOfGuests"
-                  type="number"
-                  placeholder="Enter number of guests"
-                  value={formData.numberOfGuests}
-                  onChange={e => handleChange('numberOfGuests', e.target.value)}
-                  min="1"
-                />
-              </div>
+          {/* Number of Guests */}
+          <label style={styles.label}>Number of Guests</label>
+          <Input
+            icon={<FaUsers />}
+            type="number"
+            name="numberOfGuests"
+            placeholder="e.g. 120"
+            onChange={handleChange}
+          />
 
-              {/* Venue/Location */}
-              <div className="space-y-2">
-                <Label htmlFor="venue">
-                  Venue / Location <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="venue"
-                  placeholder="Enter Event Venue"
-                  value={formData.venue}
-                  onChange={e => handleChange('venue', e.target.value)}
-                />
-              </div>
-            </div>
+          {/* Venue */}
+          <label style={styles.label}>Event Venue</label>
+          <Input
+            icon={<FaMapMarkerAlt />}
+            type="text"
+            name="venue"
+            placeholder="Event location"
+            onChange={handleChange}
+          />
 
-            {/* Additional Notes */}
-            <div className="space-y-2">
-              <Label htmlFor="additionalNotes">Additional Notes</Label>
-              <Textarea
-                id="additionalNotes"
-                placeholder="Type Your Message"
-                rows={8}
-                value={formData.additionalNotes}
-                onChange={e => handleChange('additionalNotes', e.target.value)}
-                className="resize-none"
-              />
-            </div>
-          </div>
+          {/* Notes */}
+          <label style={styles.label}>Additional Notes (Optional)</label>
+          <textarea
+            name="additionalNotes"
+            placeholder="Outdoor event, special requests, timing, etc."
+            onChange={handleChange}
+            style={styles.textarea}
+          />
 
-          {/* Contact Details Section */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-6">Contact Details</h2>
+          {/* Preferred Dishes */}
+          <label style={styles.label}>Preferred Dishes</label>
+          <div style={{ position: "relative" }} ref={dropdownRef}>
+            <input
+              type="text"
+              placeholder="Click to select dishes"
+              value={form.preferredDishes.join(", ")}
+              readOnly
+              onClick={() => setShowDropdown(!showDropdown)}
+              style={styles.input}
+            />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              {/* Name */}
-              <div className="space-y-2">
-                <Label htmlFor="name">
-                  Name <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="name"
-                  placeholder="Enter Your Full Name"
-                  value={formData.name}
-                  onChange={e => handleChange('name', e.target.value)}
-                />
-              </div>
-
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email">
-                  Email Address <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter Your Email"
-                  value={formData.email}
-                  onChange={e => handleChange('email', e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Phone Number */}
-            <div className="space-y-2">
-              <Label htmlFor="phone">
-                Phone Number <span className="text-red-500">*</span>
-              </Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="Enter Your Number"
-                value={formData.phone}
-                onChange={e => handleChange('phone', e.target.value)}
-                className="md:w-1/2"
-              />
-            </div>
-          </div>
-
-          {/* Preferred Dishes Section */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-2">Preferred Dishes</h2>
-            <p className="text-sm text-gray-600 mb-4">
-              Select the dishes you'd like to include in your event. You can
-              choose as many as you like.
-            </p>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {dishes.map(dish => (
-                <div key={dish.id} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={dish.id}
-                    checked={formData.preferredDishes.includes(dish.id)}
-                    onCheckedChange={() => handleDishToggle(dish.id)}
-                    className="data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
-                  />
-                  <Label
-                    htmlFor={dish.id}
-                    className="text-sm font-normal cursor-pointer"
+            {showDropdown && (
+              <div style={styles.dropdown}>
+                {nigerianFoods.map((food) => (
+                  <div
+                    key={food}
+                    style={styles.dropdownItem}
+                    onClick={() => {
+                      if (!form.preferredDishes.includes(food)) {
+                        setForm({
+                          ...form,
+                          preferredDishes: [...form.preferredDishes, food],
+                        });
+                      }
+                    }}
                   >
-                    {dish.label}
-                  </Label>
-                </div>
-              ))}
-            </div>
+                    {food}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
+          {form.preferredDishes.length > 0 && (
+            <p style={{ fontSize: 12, marginTop: 4, color: "#555" }}>
+              Selected: {form.preferredDishes.join(", ")}
+            </p>
+          )}
 
-          {/* Submit Button */}
-          <div className="flex justify-center">
-            <Button
-              onClick={handleSubmit}
-              disabled={isLoading}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-12 py-3 mt-6 text-base font-medium disabled:opacity-50"
-            >
-              {isLoading ? 'Submitting...' : 'Request Quote'}
-            </Button>
-          </div>
-        </div>
+          {/* Contact Info */}
+          <label style={styles.sectionLabel}>Contact Information</label>
 
-        {/* Modals */}
-        <RequestSubmittedModal
-          isOpen={showRequestSubmitted}
-          onClose={() => setShowRequestSubmitted(false)}
-        />
+          <label style={styles.label}>Full Name</label>
+          <Input
+            icon={<FaUser />}
+            type="text"
+            name="name"
+            placeholder="Your full name"
+            onChange={handleChange}
+          />
 
-        <RequestFailedModal
-          isOpen={showRequestFailed}
-          onClose={() => setShowRequestFailed(false)}
-          onRetry={handleRetry}
-        />
+          <label style={styles.label}>Email Address</label>
+          <Input
+            icon={<FaEnvelope />}
+            type="email"
+            name="email"
+            placeholder="you@email.com"
+            onChange={handleChange}
+          />
+
+          <label style={styles.label}>Phone Number</label>
+          <Input
+            icon={<FaPhone />}
+            type="tel"
+            name="phone"
+            placeholder="08012345678"
+            onChange={handleChange}
+          />
+
+          <button style={styles.button} disabled={loading}>
+            {loading ? "Submitting..." : "Submit Catering Request"}
+          </button>
+        </form>
+
+        {requestId && (
+          <button style={styles.secondaryBtn} onClick={checkStatus}>
+            <FaSearch /> Check Request Status
+          </button>
+        )}
+
+        {error && <p style={styles.error}>{error}</p>}
       </div>
+
+      {/* SUCCESS MODAL */}
+      {showSuccessModal && (
+        <Modal onClose={() => setShowSuccessModal(false)}>
+          <FaCheckCircle size={40} color="green" />
+          <h3>Request Submitted</h3>
+          <p>Your request ID:</p>
+          <strong>{requestId}</strong>
+        </Modal>
+      )}
+
+      {/* STATUS MODAL */}
+      {showStatusModal && (
+        <Modal onClose={() => setShowStatusModal(false)}>
+          <h3>Request Status</h3>
+          <p>
+            Status: <strong>{status}</strong>
+          </p>
+        </Modal>
+      )}
     </div>
   );
-};
+}
 
-export default CateringQuote;
+const Input = ({ icon, ...props }) => (
+  <div style={styles.inputGroup}>
+    <span style={styles.icon}>{icon}</span>
+    <input {...props} required style={styles.input} />
+  </div>
+);
+
+const Modal = ({ children, onClose }) => (
+  <div style={styles.overlay}>
+    <div style={styles.modal}>
+      <button style={styles.closeBtn} onClick={onClose}>
+        <FaTimes />
+      </button>
+      {children}
+    </div>
+  </div>
+);
+
+/* ================= STYLES ================= */
+const styles = {
+  page: {
+    background: "#f5f7fa",
+    minHeight: "100vh",
+    padding: "40px",
+  },
+  card: {
+    maxWidth: 600,
+    margin: "auto",
+    background: "#fff",
+    padding: 30,
+    borderRadius: 12,
+    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+  },
+  title: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+    marginBottom: 20,
+  },
+  form: {
+    display: "grid",
+    gap: 12,
+  },
+  inputGroup: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+  },
+  icon: {
+    color: "#F97316",
+  },
+  input: {
+    flex: 1,
+    padding: 10,
+    borderRadius: 6,
+    border: "1px solid #ccc",
+    cursor: "pointer",
+  },
+  textarea: {
+    padding: 10,
+    borderRadius: 6,
+    border: "1px solid #ccc",
+    minHeight: 80,
+  },
+  button: {
+    padding: 12,
+    background: "#F97316",
+    color: "#fff",
+    border: "none",
+    borderRadius: 8,
+    cursor: "pointer",
+    fontWeight: 600,
+  },
+  secondaryBtn: {
+    marginTop: 15,
+    background: "transparent",
+    border: "1px solid #111827",
+    padding: 10,
+    borderRadius: 8,
+    cursor: "pointer",
+  },
+  error: {
+    color: "red",
+    marginTop: 10,
+  },
+  overlay: {
+    position: "fixed",
+    inset: 0,
+    background: "rgba(0,0,0,0.4)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modal: {
+    background: "#fff",
+    padding: 30,
+    borderRadius: 12,
+    minWidth: 300,
+    position: "relative",
+    textAlign: "center",
+  },
+  closeBtn: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    background: "transparent",
+    border: "none",
+    cursor: "pointer",
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: 600,
+    marginTop: 6,
+    marginBottom: -4,
+  },
+  sectionLabel: {
+    marginTop: 20,
+    fontWeight: 700,
+    fontSize: 15,
+    color: "#F97316",
+  },
+  dropdown: {
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    right: 0,
+    background: "#fff",
+    border: "1px solid #ccc",
+    borderRadius: 6,
+    maxHeight: 200,
+    overflowY: "auto",
+    zIndex: 10,
+    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+  },
+  dropdownItem: {
+    padding: 10,
+    cursor: "pointer",
+    borderBottom: "1px solid #eee",
+  },
+};

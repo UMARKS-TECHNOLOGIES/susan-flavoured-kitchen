@@ -11,8 +11,10 @@ export const useAuth = create((set) => ({
 
   setUser: (user) => set({ user }),
 
+  /* =========================
+     INITIALIZE AUTH
+  ========================= */
   initializeAuth: async () => {
-    console.log('running initializeAuth');
     const accessToken = localStorage.getItem('accessToken');
     const adminToken = localStorage.getItem('AdminAccessToken');
 
@@ -38,7 +40,7 @@ export const useAuth = create((set) => ({
             createdAt: payload?.createdAt || null,
           },
         });
-        set({ error: null });
+
         reportSuccess('User authenticated successfully');
       }
 
@@ -53,16 +55,86 @@ export const useAuth = create((set) => ({
             role: 'admin',
           },
         });
+
         reportSuccess('Admin authenticated successfully');
       }
     } catch (err) {
       set({ error: err.message, user: null, admin: null });
-      console.error('Error fetching user or admin data:', err);
     } finally {
       set({ loading: false });
     }
   },
 
+  /* =========================
+     SIGNUP (REGISTER)
+  ========================= */
+  signup: async (payload) => {
+    /**
+     * payload = {
+     *   name,
+     *   email,
+     *   phone,
+     *   password
+     * }
+     */
+
+    set({ loading: true, error: null });
+
+    try {
+      const res = await api.post(`${API.USER}/register`, payload);
+
+      if (res.status !== 200 && res.status !== 201) {
+        const message = res?.data?.message || 'Signup failed';
+        set({ error: message, loading: false });
+        reportError(message);
+        return false;
+      }
+
+      const data = res?.data?.data || res?.data || {};
+      const accessToken = data?.token?.accessToken;
+      const refreshToken = data?.token?.refreshToken;
+
+      if (!accessToken) {
+        set({ loading: false, error: 'Invalid signup response' });
+        reportError('Invalid signup response');
+        return false;
+      }
+
+      localStorage.setItem('accessToken', JSON.stringify(accessToken));
+      localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+
+      const userPayload = data?.user || data;
+
+      set({
+        user: {
+          id: userPayload?.id || userPayload?.userId || null,
+          name: userPayload?.name || userPayload?.fullName || null,
+          email: userPayload?.email || null,
+          phone: userPayload?.phone || null,
+          role: userPayload?.role || 'user',
+          createdAt: userPayload?.createdAt || null,
+        },
+        loading: false,
+        error: null,
+      });
+
+      reportSuccess('Account created successfully');
+      return { status: true };
+    } catch (e) {
+      const message =
+        e?.response?.data?.message ||
+        e?.message ||
+        'Signup failed';
+
+      set({ error: message, loading: false });
+      reportError(message);
+      return false;
+    }
+  },
+
+  /* =========================
+     LOGIN
+  ========================= */
   login: async (email, password) => {
     set({ loading: true });
     let AUTH = API.USER;
@@ -81,70 +153,93 @@ export const useAuth = create((set) => ({
         return false;
       }
 
-      // Admin login
+      // ADMIN
       if (res.data?.admin) {
-        localStorage.setItem('AdminAccessToken', JSON.stringify(res.data.token));
-        set({ admin: res.data.admin, error: null, loading: false });
+        localStorage.setItem(
+          'AdminAccessToken',
+          JSON.stringify(res.data.token)
+        );
+        set({ admin: res.data.admin, loading: false, error: null });
         reportSuccess('Admin logged in successfully');
         return { status: true, role: 'admin' };
       }
 
-      // User login
+      // USER
       const payload = res?.data?.data || res?.data || {};
-      const token = payload?.token?.accessToken || null;
-      const refreshToken = payload?.token?.refreshToken || null;
+      const token = payload?.token?.accessToken;
+      const refreshToken = payload?.token?.refreshToken;
 
       if (!token) {
         set({ loading: false, error: 'Invalid login response' });
-        reportError('Invalid login response');
         return false;
       }
 
       localStorage.setItem('accessToken', JSON.stringify(token));
       localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
 
-      const userFromPayload = payload?.user || payload;
-      const user = {
-        id: userFromPayload?.id || userFromPayload?.userId || null,
-        name: userFromPayload?.name || userFromPayload?.fullName || null,
-        email: userFromPayload?.email || null,
-        phone: userFromPayload?.phone || null,
-        role: userFromPayload?.role || 'user',
-      };
+      const userPayload = payload?.user || payload;
 
-      set({ user, loading: false, error: null });
+      set({
+        user: {
+          id: userPayload?.id || userPayload?.userId,
+          name: userPayload?.name || userPayload?.fullName,
+          email: userPayload?.email,
+          phone: userPayload?.phone,
+          role: userPayload?.role || 'user',
+        },
+        loading: false,
+        error: null,
+      });
+
       reportSuccess('Logged in successfully');
       return { status: true, role: 'user' };
     } catch (e) {
-      const message = e?.response?.data?.message || e?.message || 'Login failed';
+      const message =
+        e?.response?.data?.message ||
+        e?.message ||
+        'Login failed';
+
       set({ error: message, loading: false });
       reportError(message);
       return false;
     }
   },
 
+  /* =========================
+     LOGOUT
+  ========================= */
   logout: () => {
     localStorage.clear();
     set({ user: null, admin: null });
   },
 
+  /* =========================
+     PASSWORD RESET
+  ========================= */
   requestPasswordReset: async (email) => {
     try {
       const res = await api.post(API.FORGOTTPASSWORD, { email });
       return { status: true, message: res.data.message };
     } catch (err) {
-      console.error('Forgot password error:', err);
-      return { status: false, message: err.response?.data?.message || 'Failed to send reset link' };
+      return {
+        status: false,
+        message: err.response?.data?.message || 'Failed to send reset link',
+      };
     }
   },
 
   resetPassword: async (token, newPassword) => {
     try {
-      const res = await api.post(API.RESETPASSWORD, { token, password: newPassword });
+      const res = await api.post(API.RESETPASSWORD, {
+        token,
+        password: newPassword,
+      });
       return { status: true, message: res.data.message };
     } catch (err) {
-      console.error('Reset password error:', err);
-      return { status: false, message: err.response?.data?.message || 'Failed to reset password' };
+      return {
+        status: false,
+        message: err.response?.data?.message || 'Failed to reset password',
+      };
     }
   },
 }));

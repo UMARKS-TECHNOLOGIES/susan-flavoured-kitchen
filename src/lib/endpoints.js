@@ -19,6 +19,9 @@ export const API = {
   SET_DEFAULT: (id) => `/api/v1/address/${id}/default`,
   GET_DEFAULT: '/api/v1/address/default',
 
+  // 
+  CONTACT: import.meta.env.VITE_API_CONTACT_PATH || '/api/v1/contact/contact',
+
   BASEURL: import.meta.env.VITE_NODE_ENV === 'production'
     ? import.meta.env.VITE_API_BASE_URL
     : import.meta.env.VITE_DEV_SERVER,
