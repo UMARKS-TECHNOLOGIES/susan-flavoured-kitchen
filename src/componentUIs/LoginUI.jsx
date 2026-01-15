@@ -126,6 +126,16 @@ export default function LoginUI(props) {
                   Sign Up
                 </button>
               </div>
+
+              <div className="text-center">
+                <Link
+                  to="/"
+                  className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-orange-500 font-bold transition-colors"
+                >
+                  <IoArrowBack className="w-4 h-4" />
+                  Back to Home
+                </Link>
+              </div>
             </div>
           </div>
         </div>

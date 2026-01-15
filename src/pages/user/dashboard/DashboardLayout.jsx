@@ -6,14 +6,14 @@ import {
   CreditCard,
   User,
   MapPin,
-  LogOut
+  LogOut,
 } from 'lucide-react';
 
 const DashboardLayout = () => {
   return (
     <div className="min-h-screen flex bg-[#fffcfa]">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r hidden md:flex flex-col">
+      <aside className="w-64 fixed h-full bg-white border-r hidden md:flex flex-col">
         <div className="px-6 py-6 font-bold text-xl text-orange-600">
           My Account
         </div>
@@ -44,13 +44,12 @@ const DashboardLayout = () => {
           </NavLinkItem>
 
           <NavLinkItem to="/dashboard/logout" icon={<LogOut />}>
-          Sign out
+            Sign out
           </NavLinkItem>
         </nav>
       </aside>
 
-      {/* Main content */}
-      <main className="flex-1 p-6 md:p-10">
+      <main className="p-6 md:p-10 md:ml-64">
         <Outlet />
       </main>
     </div>

@@ -1,4 +1,7 @@
+import { useNavigate } from 'react-router-dom';
+
 const CartSummary = ({ subtotal }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-white p-6 rounded-xl shadow-md h-fit sticky top-24">
       <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
@@ -13,7 +16,10 @@ const CartSummary = ({ subtotal }) => {
         <span>₦{subtotal.toLocaleString()}</span>
       </div>
 
-      <button className="mt-6 w-full bg-orange-600 text-white py-3 rounded-lg font-medium hover:bg-orange-500">
+      <button
+        onClick={() => navigate('/dashboard/checkout')}
+        className="mt-6 hover:cursor-pointer w-full bg-orange-600 text-white py-3 rounded-lg font-medium hover:bg-orange-500"
+      >
         Proceed to Checkout
       </button>
     </div>

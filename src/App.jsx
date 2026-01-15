@@ -43,6 +43,9 @@ import PublicLayout from './components/PublicLayout/PublicLayout';
 import { CartProvider } from './pages/cartPage/CartContext';
 import { Toaster } from 'react-hot-toast';
 import CartPage from './pages/cartPage/CartPage';
+import OrderSuccess from './pages/admin/order-management/OrderSuccess';
+import PaymentFailed from './pages/checkoutPage/components/PaymentFailed';
+import DashboarCheckOut from './pages/user/dashboard/DashboarCheckOut';
 
 const App = () => {
   const { initializeAuth } = useAuth();
@@ -87,28 +90,29 @@ const App = () => {
               }
             />
 
-        {/* user */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<DashboardHome />} />
-          <Route path="products" element={<DashboardProducts />} />
-          <Route path="cart" element={<DashboardCart />} />
-          <Route path="orders" element={<DashboardOrders />} />
-          <Route path="account" element={<AccountSettings />} />
-          <Route path="addresses" element={<UserAddresses />} />
-          <Route path="logout" element={<DangerZone />} />
-        </Route>
+            {/* user */}
             <Route
-              path="/orderconfirmation"
+              path="/dashboard"
               element={
                 <ProtectedRoute>
-                  <OrderConfirmation />
+                  <DashboardLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<DashboardHome />} />
+              <Route path="products" element={<DashboardProducts />} />
+              <Route path="cart" element={<DashboardCart />} />
+              <Route path="checkout" element={<DashboarCheckOut />} />
+              <Route path="orders" element={<DashboardOrders />} />
+              <Route path="account" element={<AccountSettings />} />
+              <Route path="addresses" element={<UserAddresses />} />
+              <Route path="logout" element={<DangerZone />} />
+            </Route>
+            <Route
+              path="/order-success/:orderId"
+              element={
+                <ProtectedRoute>
+                  <OrderSuccess />
                 </ProtectedRoute>
               }
             />
@@ -159,8 +163,8 @@ const App = () => {
           </Route>
 
           {/* ================= PAYMENT ================= */}
-          <Route path="/payment/success" element={<PaymentSuccess />} />
-          <Route path="/payment/cancel" element={<PaymentCancel />} />
+          <Route path="payment-success" element={<PaymentSuccess />} />
+          <Route path="/payment-failed/:orderId" element={<PaymentFailed />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>

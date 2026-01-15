@@ -4,7 +4,7 @@ import Footer from '../layout/Footer';
 
 const PublicLayout = () => {
   return (
-    <div className="bg-[#fffcfa] pt-6 overflow-hidden">
+    <div className="bg-[#fffcfa] pt-16 overflow-hidden">
       <Navbar />
       <Outlet />
       <Footer />
