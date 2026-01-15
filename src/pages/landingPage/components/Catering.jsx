@@ -1,5 +1,5 @@
 import React from "react";
-import Picture from "../../../assets/catering.jpg";
+import Picture from "../../../assets/catering.jpeg";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/layout/Navbar/Navbar';
-import Footer from '../../components/layout/Footer';
+// import Footer from '../../components/layout/Footer';
 import {
   Dialog,
   DialogContent,
@@ -129,16 +129,28 @@ const ContactUs = () => {
       </div>
 
       {/* Phone Dialog */}
-      <Dialog open={isPhoneOpen} onOpenChange={setIsPhoneOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Call Us</DialogTitle>
-          </DialogHeader>
-          <a href="tel:07387064824" className="text-2xl font-bold text-center">
-            07387064824
-          </a>
-        </DialogContent>
-      </Dialog>
+      <Dialog open={isPhoneOpen} onOpenChange={setIsPhoneOpen} className="border-r-20">
+  <DialogContent className="flex flex-col items-center rounded-sm justify-center text-center space-y-4">
+    <DialogHeader>
+      <DialogTitle className="text-bold text-xl">Call Us</DialogTitle>
+    </DialogHeader>
+
+    {/* Phone icon */}
+    <span className="relative bg-orange-100 h-12 w-12 rounded-full flex items-center justify-center">
+  <Phone className="text-orange-600 text-3xl" />
+</span>
+
+    {/* Phone number */}
+    <a href="tel:7387044524" className="text-2xl font-bold">
+      +447387044524
+    </a>
+
+    <p className="font-sm">
+      Available for orders and inquiries
+    </p>
+  </DialogContent>
+</Dialog>
+
 
       {/* Contact Form */}
       <div className="max-w-5xl mx-auto px-4 pb-16">
@@ -205,7 +217,7 @@ const ContactUs = () => {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

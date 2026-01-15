@@ -1,5 +1,5 @@
 import React from "react";
-import Event1 from "@/assets/Abt1.jpg";
+import Event1 from "@/assets/Abt1.jpeg";
 
 const Hero = () => {
   return (
@@ -10,11 +10,11 @@ const Hero = () => {
 
         <div className="absolute left-0 w-full px-4 md:px-0 md:pl-[150px] md:w-[80%] top-1/2 -translate-y-1/2 md:top-[180px] md:translate-y-0 z-10 text-center md:text-left">
           <h1 className="text-2xl md:text-5xl leading-tight text-white font-bold pb-2 md:pb-3">
-            Fresh. Hygienic. Unforgettable — Just Like Home.
+            Good food, delicious in everyway...
           </h1>
           <p className="hidden md:block text-white w-full md:w-[70%] text-sm md:text-lg mx-auto md:mx-0">
-            We’re passionate about serving freshly cooked Nigerian meals made
-            with love, care, and uncompromising hygiene standards.
+            Discover the taste of premium, freshly cooked meals made with passion,
+            quality, and the finest ingredients
           </p>
         </div>
       </div>
