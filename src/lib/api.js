@@ -28,8 +28,8 @@ api.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json';
   }
 
-  if (localStorage.getItem('admin-Role')) {
-    token = localStorage.getItem('AdminAccessToken');
+  if (sessionStorage.getItem('admin-Role')) {
+    token = sessionStorage.getItem('AdminAccessToken');
   } else {
     token = localStorage.getItem('accessToken');
   }
