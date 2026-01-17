@@ -51,7 +51,7 @@ export default function DashboardHome() {
       <div className="flex gap-4 flex-wrap md:flex-nowrap justify-between align-ite">
         <StatCard
           title="Total expenses"
-          value="₦0"
+          value="€0"
           icon={DollarSign}
           hint="Stripe later"
         />

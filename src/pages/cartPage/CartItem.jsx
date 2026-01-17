@@ -27,7 +27,7 @@ const CartItem = ({ item }) => {
         <div>
           <h3 className="font-semibold">{item?.name}</h3>
           <p className="text-sm text-gray-500">
-            ₦{item?.unitPrice.toLocaleString()}
+            €{item?.unitPrice.toLocaleString()}
           </p>
 
           <button

@@ -117,7 +117,7 @@ const Menu = () => {
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-semibold">{item.name}</h3>
                     <span className="font-bold text-orange-600">
-                      ₦{item.price}
+                      €{item.price}
                     </span>
                   </div>
 

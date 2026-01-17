@@ -8,12 +8,12 @@ const CartSummary = ({ subtotal }) => {
 
       <div className="flex justify-between text-sm mb-2">
         <span>Subtotal</span>
-        <span>₦{subtotal.toLocaleString()}</span>
+        <span>€{subtotal.toLocaleString()}</span>
       </div>
 
       <div className="flex justify-between font-semibold text-lg border-t pt-4 mt-4">
         <span>Total</span>
-        <span>₦{subtotal.toLocaleString()}</span>
+        <span>€{subtotal.toLocaleString()}</span>
       </div>
 
       <button
