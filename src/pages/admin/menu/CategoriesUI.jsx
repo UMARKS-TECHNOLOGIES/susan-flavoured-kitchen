@@ -98,7 +98,7 @@ function CategoriesUI({
                           {item.description}
                         </p>
                       </div>
-                      <p className="font-semibold text-sm">€{item.price}</p>
+                      <p className="font-semibold text-sm">£{item.price}</p>
                     </div>
                   ))}
                 </div>

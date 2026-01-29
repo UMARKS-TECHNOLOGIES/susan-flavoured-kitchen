@@ -153,8 +153,8 @@ export default function Catering() {
                     <tr key={idx}>
                       <td>{item.name}</td>
                       <td>{item.qty}</td>
-                      <td>€{item.unitPrice.toLocaleString()}</td>
-                      <td>€{(item.unitPrice * item.qty).toLocaleString()}</td>
+                      <td>£{item.unitPrice.toLocaleString()}</td>
+                      <td>£{(item.unitPrice * item.qty).toLocaleString()}</td>
                     </tr>
                   ))}
                   <tr>
@@ -165,7 +165,7 @@ export default function Catering() {
                       Total:
                     </td>
                     <td style={{ fontWeight: 'bold' }}>
-                      €{selectedRequest.quote.total?.toLocaleString() || 0}
+                      £{selectedRequest.quote.total?.toLocaleString() || 0}
                     </td>
                   </tr>
                 </tbody>

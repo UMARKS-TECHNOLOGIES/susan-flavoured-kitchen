@@ -4,7 +4,7 @@ const DeliveryMethod = ({ deliveryMethod, setDeliveryMethod }) => {
       <h2 className="text-lg font-semibold">Delivery Method</h2>
 
       {[
-        { id: 'delivery', label: 'Express (€500)' },
+        { id: 'delivery', label: 'Express (£500)' },
         { id: 'pickup', label: 'Pickup (Free)' },
       ].map(m => (
         <label

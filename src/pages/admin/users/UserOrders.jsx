@@ -29,7 +29,7 @@ export default function UserOrders({ orders = [] }) {
                   Order #{order._id.slice(-6)}
                 </span>
                 <span className="font-semibold text-indigo-700">
-                  €{order.total}
+                  £{order.total}
                 </span>
               </div>
 
@@ -93,15 +93,15 @@ export default function UserOrders({ orders = [] }) {
                         {item.name} x{item.quantity}
                       </span>
                     </div>
-                    <span className="font-medium">€{item.unitPrice}</span>
+                    <span className="font-medium">£{item.unitPrice}</span>
                   </div>
                 ))}
               </div>
 
               {/* Subtotals */}
               <div className="mt-2 text-xs text-gray-500 flex justify-between">
-                <span>Subtotal: €{order.subtotal}</span>
-                <span>Delivery Fee: €{order.deliveryFee}</span>
+                <span>Subtotal: £{order.subtotal}</span>
+                <span>Delivery Fee: £{order.deliveryFee}</span>
               </div>
             </div>
           ))}

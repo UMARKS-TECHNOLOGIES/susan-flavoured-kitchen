@@ -121,7 +121,7 @@ export default function OrdersManagement() {
                   Order #{o._id.slice(-6)}
                 </p>
                 <p className="text-sm text-gray-500">
-                  Total: €{o.total} | Delivery: {o.deliveryMethod}
+                  Total: £{o.total} | Delivery: {o.deliveryMethod}
                 </p>
               </div>
               <div className="flex flex-col gap-2 mt-2 md:mt-0">
