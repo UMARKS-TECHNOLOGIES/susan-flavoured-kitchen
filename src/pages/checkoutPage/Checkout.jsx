@@ -21,7 +21,8 @@ const Checkout = () => {
     address: '',
     city: '',
     postcode: '',
-    country: '',
+    country: 'GB',
+    phone: '',
     state: '',
   });
   const [deliveryMethod, setDeliveryMethod] = useState('delivery');
