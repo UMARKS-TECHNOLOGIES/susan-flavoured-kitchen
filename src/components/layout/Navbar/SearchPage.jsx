@@ -138,7 +138,7 @@ export default function SearchResults() {
                     className="rounded-xl border overflow-hidden hover:shadow-lg transition"
                   >
                     <img
-                      src={item.imageUrl}
+                      src={API.BASEURL + item.imageUrl}
                       alt={item.name}
                       className="h-40 w-full object-cover"
                     />
