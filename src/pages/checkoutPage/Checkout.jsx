@@ -10,6 +10,8 @@ import { ShieldCheck } from 'lucide-react';
 import PaymentMethod from './components/PaymentMethod';
 import toast from 'react-hot-toast';
 import { validateCheckoutFields } from './Validation';
+import { useAuth } from '@/store/useAuth';
+import AuthPromptModal from '@/components/modals/AuthPromptModal';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -45,7 +47,15 @@ const Checkout = () => {
     setIsFormValid(isValid);
   }, [delivery, deliveryMethod, paymentType]);
 
+  const { user } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   const handleSubmit = async () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+
     const { isValid } = validateCheckoutFields(
       delivery,
       deliveryMethod,
@@ -197,6 +207,11 @@ const Checkout = () => {
             >
               {isProcessing ? 'Processing...' : 'Place Order'}
             </button>
+
+            <AuthPromptModal
+              open={showAuthModal}
+              onClose={() => setShowAuthModal(false)}
+            />
 
             {/* Footer */}
             <div className="flex items-center gap-2 text-xs text-gray-500">

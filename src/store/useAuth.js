@@ -41,7 +41,7 @@ export const useAuth = create(set => ({
           },
         });
 
-        reportSuccess('User authenticated successfully');
+        // reportSuccess('User authenticated successfully');
       }
 
       // ADMIN
@@ -147,7 +147,7 @@ export const useAuth = create(set => ({
       if (res.status !== 200) {
         const message = res?.data?.message || 'Login failed';
         set({ error: message, loading: false });
-        reportError(message);
+        // reportError(message);
         return false;
       }
 
@@ -159,7 +159,7 @@ export const useAuth = create(set => ({
         );
         set({ admin: res.data.admin, loading: false, error: null });
         sessionStorage.setItem('admin-Role', res.data.admin.role);
-        reportSuccess('Admin logged in successfully');
+        // reportSuccess('Admin logged in successfully');
         return { status: true, role: 'admin' };
       }
 
@@ -190,7 +190,7 @@ export const useAuth = create(set => ({
         error: null,
       });
 
-      reportSuccess('Logged in successfully');
+      // reportSuccess('Logged in successfully');
       return { status: true, role: 'user' };
     } catch (e) {
       const message =
