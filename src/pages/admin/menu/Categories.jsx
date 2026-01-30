@@ -16,8 +16,8 @@ export default function Categories() {
   }, []);
 
   // Handler wrappers to pass to UI
-  const handleCreate = async () => {
-    await createCategory(name, setName, setCategories);
+  const handleCreate = async imageFile => {
+    await createCategory(name, imageFile, setName, setCategories);
   };
 
   const handleDelete = async id => {
@@ -30,6 +30,7 @@ export default function Categories() {
       setName={setName}
       createCategory={handleCreate}
       categories={categories}
+      setCategories={setCategories}
       deleteCategory={handleDelete}
     />
   );
