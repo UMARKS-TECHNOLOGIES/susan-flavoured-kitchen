@@ -100,7 +100,7 @@ export default function SearchResults() {
                               <p className="text-xs text-gray-500">
                                 {item.description}
                               </p>
-                              <p className="font-semibold">₦{item.price}</p>
+                              <p className="font-semibold">£{item.price}</p>
                               <p
                                 className={`text-sm mt-1 ${
                                   item.available
@@ -138,7 +138,7 @@ export default function SearchResults() {
                     className="rounded-xl border overflow-hidden hover:shadow-lg transition"
                   >
                     <img
-                      src={item.imageUrl}
+                      src={API.BASEURL + item.imageUrl}
                       alt={item.name}
                       className="h-40 w-full object-cover"
                     />
@@ -148,7 +148,7 @@ export default function SearchResults() {
                       <p className="text-xs text-gray-500">
                         {item.categoryName}
                       </p>
-                      <p className="font-semibold">₦{item.price}</p>
+                      <p className="font-semibold">£{item.price}</p>
 
                       <CartButton item={item} />
                     </div>

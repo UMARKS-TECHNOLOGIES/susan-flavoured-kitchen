@@ -16,7 +16,7 @@ const CartItem = ({ item }) => {
       {/* IMAGE */}
       <div className="w-24 h-24 rounded-lg bg-gray-100 overflow-hidden">
         <img
-          src={`${API.BASEURL}${item?.image}` || '/placeholder.png'}
+          src={API.BASEURL+item?.image}
           alt={item?.name}
           className="w-full h-full object-cover"
         />
@@ -27,7 +27,7 @@ const CartItem = ({ item }) => {
         <div>
           <h3 className="font-semibold">{item?.name}</h3>
           <p className="text-sm text-gray-500">
-            ₦{item?.unitPrice.toLocaleString()}
+            £{item?.unitPrice.toLocaleString()}
           </p>
 
           <button

@@ -10,6 +10,8 @@ import { ShieldCheck } from 'lucide-react';
 import PaymentMethod from './components/PaymentMethod';
 import toast from 'react-hot-toast';
 import { validateCheckoutFields } from './Validation';
+import { useAuth } from '@/store/useAuth';
+import AuthPromptModal from '@/components/modals/AuthPromptModal';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -21,7 +23,8 @@ const Checkout = () => {
     address: '',
     city: '',
     postcode: '',
-    country: '',
+    country: 'GB',
+    phone: '',
     state: '',
   });
   const [deliveryMethod, setDeliveryMethod] = useState('delivery');
@@ -44,7 +47,15 @@ const Checkout = () => {
     setIsFormValid(isValid);
   }, [delivery, deliveryMethod, paymentType]);
 
+  const { user } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   const handleSubmit = async () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+
     const { isValid } = validateCheckoutFields(
       delivery,
       deliveryMethod,
@@ -133,7 +144,7 @@ const Checkout = () => {
                   {loading ? (
                     <div className="h-4 w-12 bg-gray-200 rounded animate-pulse"></div>
                   ) : (
-                    `₦${subtotal}`
+                    `£${subtotal}`
                   )}
                 </span>
               </div>
@@ -151,7 +162,7 @@ const Checkout = () => {
                   {loading ? (
                     <div className="h-4 w-12 bg-gray-200 rounded animate-pulse"></div>
                   ) : (
-                    `₦${estimatedDeliveryFee}`
+                    `£${estimatedDeliveryFee}`
                   )}
                 </span>
               </div>
@@ -169,7 +180,7 @@ const Checkout = () => {
                   {loading ? (
                     <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
                   ) : (
-                    `₦${estimatedTotal}`
+                    `£${estimatedTotal}`
                   )}
                 </span>
               </div>
@@ -196,6 +207,11 @@ const Checkout = () => {
             >
               {isProcessing ? 'Processing...' : 'Place Order'}
             </button>
+
+            <AuthPromptModal
+              open={showAuthModal}
+              onClose={() => setShowAuthModal(false)}
+            />
 
             {/* Footer */}
             <div className="flex items-center gap-2 text-xs text-gray-500">

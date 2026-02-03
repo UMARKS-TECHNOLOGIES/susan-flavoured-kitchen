@@ -155,7 +155,7 @@ function ProductsUI({
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <span className="font-semibold">₦{item.price}</span>
+                        <span className="font-semibold">£{item.price}</span>
                         <Button
                           variant="destructive"
                           size="sm"

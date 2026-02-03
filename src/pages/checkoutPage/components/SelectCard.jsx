@@ -6,7 +6,8 @@ const SelectCard = ({
   options,
   placeholder,
   allowManual,
-  error, 
+  error,
+  disabled = false,
 }) => (
   <div className="bg-gray-50 rounded-xl p-4 flex flex-col gap-1 shadow-sm hover:shadow-md transition-shadow">
     <div className="flex items-center gap-3">
@@ -18,12 +19,13 @@ const SelectCard = ({
       <select
         value={value}
         onChange={onChange}
+        disabled={disabled}
         className={`w-full mt-1 bg-white border rounded-lg p-3 focus:outline-none shadow-sm
           ${
             error
               ? 'border-red-500 focus:ring-red-300'
               : 'border-gray-200 focus:ring-orange-300'
-          }`}
+          } ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
       >
         <option value="">{placeholder}</option>
         {options.map(o => (

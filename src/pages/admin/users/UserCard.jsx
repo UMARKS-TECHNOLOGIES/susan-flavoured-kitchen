@@ -78,7 +78,7 @@ export default function UserCard({ user }) {
                       Order #{order._id.slice(-6)}
                     </span>
                     <span className="font-semibold text-indigo-700">
-                      ₦{order.total}
+                      £{order.total}
                     </span>
                   </div>
                   <div className="text-xs text-gray-500 flex flex-wrap gap-2">
@@ -243,7 +243,7 @@ export default function UserCard({ user }) {
                       </div>
                     </div>
                     <span className="font-semibold text-indigo-700">
-                      ₦{item.unitPrice}
+                      £{item.unitPrice}
                     </span>
                   </div>
                 ))}
@@ -252,8 +252,8 @@ export default function UserCard({ user }) {
 
             {/* Summary */}
             <div className="border-t border-gray-200 pt-4 text-sm text-gray-700 flex justify-between font-medium">
-              <span>Subtotal: ₦{selectedOrder.subtotal}</span>
-              <span>Delivery Fee: ₦{selectedOrder.deliveryFee}</span>
+              <span>Subtotal: £{selectedOrder.subtotal}</span>
+              <span>Delivery Fee: £{selectedOrder.deliveryFee}</span>
             </div>
 
             {/* Close Button */}

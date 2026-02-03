@@ -19,7 +19,7 @@ export default function OrderList({ orders = [] }) {
               onClick={() => setOpenOrderId(isOpen ? null : order.id)}
             >
               <span className="text-sm font-medium">Order #{order.id}</span>
-              <span className="text-sm">₦{order.total}</span>
+              <span className="text-sm">£{order.total}</span>
             </div>
 
             {isOpen && (

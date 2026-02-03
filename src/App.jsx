@@ -124,13 +124,18 @@ const App = () => {
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
           <Route  path="/resetpassword" element={<ResetPasswordPage />} />
 
-          <Route
+          {/* <Route
             path="/admin"
             element={
                 <AdminRoute>
                 <AdminLayout />
               </AdminRoute> 
             }
+          > */}
+
+          <Route
+            path="/admin"
+            element={<AdminLayout />}
           >
 
           {/* <AdminRoute>

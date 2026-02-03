@@ -3,20 +3,20 @@ import api from '../lib/api';
 import { API } from '../lib/endpoints';
 import { reportSuccess, reportError } from '@/lib/errorHandler';
 
-export const useAuth = create((set) => ({
+export const useAuth = create(set => ({
   user: null,
   admin: null,
   loading: true,
   error: null,
 
-  setUser: (user) => set({ user }),
+  setUser: user => set({ user }),
 
   /* =========================
      INITIALIZE AUTH
   ========================= */
   initializeAuth: async () => {
     const accessToken = localStorage.getItem('accessToken');
-    const adminToken = localStorage.getItem('AdminAccessToken');
+    const adminToken = sessionStorage.getItem('AdminAccessToken');
 
     if (!accessToken && !adminToken) {
       set({ loading: false, user: null, admin: null, error: null });
@@ -41,7 +41,7 @@ export const useAuth = create((set) => ({
           },
         });
 
-        reportSuccess('User authenticated successfully');
+        // reportSuccess('User authenticated successfully');
       }
 
       // ADMIN
@@ -68,7 +68,7 @@ export const useAuth = create((set) => ({
   /* =========================
      SIGNUP (REGISTER)
   ========================= */
-  signup: async (payload) => {
+  signup: async payload => {
     /**
      * payload = {
      *   name,
@@ -122,9 +122,7 @@ export const useAuth = create((set) => ({
       return { status: true };
     } catch (e) {
       const message =
-        e?.response?.data?.message ||
-        e?.message ||
-        'Signup failed';
+        e?.response?.data?.message || e?.message || 'Signup failed';
 
       set({ error: message, loading: false });
       reportError(message);
@@ -149,18 +147,19 @@ export const useAuth = create((set) => ({
       if (res.status !== 200) {
         const message = res?.data?.message || 'Login failed';
         set({ error: message, loading: false });
-        reportError(message);
+        // reportError(message);
         return false;
       }
 
       // ADMIN
       if (res.data?.admin) {
-        localStorage.setItem(
+        sessionStorage.setItem(
           'AdminAccessToken',
           JSON.stringify(res.data.token)
         );
         set({ admin: res.data.admin, loading: false, error: null });
-        reportSuccess('Admin logged in successfully');
+        sessionStorage.setItem('admin-Role', res.data.admin.role);
+        // reportSuccess('Admin logged in successfully');
         return { status: true, role: 'admin' };
       }
 
@@ -191,13 +190,11 @@ export const useAuth = create((set) => ({
         error: null,
       });
 
-      reportSuccess('Logged in successfully');
+      // reportSuccess('Logged in successfully');
       return { status: true, role: 'user' };
     } catch (e) {
       const message =
-        e?.response?.data?.message ||
-        e?.message ||
-        'Login failed';
+        e?.response?.data?.message || e?.message || 'Login failed';
 
       set({ error: message, loading: false });
       reportError(message);
@@ -216,7 +213,7 @@ export const useAuth = create((set) => ({
   /* =========================
      PASSWORD RESET
   ========================= */
-  requestPasswordReset: async (email) => {
+  requestPasswordReset: async email => {
     try {
       const res = await api.post(API.FORGOTTPASSWORD, { email });
       return { status: true, message: res.data.message };
