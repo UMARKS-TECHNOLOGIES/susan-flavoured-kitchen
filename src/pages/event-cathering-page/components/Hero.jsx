@@ -25,7 +25,7 @@ const Hero = () => {
           >
             Request Quote
           </Link>
-          <Link className="text-[#FF6E00] font-bold border border-[#FF6E00] rounded rounded-tr-none rounded-br-none px-4 py-2 text-sm lg:text-base bg-transparent hover:bg-[#FF6E00] hover:text-white transition-colors">
+          <Link to="/menu" className="text-[#FF6E00] font-bold border border-[#FF6E00] rounded rounded-tr-none rounded-br-none px-4 py-2 text-sm lg:text-base bg-transparent hover:bg-[#FF6E00] hover:text-white transition-colors">
             View Menu
           </Link>
         </div>

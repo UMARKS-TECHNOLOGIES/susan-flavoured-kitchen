@@ -122,7 +122,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-          <Route path="/resetpassword" element={<ResetPasswordPage />} />
+          <Route  path="/resetpassword" element={<ResetPasswordPage />} />
 
           <Route
             path="/admin"

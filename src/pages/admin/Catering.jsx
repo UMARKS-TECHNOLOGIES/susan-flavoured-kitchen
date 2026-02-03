@@ -6,7 +6,7 @@ import {
   FaDollarSign,
 } from "react-icons/fa";
 
-const API_BASE = "https://susanfalvoredkitchen-backend-23c5.onrender.com/api/v1/catering";
+const API_BASE = "https://susanfalvoredkitchen-backend-oz62.onrender.com/api/v1/catering";
 
 export default function Catering() {
   const [requests, setRequests] = useState([]);

@@ -83,7 +83,7 @@ export default function CateringQuote() {
 
   const checkStatus = async () => {
     try {
-      const res = await fetch(`${API_BASE}/requests/${id}/status`);
+      const res = await fetch(`${API_BASE}/requests/${requestId}/status`);
       const data = await res.json();
       if (!res.ok) throw new Error("Failed to fetch status");
       setStatus(data.status);
@@ -101,50 +101,58 @@ export default function CateringQuote() {
         </h2>
 
         <form onSubmit={submitRequest} style={styles.form}>
-          {/* Event Type */}
-          <label style={styles.label}>Event Type</label>
-          <select
-            name="eventType"
-            onChange={handleChange}
-            style={styles.input}
-          >
-            <option>Wedding</option>
-            <option>Corporate Event</option>
-            <option>Birthday Party</option>
-            <option>Anniversary</option>
-            <option>Conference</option>
-            <option>Private Party</option>
-            <option>Other</option>
-          </select>
+          {/* Event Type & Date */}
+          <div style={styles.row}>
+            <div style={styles.col}>
+              <label style={styles.label}>Event Type</label>
+              <select
+                name="eventType"
+                onChange={handleChange}
+                style={styles.input}
+              >
+                <option>Wedding</option>
+                <option>Corporate Event</option>
+                <option>Birthday Party</option>
+                <option>Anniversary</option>
+                <option>Conference</option>
+                <option>Private Party</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div style={styles.col}>
+              <label style={styles.label}>Event Date & Time</label>
+              <Input
+                icon={<FaCalendarAlt />}
+                type="datetime-local"
+                name="dateTime"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-          {/* Event Date & Time */}
-          <label style={styles.label}>Event Date & Time</label>
-          <Input
-            icon={<FaCalendarAlt />}
-            type="datetime-local"
-            name="dateTime"
-            onChange={handleChange}
-          />
-
-          {/* Number of Guests */}
-          <label style={styles.label}>Number of Guests</label>
-          <Input
-            icon={<FaUsers />}
-            type="number"
-            name="numberOfGuests"
-            placeholder="e.g. 120"
-            onChange={handleChange}
-          />
-
-          {/* Venue */}
-          <label style={styles.label}>Event Venue</label>
-          <Input
-            icon={<FaMapMarkerAlt />}
-            type="text"
-            name="venue"
-            placeholder="Event location"
-            onChange={handleChange}
-          />
+          {/* Guests & Venue */}
+          <div style={styles.row}>
+            <div style={styles.col}>
+              <label style={styles.label}>Number of Guests</label>
+              <Input
+                icon={<FaUsers />}
+                type="number"
+                name="numberOfGuests"
+                placeholder="e.g. 120"
+                onChange={handleChange}
+              />
+            </div>
+            <div style={styles.col}>
+              <label style={styles.label}>Event Venue</label>
+              <Input
+                icon={<FaMapMarkerAlt />}
+                type="text"
+                name="venue"
+                placeholder="Event location"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
           {/* Notes */}
           <label style={styles.label}>Additional Notes (Optional)</label>
@@ -166,7 +174,6 @@ export default function CateringQuote() {
               onClick={() => setShowDropdown(!showDropdown)}
               style={styles.input}
             />
-
             {showDropdown && (
               <div style={styles.dropdown}>
                 {nigerianFoods.map((food) => (
@@ -195,26 +202,29 @@ export default function CateringQuote() {
           )}
 
           {/* Contact Info */}
-          <label style={styles.sectionLabel}>Contact Information</label>
-
-          <label style={styles.label}>Full Name</label>
-          <Input
-            icon={<FaUser />}
-            type="text"
-            name="name"
-            placeholder="Your full name"
-            onChange={handleChange}
-          />
-
-          <label style={styles.label}>Email Address</label>
-          <Input
-            icon={<FaEnvelope />}
-            type="email"
-            name="email"
-            placeholder="you@email.com"
-            onChange={handleChange}
-          />
-
+          <h3 style={styles.sectionLabel}>Contact Information</h3>
+          <div style={styles.row}>
+            <div style={styles.col}>
+              <label style={styles.label}>Full Name</label>
+              <Input
+                icon={<FaUser />}
+                type="text"
+                name="name"
+                placeholder="Your full name"
+                onChange={handleChange}
+              />
+            </div>
+            <div style={styles.col}>
+              <label style={styles.label}>Email Address</label>
+              <Input
+                icon={<FaEnvelope />}
+                type="email"
+                name="email"
+                placeholder="you@email.com"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
           <label style={styles.label}>Phone Number</label>
           <Input
             icon={<FaPhone />}
@@ -284,63 +294,79 @@ const styles = {
   page: {
     background: "#f5f7fa",
     minHeight: "100vh",
-    padding: "40px",
+    padding: "20px",
   },
   card: {
-    maxWidth: 600,
+    maxWidth: 700,
     margin: "auto",
     background: "#fff",
-    padding: 30,
-    borderRadius: 12,
-    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+    padding: "30px 25px",
+    borderRadius: 16,
+    boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
   },
   title: {
     display: "flex",
     alignItems: "center",
-    gap: 10,
-    marginBottom: 20,
+    gap: 12,
+    marginBottom: 25,
+    fontSize: 24,
   },
   form: {
     display: "grid",
-    gap: 12,
+    gap: 16,
+  },
+  row: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 16,
+  },
+  col: {
+    flex: 1,
+    minWidth: 250,
   },
   inputGroup: {
     display: "flex",
     alignItems: "center",
-    gap: 8,
+    gap: 10,
   },
   icon: {
     color: "#F97316",
   },
   input: {
     flex: 1,
-    padding: 10,
-    borderRadius: 6,
+    padding: "12px 10px",
+    borderRadius: 8,
     border: "1px solid #ccc",
-    cursor: "pointer",
+    fontSize: 14,
   },
   textarea: {
-    padding: 10,
-    borderRadius: 6,
+    padding: 12,
+    borderRadius: 8,
     border: "1px solid #ccc",
-    minHeight: 80,
+    minHeight: 100,
+    fontSize: 14,
   },
   button: {
-    padding: 12,
+    padding: 14,
     background: "#F97316",
     color: "#fff",
     border: "none",
-    borderRadius: 8,
+    borderRadius: 10,
     cursor: "pointer",
     fontWeight: 600,
+    fontSize: 16,
   },
   secondaryBtn: {
-    marginTop: 15,
+    marginTop: 18,
     background: "transparent",
     border: "1px solid #111827",
-    padding: 10,
+    padding: 12,
     borderRadius: 8,
     cursor: "pointer",
+    fontSize: 14,
+    display: "flex",
+    alignItems: "center",
+    gap: 6,
   },
   error: {
     color: "red",
@@ -353,12 +379,14 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    zIndex: 999,
   },
   modal: {
     background: "#fff",
     padding: 30,
     borderRadius: 12,
     minWidth: 300,
+    maxWidth: "90%",
     position: "relative",
     textAlign: "center",
   },
@@ -369,17 +397,18 @@ const styles = {
     background: "transparent",
     border: "none",
     cursor: "pointer",
+    fontSize: 18,
   },
   label: {
     fontSize: 14,
     fontWeight: 600,
-    marginTop: 6,
-    marginBottom: -4,
+    marginBottom: 6,
+    display: "block",
   },
   sectionLabel: {
     marginTop: 20,
     fontWeight: 700,
-    fontSize: 15,
+    fontSize: 16,
     color: "#F97316",
   },
   dropdown: {
@@ -399,5 +428,30 @@ const styles = {
     padding: 10,
     cursor: "pointer",
     borderBottom: "1px solid #eee",
+    fontSize: 14,
+  },
+
+  // Responsive styles
+  "@media(max-width:768px)": {
+    card: {
+      padding: "20px 15px",
+    },
+    row: {
+      flexDirection: "column",
+    },
+    col: {
+      minWidth: "100%",
+    },
+    input: {
+      padding: "14px 12px",
+      fontSize: 16,
+    },
+    textarea: {
+      fontSize: 16,
+    },
+    button: {
+      fontSize: 16,
+      padding: 16,
+    },
   },
 };

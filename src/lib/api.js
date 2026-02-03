@@ -3,8 +3,8 @@ import axios from 'axios';
 //set baseURL based on node environment variables
 let baseURL =
   import.meta.env.VITE_API_BASE_URL ||
-  // 'https://susanfalvoredkitchen-backend-23c5.onrender.com';
-    'https://susanfalvoredkitchen-backend-oz62.onrender.com';
+  'https://susanfalvoredkitchen-backend-23c5.onrender.com';
+    // 'https://susanfalvoredkitchen-backend-oz62.onrender.com';
 
 const devServer = import.meta.env.VITE_DEV_SERVER || 'http://localhost:5000';
 

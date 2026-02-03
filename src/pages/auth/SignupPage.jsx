@@ -5,11 +5,13 @@ import { Label } from '@/components/ui/label';
 import { Eye, EyeOff, Check, X } from 'lucide-react';
 import Abt2 from '@/assets/Abt2.svg';
 import Logo from '@/assets/Logo.jpeg';
-import { useAuth } from '../../store/useAuth';
 import { useNavigate } from 'react-router-dom';
 import usePasswordValidation from '@/hooks/usePasswordValidation';
+import Modal from './Modal';
 
 const SignupPage = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -17,11 +19,14 @@ const SignupPage = () => {
     password: '',
     confirmPassword: '',
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { signup, loading, error } = useAuth();
-  const [localError, setLocalError] = useState(null);
-  const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
+
+  const [successModal, setSuccessModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(null);
+
   const { validations } = usePasswordValidation(formData.password);
 
   const passwordsMatch = useMemo(() => {
@@ -36,13 +41,54 @@ const SignupPage = () => {
   };
 
   const handleSubmit = async () => {
-    setLocalError(null);
-    // Your existing validation & signup logic remains unchanged
-    // ...
+    setErrorModal(null);
+
+    if (!formData.name || !formData.email || !formData.password) {
+      setErrorModal('Please fill all required fields.');
+      return;
+    }
+
+    if (!passwordsMatch) {
+      setErrorModal('Passwords do not match.');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      const response = await fetch(
+        'https://susanfalvoredkitchen-backend-23c5.onrender.com/api/v1/user/register',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            password: formData.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Account creation failed');
+      }
+
+      setSuccessModal(true);
+    } catch (err) {
+      setErrorModal(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleLogin = () => navigate('/login');
-  const handleKeyPress = e => { if (e.key === 'Enter') handleSubmit(); };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') handleSubmit();
+  };
 
   return (
     <div className="min-h-screen px-4 lg:px-10 bg-[#fffcfa]">
@@ -74,39 +120,24 @@ const SignupPage = () => {
         <div className="w-full lg:w-1/2 flex items-center justify-center lg:px-8 order-2">
           <div className="w-full max-w-lg bg-white lg:bg-transparent p-6 lg:p-0 rounded-xl lg:rounded-none shadow-sm lg:shadow-none border lg:border-none border-gray-100">
             <div className="space-y-6">
-              {(localError || error) && (
-                <div className="text-red-500 text-sm text-center">
-                  {localError || error}
-                </div>
-              )}
-
               {/* Name */}
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-                  Name
-                </Label>
+                <Label>Name</Label>
                 <Input
-                  id="name"
-                  type="text"
-                  placeholder="Enter Your Full Name"
                   value={formData.name}
+                  placeholder="Enter Your Full Name"
                   onChange={e => handleChange('name', e.target.value)}
                   onKeyPress={handleKeyPress}
                   className="h-12 bg-gray-50/50 border-gray-200"
-                  autoFocus
                 />
               </div>
 
               {/* Phone */}
               <div className="space-y-2">
-                <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
-                  Phone Number
-                </Label>
+                <Label>Phone Number</Label>
                 <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="Enter Your Number"
                   value={formData.phone}
+                  placeholder="Enter Your Phone Number"
                   onChange={e => handleChange('phone', e.target.value)}
                   onKeyPress={handleKeyPress}
                   className="h-12 bg-gray-50/50 border-gray-200"
@@ -115,13 +146,10 @@ const SignupPage = () => {
 
               {/* Email */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                  Email Address
-                </Label>
+                <Label>Email</Label>
                 <Input
-                  id="email"
                   type="email"
-                  placeholder="Enter Your Email"
+                  placeholder="Email Address eg user@gmail.com"
                   value={formData.email}
                   onChange={e => handleChange('email', e.target.value)}
                   onKeyPress={handleKeyPress}
@@ -131,41 +159,35 @@ const SignupPage = () => {
 
               {/* Password */}
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-                  Password
-                </Label>
+                <Label>Password</Label>
                 <div className="relative">
                   <Input
-                    id="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter Password"
+                    placeholder="Enter a strong password"
                     value={formData.password}
                     onChange={e => handleChange('password', e.target.value)}
                     onKeyPress={handleKeyPress}
-                    className={`h-12 pr-10 bg-gray-50/50 border-gray-200`}
+                    className="h-12 pr-10 bg-gray-50/50 border-gray-200"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-3 top-1/2 -translate-y-1/2"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? <EyeOff /> : <Eye />}
                   </button>
                 </div>
 
                 {formData.password && (
-                  <div className="space-y-1 text-xs mt-2">
-                    <div className={`flex items-center gap-1 ${validations.minLength ? 'text-green-600' : 'text-gray-500'}`}>
-                      {validations.minLength ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
-                      <span>Minimum 8 characters</span>
+                  <div className="text-xs space-y-1">
+                    <div className={`flex gap-1 ${validations.minLength ? 'text-green-600' : 'text-gray-500'}`}>
+                      {validations.minLength ? <Check size={12} /> : <X size={12} />} Min 8 characters
                     </div>
-                    <div className={`flex items-center gap-1 ${validations.hasUppercase ? 'text-green-600' : 'text-gray-500'}`}>
-                      {validations.hasUppercase ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
-                      <span>At least one uppercase letter</span>
+                    <div className={`flex gap-1 ${validations.hasUppercase ? 'text-green-600' : 'text-gray-500'}`}>
+                      {validations.hasUppercase ? <Check size={12} /> : <X size={12} />} Uppercase letter
                     </div>
-                    <div className={`flex items-center gap-1 ${validations.hasSpecialChar ? 'text-green-600' : 'text-gray-500'}`}>
-                      {validations.hasSpecialChar ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
-                      <span>At least one number or special symbol (!,@,#,$)</span>
+                    <div className={`flex gap-1 ${validations.hasSpecialChar ? 'text-green-600' : 'text-gray-500'}`}>
+                      {validations.hasSpecialChar ? <Check size={12} /> : <X size={12} />} Number or symbol
                     </div>
                   </div>
                 )}
@@ -173,47 +195,33 @@ const SignupPage = () => {
 
               {/* Confirm Password */}
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
-                  Confirm Password
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="confirmPassword"
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    placeholder="Enter Password"
-                    value={formData.confirmPassword}
-                    onChange={e => handleChange('confirmPassword', e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    className={`h-12 pr-10 bg-gray-50/50 border-gray-200`}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                  >
-                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  </button>
-                </div>
-                {!passwordsMatch && formData.confirmPassword && (
-                  <p className="text-xs text-red-600">Passwords do not match.</p>
+                <Label>Confirm Password</Label>
+                <Input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="confirm Your Password"
+                  value={formData.confirmPassword}
+                  onChange={e => handleChange('confirmPassword', e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className="h-12 bg-gray-50/50 border-gray-200"
+                />
+                {!passwordsMatch && (
+                  <p className="text-xs text-red-600">Passwords do not match</p>
                 )}
               </div>
 
-              {/* Signup Button */}
               <Button
                 onClick={handleSubmit}
-                disabled={loading}
-                className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white text-base font-bold rounded-lg shadow-md transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                disabled={submitting}
+                className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white font-bold"
               >
-                {loading ? 'Creating Account...' : 'Create Account'}
+                {submitting ? 'Creating Account...' : 'Create Account'}
               </Button>
 
-              {/* Login link */}
-              <div className="text-center pt-2">
-                <span className="text-sm text-gray-600">Already have an account? </span>
+              <div className="text-center">
+                <span className="text-sm">Already have an account? </span>
                 <button
-                  onClick={handleLogin}
-                  className="text-sm text-orange-500 hover:text-orange-600 font-bold"
+                  onClick={() => navigate('/login')}
+                  className="text-orange-500 font-bold"
                 >
                   Log In
                 </button>
@@ -222,6 +230,23 @@ const SignupPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Modals */}
+      <Modal
+        open={successModal}
+        title="Account Created 🎉"
+        onClose={() => navigate('/login')}
+      >
+        Your account has been created successfully. You can now log in.
+      </Modal>
+
+      <Modal
+        open={!!errorModal}
+        title="Signup Failed"
+        onClose={() => setErrorModal(null)}
+      >
+        {errorModal}
+      </Modal>
     </div>
   );
 };

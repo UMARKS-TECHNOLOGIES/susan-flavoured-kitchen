@@ -34,7 +34,7 @@ const ForgotPasswordPage = () => {
     setIsLoading(true);
 
     try {
-      const res = await requestPasswordReset(email); // ✅ Store handles backend
+      const res = await requestPasswordReset(email);
 
       if (res.status) {
         setIsEmailSent(true);

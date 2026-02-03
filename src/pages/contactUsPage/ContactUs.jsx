@@ -47,7 +47,7 @@ const ContactUs = () => {
 
     try {
       const response = await fetch(
-        'https://susanfalvoredkitchen-backend-oz62.onrender.com/api/v1/contact/contact',
+        'https://susanfalvoredkitchen-backend-23c5.onrender.com/api/v1/contact/contact',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -115,7 +115,7 @@ const ContactUs = () => {
           </a>
 
           <a
-            href="https://instagram.com/susanflavouredkitchenuk"
+            href="https://www.instagram.com/susanflavouredkitchenuk?igsh=dXVydXR2bGRjcHY2"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -141,7 +141,7 @@ const ContactUs = () => {
 </span>
 
     {/* Phone number */}
-    <a href="tel:7387044524" className="text-2xl font-bold">
+    <a href="tel:+447387044524" className="text-2xl font-bold">
       +447387044524
     </a>
 
