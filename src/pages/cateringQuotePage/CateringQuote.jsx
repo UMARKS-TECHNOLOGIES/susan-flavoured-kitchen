@@ -39,7 +39,16 @@ export default function CateringQuote() {
 
   const dropdownRef = useRef();
 
-  // Close dropdown when clicking outside
+  /* ========= MOBILE RESPONSIVENESS (INLINE ONLY) ========= */
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  /* ========= CLOSE DROPDOWN ========= */
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -65,7 +74,6 @@ export default function CateringQuote() {
         body: JSON.stringify({
           ...form,
           numberOfGuests: Number(form.numberOfGuests),
-          preferredDishes: form.preferredDishes,
         }),
       });
 
@@ -95,20 +103,34 @@ export default function CateringQuote() {
 
   return (
     <div style={styles.page}>
-      <div style={styles.card}>
+      <div
+        style={{
+          ...styles.card,
+          padding: isMobile ? "20px 15px" : "30px 25px",
+        }}
+      >
         <h2 style={styles.title}>
           <FaUtensils /> Catering Quote Request
         </h2>
 
         <form onSubmit={submitRequest} style={styles.form}>
           {/* Event Type & Date */}
-          <div style={styles.row}>
-            <div style={styles.col}>
+          <div
+            style={{
+              ...styles.row,
+              flexDirection: isMobile ? "column" : "row",
+            }}
+          >
+            <div style={{ ...styles.col, minWidth: isMobile ? "100%" : 250 }}>
               <label style={styles.label}>Event Type</label>
               <select
                 name="eventType"
                 onChange={handleChange}
-                style={styles.input}
+                style={{
+                  ...styles.input,
+                  fontSize: isMobile ? 16 : 14,
+                  padding: isMobile ? "14px 12px" : "12px 10px",
+                }}
               >
                 <option>Wedding</option>
                 <option>Corporate Event</option>
@@ -119,20 +141,27 @@ export default function CateringQuote() {
                 <option>Other</option>
               </select>
             </div>
-            <div style={styles.col}>
+
+            <div style={{ ...styles.col, minWidth: isMobile ? "100%" : 250 }}>
               <label style={styles.label}>Event Date & Time</label>
               <Input
                 icon={<FaCalendarAlt />}
                 type="datetime-local"
                 name="dateTime"
                 onChange={handleChange}
+                isMobile={isMobile}
               />
             </div>
           </div>
 
           {/* Guests & Venue */}
-          <div style={styles.row}>
-            <div style={styles.col}>
+          <div
+            style={{
+              ...styles.row,
+              flexDirection: isMobile ? "column" : "row",
+            }}
+          >
+            <div style={{ ...styles.col, minWidth: isMobile ? "100%" : 250 }}>
               <label style={styles.label}>Number of Guests</label>
               <Input
                 icon={<FaUsers />}
@@ -140,9 +169,11 @@ export default function CateringQuote() {
                 name="numberOfGuests"
                 placeholder="e.g. 120"
                 onChange={handleChange}
+                isMobile={isMobile}
               />
             </div>
-            <div style={styles.col}>
+
+            <div style={{ ...styles.col, minWidth: isMobile ? "100%" : 250 }}>
               <label style={styles.label}>Event Venue</label>
               <Input
                 icon={<FaMapMarkerAlt />}
@@ -150,44 +181,52 @@ export default function CateringQuote() {
                 name="venue"
                 placeholder="Event location"
                 onChange={handleChange}
+                isMobile={isMobile}
               />
             </div>
           </div>
 
           {/* Notes */}
-          <label style={styles.label}>Additional Notes (Optional)</label>
+          <label style={styles.label}>Additional Notes</label>
           <textarea
             name="additionalNotes"
-            placeholder="Outdoor event, special requests, timing, etc."
             onChange={handleChange}
-            style={styles.textarea}
+            placeholder="Outdoor event, special requests, timing, etc."
+            style={{
+              ...styles.textarea,
+              fontSize: isMobile ? 16 : 14,
+              padding: isMobile ? 14 : 12,
+            }}
           />
 
           {/* Preferred Dishes */}
           <label style={styles.label}>Preferred Dishes</label>
           <div style={{ position: "relative" }} ref={dropdownRef}>
             <input
-              type="text"
-              placeholder="Click to select dishes"
-              value={form.preferredDishes.join(", ")}
               readOnly
               onClick={() => setShowDropdown(!showDropdown)}
-              style={styles.input}
+              value={form.preferredDishes.join(", ")}
+              placeholder="Click to select dishes"
+              style={{
+                ...styles.input,
+                fontSize: isMobile ? 16 : 14,
+                padding: isMobile ? "14px 12px" : "12px 10px",
+              }}
             />
+
             {showDropdown && (
               <div style={styles.dropdown}>
                 {nigerianFoods.map((food) => (
                   <div
                     key={food}
                     style={styles.dropdownItem}
-                    onClick={() => {
-                      if (!form.preferredDishes.includes(food)) {
-                        setForm({
-                          ...form,
-                          preferredDishes: [...form.preferredDishes, food],
-                        });
-                      }
-                    }}
+                    onClick={() =>
+                      !form.preferredDishes.includes(food) &&
+                      setForm({
+                        ...form,
+                        preferredDishes: [...form.preferredDishes, food],
+                      })
+                    }
                   >
                     {food}
                   </div>
@@ -195,16 +234,17 @@ export default function CateringQuote() {
               </div>
             )}
           </div>
-          {form.preferredDishes.length > 0 && (
-            <p style={{ fontSize: 12, marginTop: 4, color: "#555" }}>
-              Selected: {form.preferredDishes.join(", ")}
-            </p>
-          )}
 
           {/* Contact Info */}
           <h3 style={styles.sectionLabel}>Contact Information</h3>
-          <div style={styles.row}>
-            <div style={styles.col}>
+
+          <div
+            style={{
+              ...styles.row,
+              flexDirection: isMobile ? "column" : "row",
+            }}
+          >
+            <div style={{ ...styles.col, minWidth: isMobile ? "100%" : 250 }}>
               <label style={styles.label}>Full Name</label>
               <Input
                 icon={<FaUser />}
@@ -212,29 +252,41 @@ export default function CateringQuote() {
                 name="name"
                 placeholder="Your full name"
                 onChange={handleChange}
+                isMobile={isMobile}
               />
             </div>
-            <div style={styles.col}>
-              <label style={styles.label}>Email Address</label>
+
+            <div style={{ ...styles.col, minWidth: isMobile ? "100%" : 250 }}>
+              <label style={styles.label}>Email</label>
               <Input
                 icon={<FaEnvelope />}
                 type="email"
                 name="email"
-                placeholder="you@email.com"
+                placeholder="e.g. yourname@example.com"
                 onChange={handleChange}
+                isMobile={isMobile}
               />
             </div>
           </div>
-          <label style={styles.label}>Phone Number</label>
+
+          <label style={styles.label}>Phone</label>
           <Input
             icon={<FaPhone />}
             type="tel"
             name="phone"
-            placeholder="08012345678"
+            placeholder="e.g. +448012345678"
             onChange={handleChange}
+            isMobile={isMobile}
           />
 
-          <button style={styles.button} disabled={loading}>
+          <button
+            style={{
+              ...styles.button,
+              padding: isMobile ? 16 : 14,
+              fontSize: isMobile ? 16 : 15,
+            }}
+            disabled={loading}
+          >
             {loading ? "Submitting..." : "Submit Catering Request"}
           </button>
         </form>
@@ -248,36 +300,41 @@ export default function CateringQuote() {
         {error && <p style={styles.error}>{error}</p>}
       </div>
 
-      {/* SUCCESS MODAL */}
       {showSuccessModal && (
         <Modal onClose={() => setShowSuccessModal(false)}>
           <FaCheckCircle size={40} color="green" />
           <h3>Request Submitted</h3>
-          <p>Your request ID:</p>
           <strong>{requestId}</strong>
         </Modal>
       )}
 
-      {/* STATUS MODAL */}
       {showStatusModal && (
         <Modal onClose={() => setShowStatusModal(false)}>
-          <h3>Request Status</h3>
-          <p>
-            Status: <strong>{status}</strong>
-          </p>
+          <h3>Status</h3>
+          <strong>{status}</strong>
         </Modal>
       )}
     </div>
   );
 }
 
-const Input = ({ icon, ...props }) => (
+/* ========= INPUT ========= */
+const Input = ({ icon, isMobile, ...props }) => (
   <div style={styles.inputGroup}>
     <span style={styles.icon}>{icon}</span>
-    <input {...props} required style={styles.input} />
+    <input
+      {...props}
+      required
+      style={{
+        ...styles.input,
+        fontSize: isMobile ? 16 : 14,
+        padding: isMobile ? "14px 12px" : "12px 10px",
+      }}
+    />
   </div>
 );
 
+/* ========= MODAL ========= */
 const Modal = ({ children, onClose }) => (
   <div style={styles.overlay}>
     <div style={styles.modal}>
@@ -289,25 +346,24 @@ const Modal = ({ children, onClose }) => (
   </div>
 );
 
-/* ================= STYLES ================= */
+/* ========= STYLES ========= */
 const styles = {
   page: {
     background: "#f5f7fa",
     minHeight: "100vh",
-    padding: "20px",
+    padding: 20,
   },
   card: {
     maxWidth: 700,
     margin: "auto",
     background: "#fff",
-    padding: "30px 25px",
     borderRadius: 16,
     boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
   },
   title: {
     display: "flex",
     alignItems: "center",
-    gap: 12,
+    gap: 10,
     marginBottom: 25,
     fontSize: 24,
   },
@@ -317,12 +373,10 @@ const styles = {
   },
   row: {
     display: "flex",
-    flexWrap: "wrap",
     gap: 16,
   },
   col: {
     flex: 1,
-    minWidth: 250,
   },
   inputGroup: {
     display: "flex",
@@ -334,59 +388,65 @@ const styles = {
   },
   input: {
     flex: 1,
-    padding: "12px 10px",
     borderRadius: 8,
     border: "1px solid #ccc",
-    fontSize: 14,
   },
   textarea: {
-    padding: 12,
     borderRadius: 8,
     border: "1px solid #ccc",
     minHeight: 100,
-    fontSize: 14,
   },
   button: {
-    padding: 14,
     background: "#F97316",
     color: "#fff",
     border: "none",
     borderRadius: 10,
     cursor: "pointer",
     fontWeight: 600,
-    fontSize: 16,
   },
   secondaryBtn: {
-    marginTop: 18,
-    background: "transparent",
+    marginTop: 16,
     border: "1px solid #111827",
+    background: "transparent",
     padding: 12,
     borderRadius: 8,
     cursor: "pointer",
-    fontSize: 14,
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
   },
   error: {
     color: "red",
     marginTop: 10,
+  },
+  sectionLabel: {
+    fontWeight: 700,
+    color: "#F97316",
+    marginTop: 20,
+  },
+  dropdown: {
+    position: "absolute",
+    width: "100%",
+    background: "#fff",
+    border: "1px solid #ccc",
+    borderRadius: 6,
+    maxHeight: 200,
+    overflowY: "auto",
+    zIndex: 10,
+  },
+  dropdownItem: {
+    padding: 10,
+    cursor: "pointer",
   },
   overlay: {
     position: "fixed",
     inset: 0,
     background: "rgba(0,0,0,0.4)",
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
-    zIndex: 999,
+    alignItems: "center",
   },
   modal: {
     background: "#fff",
     padding: 30,
     borderRadius: 12,
-    minWidth: 300,
-    maxWidth: "90%",
     position: "relative",
     textAlign: "center",
   },
@@ -397,61 +457,5 @@ const styles = {
     background: "transparent",
     border: "none",
     cursor: "pointer",
-    fontSize: 18,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: 600,
-    marginBottom: 6,
-    display: "block",
-  },
-  sectionLabel: {
-    marginTop: 20,
-    fontWeight: 700,
-    fontSize: 16,
-    color: "#F97316",
-  },
-  dropdown: {
-    position: "absolute",
-    top: "100%",
-    left: 0,
-    right: 0,
-    background: "#fff",
-    border: "1px solid #ccc",
-    borderRadius: 6,
-    maxHeight: 200,
-    overflowY: "auto",
-    zIndex: 10,
-    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  },
-  dropdownItem: {
-    padding: 10,
-    cursor: "pointer",
-    borderBottom: "1px solid #eee",
-    fontSize: 14,
-  },
-
-  // Responsive styles
-  "@media(max-width:768px)": {
-    card: {
-      padding: "20px 15px",
-    },
-    row: {
-      flexDirection: "column",
-    },
-    col: {
-      minWidth: "100%",
-    },
-    input: {
-      padding: "14px 12px",
-      fontSize: 16,
-    },
-    textarea: {
-      fontSize: 16,
-    },
-    button: {
-      fontSize: 16,
-      padding: 16,
-    },
   },
 };

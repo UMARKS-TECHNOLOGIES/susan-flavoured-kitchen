@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '../../../store/useAuth';
 import { MdOutlineModeEdit } from 'react-icons/md';
-import Footer from '@/components/layout/Footer';
+// import Footer from '@/components/layout/Footer';
 import api from '@/lib/api';
 import { API } from '@/lib/endpoints';
 import Modal from '../modals/Modal';
@@ -285,7 +285,7 @@ const AccountSettings = () => {
       </div>
 
       <UserAccountCreated user={user} />
-      <Footer />
+      {/* <Footer /> */}
 
       {modal.visible && (
         <Modal
