@@ -19,7 +19,7 @@ const DashboardLayout = () => {
     <div className="min-h-screen flex bg-[#fffcfa]">
       {/* Mobile Hamburger Button */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-md"
+        className="md:hidden fixed top-20 right-4 z-50 p-2 rounded-md bg-black text-white shadow-md"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
