@@ -1,7 +1,7 @@
 import React from "react";
-import Plate from "../../../assets/hero_food_2.png";
-import Plate2 from "../../../assets/hero_food_2.png";
-import Plate3 from "../../../assets/hero_food_2.png";
+import Plate from "../../../assets/hero_food_2.webp";
+import Plate2 from "../../../assets/hero_food_2.webp";
+import Plate3 from "../../../assets/hero_food_2.webp";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,23 +14,23 @@ const Herosection = () => {
   const heroSlides = [
     {
       id: 1,
-      title: "Good food, delicious in everyway.",
+      title: "Hygienic Meals, Unforgettable Taste.",
       description:
-        "Discover the taste of premium, freshly cooked meals made with passion, quality, and the finest ingredients.",
+        "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
       image: Plate,
     },
     {
       id: 2,
-      title: "Good food, delicious in everyway.",
+      title: "Hygienic Meals, Unforgettable Taste.",
       description:
-        "Discover the taste of premium, freshly cooked meals made with passion, quality, and the finest ingredients.",
+        "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
       image: Plate2,
     },
     {
       id: 3,
-      title: "Good food, delicious in everyway.",
+      title: "Hygienic Meals, Unforgettable Taste.",
       description:
-        "Discover the taste of premium, freshly cooked meals made with passion, quality, and the finest ingredients.",
+        "From homemade soups to pastries and drinks — order comfort delivered to your door or book us for your next event.",
       image: Plate3,
     },
   ];
@@ -67,13 +67,13 @@ const Herosection = () => {
       >
         {heroSlides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="bg-[#ff6e00] flex flex-col lg:flex-row py-8 lg:py-8 px-6 lg:px-12 rounded-2xl lg:rounded-lg gap-6 lg:gap-20 items-center min-h-[500px] lg:min-h-0">
+            <div className="bg-[#ff6e00] flex flex-col lg:flex-row py-8 lg:py-8 px-6 lg:px-12 rounded-2xl lg:rounded-lg gap-1 lg:gap-20 items-center min-h-[500px] lg:min-h-0">
               {/* Image Container */}
-              <div className="w-[250px] h-[250px] lg:w-[390px] lg:h-[390px] flex items-center justify-center shrink-0">
+              <div className="w-[270px] h-[270px] lg:w-[290px] lg:h-[390px] flex items-center justify-center shrink-0">
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-full h-full object-contain drop-shadow-xl"
+                  className="w-full h-full object-contain drop-shadow-xl lg:scale-[1.5]"
                 />
               </div>
 
@@ -89,7 +89,7 @@ const Herosection = () => {
 
                 <div className="flex justify-center lg:justify-start items-center pt-2 lg:py-6 gap-3 w-full lg:w-auto">
                   <Link to="order-now" className="flex-1 lg:flex-none">
-                    <Button className="bg-white w-full lg:w-[100px] h-10 text-[#ff6e00] hover:bg-gray-100 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none">
+                    <Button className="bg-white w-full lg:w-[140px] h-10 text-[#ff6e00] hover:bg-gray-100 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none">
                       Order Now
                     </Button>
                   </Link>

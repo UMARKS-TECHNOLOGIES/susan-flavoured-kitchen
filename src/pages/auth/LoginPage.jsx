@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Abt2 from '@/assets/Abt2.svg';
-import Logo from '@/assets/Logo.jpeg';
+import Logo from '@/assets/Logo.webp';
 import { useAuth } from '../../store/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../components/shared/ErrorToastProvider';

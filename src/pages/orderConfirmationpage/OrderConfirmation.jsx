@@ -4,8 +4,8 @@ import OrderItem from './components/OrderItem';
 import { CheckCircle2 } from 'lucide-react';
 import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
-import Image5 from '../../assets/jollof-rice.jpg'
-import Image10 from '../../assets/sharwarma.jpeg'
+import Image5 from '../../assets/jollof-rice.webp'
+import Image10 from '../../assets/sharwarma.webp'
 import { Separator } from '../../components/ui/separator';
 
 const OrderConfirmation = () => {

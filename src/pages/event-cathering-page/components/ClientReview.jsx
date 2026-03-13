@@ -1,5 +1,5 @@
 import React from "react";
-import Cl1 from "@/assets/outdoor.jpeg";
+import Cl1 from "@/assets/outdoor.webp";
 const ClientReview = () => {
   return (
     <section className="h-auto pb-10 lg:pb-0 lg:h-[400px] relative bg-[#FFF9F4] lg:bg-transparent">

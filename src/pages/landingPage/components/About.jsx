@@ -1,5 +1,5 @@
 import React from "react";
-import Picture from "../../../assets/chefstory1.jpeg";
+import Picture from "../../../assets/ricebeans.webp";
 import { Button } from "../../../components/ui/button";
 
 const About = () => {
@@ -20,21 +20,24 @@ const About = () => {
 
           {/* Text Content */}
           <div className="flex-1">
-            <p className="text-gray-600 text-base lg:text-lg leading-relaxed mb-6 text-justify lg:text-left">
-              Welcome to Susan Flavoured Kitchen Limited, a fast-growing food and catering business based in Nottingham, United Kingdom. Founded in 2020 by Susan Chioma Nwobo, SFK was born from a lifelong passion for cooking and the joy of bringing people together through food.
-S             usan’s culinary journey began more than 20 years ago when she catered her own birthday celebrations at ages 16 and 20. 
-              <br className="hidden lg:block" />
-              <br className="hidden lg:block" />
-              With every dish she prepared for family, friends, and community events, her love for cooking grew into a purposeful mission—and today, that mission is the heart of SFK.
+            <p className="text-gray-600 text-base lg:text-lg leading-relaxed mb-6 text-justify">
+              At SFK, we pride ourselves on delivering delicious, freshly
+              prepared, and high-quality meals that make everyday dining and
+              special events both memorable and meaningful. We specialise in
+              African/Nigerian cuisine, continental dishes, pastries, canapés,
+              desserts, and signature non-alcoholic drinks, all crafted with
+              care, creativity, and bold flavours. We provide exceptional meal
+              prep services, daily meal deliveries, and full indoor and outdoor
+              catering for both individuals and corporate clients across the
+              East Midlands and beyond.
             </p>
 
-            <Button    
+            <Button
               className="bg-orange-600 hover:bg-orange-500 text-white font-medium px-8 py-2 h-11"
-              size="lg" 
-            > 
+              size="lg"
+            >
               Learn More
             </Button>
-      
           </div>
         </div>
       </div>

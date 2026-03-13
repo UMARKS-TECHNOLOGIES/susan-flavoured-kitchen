@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "../../../components/ui/button";
-import Soup from "../../../assets/soupandstew.jpeg";
-import Drink from "../../../assets/drink1.jpeg";
-import Rice from "../../../assets/smoky.jpeg";
-import Events from "../../../assets/catering1.jpeg";
-import Cakes from "../../../assets/image5.jpg";
-import Pastries from "../../../assets/pastries.jpeg";
+import Soup from "../../../assets/image2.webp";
+import Drink from "../../../assets/drink.webp";
+import Rice from "../../../assets/image44.webp";
+import Events from "../../../assets/image22.webp";
+import Cakes from "../../../assets/image5.webp";
+import Pastries from "../../../assets/pastries.webp";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
@@ -53,14 +53,14 @@ const Categories = () => {
         {categoryItems.map((item) => (
           <div
             key={item.id}
-            className="relative min-w-[280px] h-[200px] lg:w-80 lg:h-50 items-center text-center flex justify-center bg-cover bg-no-repeat rounded-br-lg rounded-tl-lg shrink-0 snap-center"
+            className="relative min-w-[280px] h-[300px] lg:w-80 lg:h-[350px] items-center text-center flex justify-center bg-cover bg-center bg-no-repeat rounded-br-lg rounded-tl-lg shrink-0 snap-center overflow-hidden"
             style={{
               backgroundImage: `url(${item.imageUrl})`,
             }}
           >
             <div className="bg-white/70 px-6 py-2 rounded-br-lg rounded-tl-lg backdrop-blur-sm">
               <h3 className="text-xl lg:text-2xl font-bold">{item.name}</h3>
-              <Link to='/admin'>
+              <Link to="/admin">
                 <Button
                   className="my-3 lg:my-4 bg-orange-600 rounded-br-lg rounded-tl-lg cursor-pointer hover:bg-orange-500 text-white font-medium text-sm lg:text-base h-9 lg:h-11"
                   size="lg"

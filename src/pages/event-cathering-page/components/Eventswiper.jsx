@@ -5,9 +5,9 @@ import "../../../index.css";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import img1 from "@/assets/wed.jpg";
-import img2 from "@/assets/bd.jpg";
-import img3 from "@/assets/evnent.jpg";
+import img1 from "@/assets/wed.webp";
+import img2 from "@/assets/bd.webp";
+import img3 from "@/assets/evnent.webp";
 
 const Eventswiper = () => {
   return (

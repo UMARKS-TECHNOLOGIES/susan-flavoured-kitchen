@@ -20,7 +20,7 @@ import {
 import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 import { Instagram, Mail, Phone } from "lucide-react";
-import HeroImage from "../../assets/contactImg.jpg";
+import HeroImage from "../../assets/contactImg.webp";
 import { Separator } from "@radix-ui/react-separator";
 
 const ContactUs = () => {

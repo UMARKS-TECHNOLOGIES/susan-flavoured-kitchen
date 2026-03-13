@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import Image8 from "../../../assets/chickenChps.jpeg";
+import Image8 from "../../../assets/chickenChps.webp";
 import { useCart } from "@/store/useCart";
 
 const GoesWellWith = ({ currentProductId }) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import Event1 from "@/assets/abouthero.jpeg";
+import Event1 from "@/assets/abouthero.webp";
 
 const Hero = () => {
   return (

@@ -1,21 +1,21 @@
-import React from 'react';
-import { MdOutlineMail } from 'react-icons/md';
-import { LuInstagram } from 'react-icons/lu';
-import { FaWhatsapp } from 'react-icons/fa';
-import { HiOutlineDevicePhoneMobile } from 'react-icons/hi2';
-import MasterCard from '../../assets/mastercard-transparent.png';
-import Visa from '../../assets/visaimg-transparent.png';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { MdOutlineMail } from "react-icons/md";
+import { LuInstagram } from "react-icons/lu";
+import { FaWhatsapp } from "react-icons/fa";
+import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
+import MasterCard from "../../assets/mastercard-transparent.webp";
+import Visa from "../../assets/visaimg-transparent.webp";
+import { NavLink } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from "@/components/ui/accordion";
 
 const Footer = () => {
   return (
-    <section className="bg-[#ff6e00] mt-80 ">
+    <section className="bg-[#ff6e00] mt-10">
       <div className="max-w-7xl mx-auto px-4 lg:px-0">
         <div className="flex items-center justify-center flex-col py-10">
           <ul className="flex flex-wrap justify-center items-center gap-6 lg:gap-10 text-white text-base lg:text-lg font-medium">

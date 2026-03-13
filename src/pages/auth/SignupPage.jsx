@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Eye, EyeOff, Check, X } from 'lucide-react';
 import Abt2 from '@/assets/Abt2.svg';
-import Logo from '@/assets/Logo.jpeg';
+import Logo from '@/assets/Logo.webp';
 
 import { useAuth } from '../../store/useAuth';
 import { useNavigate } from 'react-router-dom';

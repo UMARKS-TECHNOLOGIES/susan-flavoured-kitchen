@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "@/assets/Logo.jpeg";
+import Logo from "@/assets/Logo.webp";
 import Abt2 from "@/assets/Abt2.svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

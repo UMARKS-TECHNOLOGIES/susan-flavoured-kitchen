@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { IoArrowBack } from "react-icons/io5";
-import Logo from "@/assets/Logo.jpeg";
+import Logo from "@/assets/Logo.webp";
 import Abt2 from "@/assets/Abt2.svg";
 
 const ForgotPasswordPage = () => {
