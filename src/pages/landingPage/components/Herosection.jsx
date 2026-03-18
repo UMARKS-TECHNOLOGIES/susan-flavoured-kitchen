@@ -36,7 +36,7 @@ const Herosection = () => {
   ];
 
   return (
-    <section className="w-full lg:w-[95%] mt-16 lg:mt-20 mx-auto relative px-4 lg:px-0">
+    <section className="w-full lg:w-[95%] mt-6 lg:mt-8 mx-auto relative px-4 lg:px-0">
       {/* Mobile Search Bar */}
       <div className="flex lg:hidden w-full gap-2 mb-4">
         <div className="relative flex-1">
