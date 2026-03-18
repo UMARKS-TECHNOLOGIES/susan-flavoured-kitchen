@@ -18,7 +18,7 @@ function SideBar({ logout, navigate }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
-    { to: '*', label: 'Dashboard', Icon: LayoutDashboard },
+    { to: '/admin', label: 'Dashboard', Icon: LayoutDashboard },
     { to: 'orders', label: 'Orders', Icon: ShoppingBag },
     { to: 'payments', label: 'Payments', Icon: CreditCard },
     { to: 'users', label: 'Users', Icon: Users },
@@ -50,6 +50,7 @@ function SideBar({ logout, navigate }) {
             <NavLink
               key={v.to}
               to={v.to}
+              end={v.to === '/admin'}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium capitalize ${
                   isActive

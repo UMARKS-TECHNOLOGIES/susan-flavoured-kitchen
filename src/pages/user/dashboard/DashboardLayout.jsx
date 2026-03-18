@@ -19,7 +19,7 @@ const DashboardLayout = () => {
     <div className="min-h-screen flex bg-[#fffcfa]">
       {/* Mobile Hamburger Button */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-md"
+        className="md:hidden fixed top-24 right-4 z-40 p-2 rounded-md bg-gray-900 text-white shadow-lg hover:bg-gray-800 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -75,7 +75,7 @@ const DashboardLayout = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:p-10 md:ml-64">
+      <main className="flex-1 w-full px-3 pt-24 pb-8 md:px-8 md:py-8">
         <Outlet />
       </main>
     </div>

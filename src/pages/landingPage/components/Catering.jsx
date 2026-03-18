@@ -30,10 +30,9 @@ const Catering = () => {
                     theme and taste.
                   </p>
                 </div>
-                <div className="flex items-center justify-center lg:justify-center mt-4 lg:mt-0">
+                <div className="flex flex-col items-center lg:items-start lg:justify-center mt-4 lg:mt-6 w-full px-4 lg:px-10">
                   <Link to={"/event"}
-                    className="bg-orange-600 rounded-br-lg rounded-tl-lg cursor-pointer hover:bg-orange-500 text-white font-medium px-8 py-6 lg:px-4 lg:py-2"
-                    size="lg"
+                    className="bg-orange-600 rounded-xl cursor-pointer hover:bg-orange-500 text-white font-medium px-8 py-3 w-full lg:w-auto text-center shadow-lg transition-transform hover:scale-105"
                   >
                     Plan Your Event
                   </Link>

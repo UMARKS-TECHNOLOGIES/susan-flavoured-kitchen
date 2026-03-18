@@ -9,6 +9,7 @@ export function NavMobileDropdown({
   catLoading,
   catError,
   setIsMobileMenuOpen,
+  onCategorySelect,
 }) {
   return (
     <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t py-4 px-6 flex flex-col gap-4 h-screen overflow-y-auto">
@@ -45,14 +46,17 @@ export function NavMobileDropdown({
                   {!catLoading &&
                     !catError &&
                     link.dropdown.map(category => (
-                      <Link
-                        key={category}
-                        to={`/menu?category=${encodeURIComponent(category)}`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-gray-600 hover:text-orange-600"
+                      <button
+                        key={category._id}
+                        onClick={() => {
+                          onCategorySelect(category);
+                          setIsMobileMenuOpen(false);
+                          setOpenDropdown(null);
+                        }}
+                        className="block w-full text-left text-gray-600 hover:text-orange-600 py-1"
                       >
-                        {category}
-                      </Link>
+                        {category.name}
+                      </button>
                     ))}
                 </div>
               )}

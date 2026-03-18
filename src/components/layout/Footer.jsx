@@ -17,7 +17,7 @@ import {
 
 const Footer = () => {
   return (
-    <section className="bg-[#ff6e00] mt-80 ">
+    <section className="bg-[#ff6e00] mt-10 md:mt-16">
       <div className="max-w-7xl mx-auto px-4 lg:px-0">
         <div className="flex items-center justify-center flex-col py-10">
         <p className="text-center text-white font-poppins text-base md:text-lg leading-relaxed mb-6 max-w-xl">

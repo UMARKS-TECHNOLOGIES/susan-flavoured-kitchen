@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import * as cartAPI from './cart.api'; // your backend API wrapper
+import { useAuth } from '@/store/useAuth';
 
 const CartContext = createContext();
 
@@ -8,9 +9,11 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(null);
   const [loadingId, setLoadingId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { user, admin } = useAuth();
 
   // Load cart from backend
   const loadCart = async () => {
+    if (!user && !admin) return;
     setLoading(true);
     try {
       const res = await cartAPI.fetchCart();
@@ -24,6 +27,11 @@ export const CartProvider = ({ children }) => {
 
   // Add item to cart
   const addItem = async (itemId, qty) => {
+    if (!user && !admin) {
+      toast.error('Please login to add items to your cart.', { id: 'auth-error' });
+      return;
+    }
+
     try {
       setLoadingId(itemId);
       const res = await cartAPI.addToCart(itemId, qty);
@@ -31,7 +39,7 @@ export const CartProvider = ({ children }) => {
       await cartAPI.fetchCart();
       toast.success('Item added to cart');
     } catch (err) {
-      toast.error(err.message || 'Failed to add item');
+      toast.error(err.response?.data?.error || err.message || 'Failed to add item');
     } finally {
       setLoadingId(null);
     }
@@ -39,6 +47,8 @@ export const CartProvider = ({ children }) => {
 
   // Update quantity of an existing item
   const updateItem = async (itemId, qty) => {
+    if (!user && !admin) return;
+
     try {
       const quantity = Number.isFinite(qty) ? qty : 1;
 
@@ -56,6 +66,8 @@ export const CartProvider = ({ children }) => {
 
   // Remove an item from cart
   const removeItem = async itemId => {
+    if (!user && !admin) return;
+
     try {
       setLoadingId(itemId);
       const res = await cartAPI.removeFromCart(itemId);
@@ -73,8 +85,12 @@ export const CartProvider = ({ children }) => {
   const CartItemTotal = () => cart?.items?.length;
 
   useEffect(() => {
-    loadCart();
-  }, []);
+    if (user || admin) {
+      loadCart();
+    } else {
+      setCart(null);
+    }
+  }, [user, admin]);
 
   return (
     <CartContext.Provider

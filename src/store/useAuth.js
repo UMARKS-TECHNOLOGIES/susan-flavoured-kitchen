@@ -137,14 +137,25 @@ export const useAuth = create((set) => ({
   ========================= */
   login: async (email, password) => {
     set({ loading: true });
-    let AUTH = API.USER;
-
-    if (email === import.meta.env.VITE_ADMIN_EMAIL) {
-      AUTH = API.ADMIN;
-    }
+    
+    let isAttemptingAdmin = false;
+    let res;
 
     try {
-      const res = await api.post(`${AUTH}/login`, { email, password });
+      // If email matches env exactly, try admin first
+      if (email === import.meta.env.VITE_ADMIN_EMAIL) {
+        isAttemptingAdmin = true;
+        res = await api.post(`${API.ADMIN}/login`, { email, password });
+      } else {
+        // Otherwise, try user login first
+        try {
+          res = await api.post(`${API.USER}/login`, { email, password });
+        } catch (userErr) {
+          // If user login fails, try admin login as a fallback
+          isAttemptingAdmin = true;
+          res = await api.post(`${API.ADMIN}/login`, { email, password });
+        }
+      }
 
       if (res.status !== 200) {
         const message = res?.data?.message || 'Login failed';
@@ -153,18 +164,22 @@ export const useAuth = create((set) => ({
         return false;
       }
 
-      // ADMIN
-      if (res.data?.admin) {
+      // ADMIN SUCCESS
+      if (res.data?.admin || isAttemptingAdmin) {
+        const token = res.data?.token || res.data?.data?.token?.accessToken;
+        const adminData = res.data?.admin || res.data?.data?.user || res.data?.data;
+        
         localStorage.setItem(
           'AdminAccessToken',
-          JSON.stringify(res.data.token)
+          JSON.stringify(token)
         );
-        set({ admin: res.data.admin, loading: false, error: null });
+        localStorage.setItem('admin-Role', 'true');
+        set({ admin: adminData, loading: false, error: null });
         reportSuccess('Admin logged in successfully');
         return { status: true, role: 'admin' };
       }
 
-      // USER
+      // USER SUCCESS
       const payload = res?.data?.data || res?.data || {};
       const token = payload?.token?.accessToken;
       const refreshToken = payload?.token?.refreshToken;
@@ -176,6 +191,7 @@ export const useAuth = create((set) => ({
 
       localStorage.setItem('accessToken', JSON.stringify(token));
       localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+      localStorage.removeItem('admin-Role');
 
       const userPayload = payload?.user || payload;
 

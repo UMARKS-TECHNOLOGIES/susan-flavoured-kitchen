@@ -6,9 +6,11 @@ import { API } from '@/lib/endpoints';
 import { NavMobile } from './NavMobile';
 import CategoryOverlay from './CategoryOverlay';
 import { NavMobileDropdown } from './NavMobileDropDown';
+import { useCart } from '@/store/useCart';
 
 const Navbar = () => {
-  const totalItems = 0;
+  const { CartItemTotal } = useCart();
+  const totalItems = CartItemTotal() || 0;
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -91,6 +93,7 @@ const Navbar = () => {
             catLoading={catLoading}
             catError={catError}
             setIsMobileMenuOpen={setIsMobileMenuOpen}
+            onCategorySelect={setActiveCategory}
           />
         )}
       </div>

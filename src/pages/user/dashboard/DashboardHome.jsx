@@ -22,33 +22,33 @@ export default function DashboardHome() {
   }, []);
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 sm:p-6 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className={'flex justify-between items-center m-3 w-full'}>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center w-full gap-2 sm:gap-6">
           <div>
-            <h1 className="text-2xl font-semibold">Dashboard</h1>
+            <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
             <p className="text-sm text-muted-foreground">
               Overview & quick insights
             </p>
           </div>
 
-          <p className="text-sm text-muted-foreground">
-            Welcome back, {user?.name} !
+          <p className="text-sm text-orange-600 font-medium">
+            Welcome back, {user?.name || 'Guest'}!
           </p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="icon">
+        <div className="flex gap-2 self-end sm:self-auto">
+          <Button variant="outline" size="icon" className="hidden sm:flex">
             <Bell className="w-4 h-4" />
           </Button>
-          <Button variant="outline" size="icon">
+          <Button variant="outline" size="icon" className="hidden sm:flex">
             <Settings className="w-4 h-4" />
           </Button>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="flex gap-4 flex-wrap md:flex-nowrap justify-between align-ite">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <StatCard
           title="Total expenses"
           value="₦0"
@@ -123,8 +123,8 @@ export function UserActivityChart() {
         </p>
       </CardHeader>
       <CardContent className="h-[260px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={userActivityData}>
+        <ResponsiveContainer width="100%" height="100%" className="-ml-4 sm:ml-0">
+          <LineChart data={userActivityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
             <YAxis />

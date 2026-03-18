@@ -3,7 +3,6 @@ import { Button } from '../../../components/ui/button';
 import { Link } from 'react-router-dom';
 import api from '@/lib/api';
 import { API } from '@/lib/endpoints';
-import Placeholder from '../../../assets/chickenChps.jpeg';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -52,38 +51,54 @@ const Categories = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.map(cat => {
-            const imageUrl = cat.imageUrl
-              ? `${API.BASEURL}${cat.imageUrl}`
-              : Placeholder;
+            const imageUrl = `${API.BASEURL}${cat.imageUri || cat.imageUrl || ''}`;
 
             return (
               <div
                 key={cat._id}
-                className="relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-1 cursor-pointer group"
+                className="relative overflow-hidden rounded-xl shadow-md cursor-pointer group"
               >
                 {/* Category Image */}
-                <img
-                  src={imageUrl}
-                  alt={cat.name}
-                  className="h-56 w-full object-cover rounded-xl transition-transform group-hover:scale-110"
-                />
+                {cat.imageUri || cat.imageUrl ? (
+                  <img
+                    src={imageUrl}
+                    alt={cat.name}
+                    className="h-56 w-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="h-56 w-full bg-gray-200 rounded-xl flex items-center justify-center text-gray-400">
+                    No Image
+                  </div>
+                )}
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-center p-4 rounded-xl">
-                  <h3 className="text-lg font-semibold text-white">
-                    {cat.name}
-                  </h3>
-                  <p className="text-gray-200 text-sm mt-1">
+                {/* Top Badge: Number of Items */}
+                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10 shadow-sm z-10">
+                  <p className="text-gray-100 text-xs font-semibold tracking-wide">
                     {cat.items?.length || 0} items
                   </p>
+                </div>
+
+                {/* Bottom Overlay: Name (Left) and Button (Right) */}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-4 sm:p-5 pt-20 flex items-end justify-between rounded-b-xl">
+                  
+                  {/* Left Side (End Left) - Category Name */}
+                  <div className="text-left flex flex-col justify-end mr-2 mb-1">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-white tracking-wide leading-tight">
+                      {cat.name}
+                    </h3>
+                  </div>
+
+                  {/* Right Side (End Right) - View Menu Button */}
                   <Link
                     to={`/menu?category=${cat._id}`}
                     state={{ catItems: cat.items }}
+                    className="shrink-0 mb-1"
                   >
-                    <Button className="mt-3 bg-orange-600 hover:bg-orange-500 text-white text-sm rounded-lg py-2 w-full">
+                    <Button className="bg-orange-600 hover:bg-orange-500 text-white text-xs sm:text-sm font-semibold rounded-lg py-1.5 px-3 sm:py-2 sm:px-5 shadow-sm hover:shadow-md transition-all">
                       View Menu
                     </Button>
                   </Link>
+
                 </div>
               </div>
             );
