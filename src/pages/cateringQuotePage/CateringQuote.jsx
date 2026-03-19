@@ -13,8 +13,7 @@ import {
 } from "react-icons/fa";
 import nigerianFoods from "./nigerianFoods";
 
-const API_BASE =
-  "https://susanfalvoredkitchen-backend-oz62.onrender.com/api/v1/catering";
+const API_BASE = "https://susanfalvoredkitchen-backend-oz62.onrender.com/api/v1/catering";
 
 export default function CateringQuote() {
   const [form, setForm] = useState({
@@ -39,7 +38,6 @@ export default function CateringQuote() {
 
   const dropdownRef = useRef();
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -94,21 +92,21 @@ export default function CateringQuote() {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <h2 style={styles.title}>
-          <FaUtensils /> Catering Quote Request
-        </h2>
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+        <div className="bg-orange-600 py-6 px-8 text-white flex items-center gap-4">
+          <FaUtensils className="text-2xl" />
+          <h2 className="text-xl sm:text-2xl font-bold">Catering Quote Request</h2>
+        </div>
 
-        <form onSubmit={submitRequest} style={styles.form}>
-          {/* Event Type & Date */}
-          <div style={styles.row}>
-            <div style={styles.col}>
-              <label style={styles.label}>Event Type</label>
+        <form onSubmit={submitRequest} className="p-6 sm:p-10 space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-gray-700">Event Type</label>
               <select
                 name="eventType"
                 onChange={handleChange}
-                style={styles.input}
+                className="w-full h-12 bg-gray-50 border border-gray-200 rounded-xl px-4 text-sm focus:ring-2 focus:ring-orange-500/20 outline-none transition"
               >
                 <option>Wedding</option>
                 <option>Corporate Event</option>
@@ -119,8 +117,8 @@ export default function CateringQuote() {
                 <option>Other</option>
               </select>
             </div>
-            <div style={styles.col}>
-              <label style={styles.label}>Event Date & Time</label>
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-gray-700">Event Date & Time</label>
               <Input
                 icon={<FaCalendarAlt />}
                 type="datetime-local"
@@ -130,10 +128,9 @@ export default function CateringQuote() {
             </div>
           </div>
 
-          {/* Guests & Venue */}
-          <div style={styles.row}>
-            <div style={styles.col}>
-              <label style={styles.label}>Number of Guests</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-gray-700">Number of Guests</label>
               <Input
                 icon={<FaUsers />}
                 type="number"
@@ -142,8 +139,8 @@ export default function CateringQuote() {
                 onChange={handleChange}
               />
             </div>
-            <div style={styles.col}>
-              <label style={styles.label}>Event Venue</label>
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-gray-700">Event Venue</label>
               <Input
                 icon={<FaMapMarkerAlt />}
                 type="text"
@@ -154,117 +151,147 @@ export default function CateringQuote() {
             </div>
           </div>
 
-          {/* Notes */}
-          <label style={styles.label}>Additional Notes (Optional)</label>
-          <textarea
-            name="additionalNotes"
-            placeholder="Outdoor event, special requests, timing, etc."
-            onChange={handleChange}
-            style={styles.textarea}
-          />
-
-          {/* Preferred Dishes */}
-          <label style={styles.label}>Preferred Dishes</label>
-          <div style={{ position: "relative" }} ref={dropdownRef}>
-            <input
-              type="text"
-              placeholder="Click to select dishes"
-              value={form.preferredDishes.join(", ")}
-              readOnly
-              onClick={() => setShowDropdown(!showDropdown)}
-              style={styles.input}
+          <div className="space-y-2">
+            <label className="block text-sm font-bold text-gray-700">Additional Notes (Optional)</label>
+            <textarea
+              name="additionalNotes"
+              placeholder="Outdoor event, special requests, timing, etc."
+              onChange={handleChange}
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm min-h-[120px] focus:ring-2 focus:ring-orange-500/20 outline-none transition"
             />
-            {showDropdown && (
-              <div style={styles.dropdown}>
-                {nigerianFoods.map((food) => (
-                  <div
-                    key={food}
-                    style={styles.dropdownItem}
-                    onClick={() => {
-                      if (!form.preferredDishes.includes(food)) {
-                        setForm({
-                          ...form,
-                          preferredDishes: [...form.preferredDishes, food],
-                        });
-                      }
-                    }}
-                  >
-                    {food}
-                  </div>
-                ))}
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-bold text-gray-700">Preferred Dishes</label>
+            <div className="relative" ref={dropdownRef}>
+              <div
+                className="w-full h-12 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm cursor-pointer flex items-center justify-between"
+                onClick={() => setShowDropdown(!showDropdown)}
+              >
+                <span className="truncate">
+                  {form.preferredDishes.length > 0 
+                    ? form.preferredDishes.join(", ") 
+                    : "Select your favorites..."}
+                </span>
+                <FaSearch className="text-gray-400" />
               </div>
-            )}
+              
+              {showDropdown && (
+                <div className="absolute z-10 top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-2xl shadow-2xl max-h-60 overflow-y-auto animate-in slide-in-from-top-2 duration-200">
+                  {nigerianFoods.map((food) => (
+                    <div
+                      key={food}
+                      className={`px-4 py-3 cursor-pointer text-sm transition border-b border-gray-50 last:border-0 hover:bg-orange-50 ${
+                        form.preferredDishes.includes(food) ? "bg-orange-100 font-bold text-orange-600" : ""
+                      }`}
+                      onClick={() => {
+                        if (!form.preferredDishes.includes(food)) {
+                          setForm({
+                            ...form,
+                            preferredDishes: [...form.preferredDishes, food],
+                          });
+                        } else {
+                          setForm({
+                            ...form,
+                            preferredDishes: form.preferredDishes.filter(f => f !== food),
+                          });
+                        }
+                      }}
+                    >
+                      {food}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-          {form.preferredDishes.length > 0 && (
-            <p style={{ fontSize: 12, marginTop: 4, color: "#555" }}>
-              Selected: {form.preferredDishes.join(", ")}
-            </p>
-          )}
 
-          {/* Contact Info */}
-          <h3 style={styles.sectionLabel}>Contact Information</h3>
-          <div style={styles.row}>
-            <div style={styles.col}>
-              <label style={styles.label}>Full Name</label>
+          <div className="pt-6 border-t border-gray-100">
+            <h3 className="text-lg font-bold text-orange-600 mb-6">Contact Information</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-gray-700">Full Name</label>
+                <Input
+                  icon={<FaUser />}
+                  type="text"
+                  name="name"
+                  placeholder="Your full name"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-gray-700">Email Address</label>
+                <Input
+                  icon={<FaEnvelope />}
+                  type="email"
+                  name="email"
+                  placeholder="you@email.com"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-gray-700">Phone Number</label>
               <Input
-                icon={<FaUser />}
-                type="text"
-                name="name"
-                placeholder="Your full name"
+                icon={<FaPhone />}
+                type="tel"
+                name="phone"
+                placeholder="08012345678"
                 onChange={handleChange}
               />
             </div>
-            <div style={styles.col}>
-              <label style={styles.label}>Email Address</label>
-              <Input
-                icon={<FaEnvelope />}
-                type="email"
-                name="email"
-                placeholder="you@email.com"
-                onChange={handleChange}
-              />
-            </div>
           </div>
-          <label style={styles.label}>Phone Number</label>
-          <Input
-            icon={<FaPhone />}
-            type="tel"
-            name="phone"
-            placeholder="08012345678"
-            onChange={handleChange}
-          />
 
-          <button style={styles.button} disabled={loading}>
+          <button 
+            className="w-full bg-orange-600 text-white rounded-2xl py-4 font-bold text-lg hover:bg-orange-700 transform transition active:scale-95 disabled:opacity-50 shadow-lg shadow-orange-500/30"
+            disabled={loading}
+          >
             {loading ? "Submitting..." : "Submit Catering Request"}
           </button>
         </form>
 
         {requestId && (
-          <button style={styles.secondaryBtn} onClick={checkStatus}>
-            <FaSearch /> Check Request Status
-          </button>
+          <div className="px-6 pb-6">
+            <button 
+              className="w-full border-2 border-gray-900 rounded-2xl py-3 flex items-center justify-center gap-2 font-bold text-sm hover:bg-gray-900 hover:text-white transition"
+              onClick={checkStatus}
+            >
+              <FaSearch /> Check Request Status
+            </button>
+          </div>
         )}
 
-        {error && <p style={styles.error}>{error}</p>}
+        {error && <p className="text-center text-red-500 font-bold p-4 bg-red-50 mx-6 mb-6 rounded-xl">{error}</p>}
       </div>
 
-      {/* SUCCESS MODAL */}
+      {/* MODALS */}
       {showSuccessModal && (
         <Modal onClose={() => setShowSuccessModal(false)}>
-          <FaCheckCircle size={40} color="green" />
-          <h3>Request Submitted</h3>
-          <p>Your request ID:</p>
-          <strong>{requestId}</strong>
+          <div className="flex flex-col items-center gap-4">
+            <FaCheckCircle className="text-5xl text-green-500" />
+            <h3 className="text-xl font-bold">Request Submitted</h3>
+            <p className="text-gray-500 text-sm">Your unique request ID is:</p>
+            <div className="bg-gray-100 p-4 rounded-xl border border-gray-200 font-mono font-bold text-indigo-600 select-all">
+              {requestId}
+            </div>
+            <p className="text-xs text-gray-400 mt-2 italic px-8">Save this ID to check your status later!</p>
+          </div>
         </Modal>
       )}
 
-      {/* STATUS MODAL */}
       {showStatusModal && (
         <Modal onClose={() => setShowStatusModal(false)}>
-          <h3>Request Status</h3>
-          <p>
-            Status: <strong>{status}</strong>
-          </p>
+          <div className="flex flex-col items-center gap-4">
+            <h3 className="text-xl font-bold">Request Status</h3>
+            <div className="flex items-center gap-3">
+              <span className="text-gray-500 uppercase tracking-widest text-xs font-bold">Current State:</span>
+              <span className={`px-4 py-1 rounded-full text-sm font-bold uppercase ${
+                status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'
+              }`}>
+                {status}
+              </span>
+            </div>
+          </div>
         </Modal>
       )}
     </div>
@@ -272,186 +299,24 @@ export default function CateringQuote() {
 }
 
 const Input = ({ icon, ...props }) => (
-  <div style={styles.inputGroup}>
-    <span style={styles.icon}>{icon}</span>
-    <input {...props} required style={styles.input} />
+  <div className="flex items-center bg-gray-50 border border-gray-200 rounded-xl px-4 focus-within:ring-2 focus-within:ring-orange-500/20 transition group">
+    <span className="text-orange-600 shrink-0 group-focus-within:scale-110 transition">{icon}</span>
+    <input 
+      {...props} 
+      required 
+      className="w-full bg-transparent border-none py-3 px-3 text-sm focus:outline-none" 
+    />
   </div>
 );
 
 const Modal = ({ children, onClose }) => (
-  <div style={styles.overlay}>
-    <div style={styles.modal}>
-      <button style={styles.closeBtn} onClick={onClose}>
-        <FaTimes />
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+    <div className="relative bg-white w-full max-w-sm p-8 rounded-3xl shadow-2xl animate-in zoom-in duration-300 text-center">
+      <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition" onClick={onClose}>
+        <FaTimes size={20} />
       </button>
       {children}
     </div>
   </div>
 );
-
-/* ================= STYLES ================= */
-const styles = {
-  page: {
-    background: "#f5f7fa",
-    minHeight: "100vh",
-    padding: "20px",
-  },
-  card: {
-    maxWidth: 700,
-    margin: "auto",
-    background: "#fff",
-    padding: "30px 25px",
-    borderRadius: 16,
-    boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-  },
-  title: {
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
-    marginBottom: 25,
-    fontSize: 24,
-  },
-  form: {
-    display: "grid",
-    gap: 16,
-  },
-  row: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: 16,
-  },
-  col: {
-    flex: 1,
-    minWidth: 250,
-  },
-  inputGroup: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-  },
-  icon: {
-    color: "#F97316",
-  },
-  input: {
-    flex: 1,
-    padding: "12px 10px",
-    borderRadius: 8,
-    border: "1px solid #ccc",
-    fontSize: 14,
-  },
-  textarea: {
-    padding: 12,
-    borderRadius: 8,
-    border: "1px solid #ccc",
-    minHeight: 100,
-    fontSize: 14,
-  },
-  button: {
-    padding: 14,
-    background: "#F97316",
-    color: "#fff",
-    border: "none",
-    borderRadius: 10,
-    cursor: "pointer",
-    fontWeight: 600,
-    fontSize: 16,
-  },
-  secondaryBtn: {
-    marginTop: 18,
-    background: "transparent",
-    border: "1px solid #111827",
-    padding: 12,
-    borderRadius: 8,
-    cursor: "pointer",
-    fontSize: 14,
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-  },
-  error: {
-    color: "red",
-    marginTop: 10,
-  },
-  overlay: {
-    position: "fixed",
-    inset: 0,
-    background: "rgba(0,0,0,0.4)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 999,
-  },
-  modal: {
-    background: "#fff",
-    padding: 30,
-    borderRadius: 12,
-    minWidth: 300,
-    maxWidth: "90%",
-    position: "relative",
-    textAlign: "center",
-  },
-  closeBtn: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    background: "transparent",
-    border: "none",
-    cursor: "pointer",
-    fontSize: 18,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: 600,
-    marginBottom: 6,
-    display: "block",
-  },
-  sectionLabel: {
-    marginTop: 20,
-    fontWeight: 700,
-    fontSize: 16,
-    color: "#F97316",
-  },
-  dropdown: {
-    position: "absolute",
-    top: "100%",
-    left: 0,
-    right: 0,
-    background: "#fff",
-    border: "1px solid #ccc",
-    borderRadius: 6,
-    maxHeight: 200,
-    overflowY: "auto",
-    zIndex: 10,
-    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  },
-  dropdownItem: {
-    padding: 10,
-    cursor: "pointer",
-    borderBottom: "1px solid #eee",
-    fontSize: 14,
-  },
-
-  // Responsive styles
-  "@media(max-width:768px)": {
-    card: {
-      padding: "20px 15px",
-    },
-    row: {
-      flexDirection: "column",
-    },
-    col: {
-      minWidth: "100%",
-    },
-    input: {
-      padding: "14px 12px",
-      fontSize: 16,
-    },
-    textarea: {
-      fontSize: 16,
-    },
-    button: {
-      fontSize: 16,
-      padding: 16,
-    },
-  },
-};

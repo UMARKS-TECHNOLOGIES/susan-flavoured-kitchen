@@ -84,21 +84,22 @@ const ContactUs = () => {
 
       {/* Hero Section */}
       <div
-        className="relative h-64 mt-20 mb-10 bg-cover bg-center flex items-center justify-center"
+        className="relative h-48 sm:h-64 mt-20 mb-10 bg-cover bg-center flex items-center justify-center p-4 text-center"
         style={{ backgroundImage: `url(${HeroImage})` }}
       >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <h1 className="relative text-4xl md:text-5xl font-bold text-white z-10">
+        <div className="absolute inset-0 bg-black opacity-60"></div>
+        <h1 className="relative text-3xl sm:text-4xl md:text-5xl font-extrabold text-white z-10 drop-shadow-lg">
           We'd Love to Hear From You
         </h1>
       </div>
 
       {/* Contact Methods */}
       <div className="max-w-6xl mx-auto px-4 mt-8 mb-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card onClick={() => setIsPhoneOpen(true)} className="cursor-pointer bg-transparent">
-            <CardContent className="py-10 flex justify-center">
-              <Phone className="w-10 h-10 text-orange-500" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <Card onClick={() => setIsPhoneOpen(true)} className="cursor-pointer bg-white/50 border-orange-100 hover:border-orange-500 transition-colors">
+            <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
+              <Phone className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
+              <p className="text-sm font-semibold text-gray-600 sm:hidden">Call Us</p>
             </CardContent>
           </Card>
 
@@ -107,9 +108,10 @@ const ContactUs = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Card className="bg-transparent">
-              <CardContent className="py-10 flex justify-center">
-                <Mail className="w-10 h-10 text-orange-500" />
+            <Card className="bg-white/50 border-orange-100 hover:border-orange-500 transition-colors h-full">
+              <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
+                <Mail className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
+                <p className="text-sm font-semibold text-gray-600 sm:hidden">Email Us</p>
               </CardContent>
             </Card>
           </a>
@@ -119,9 +121,10 @@ const ContactUs = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Card className="bg-transparent">
-              <CardContent className="py-10 flex justify-center">
-                <Instagram className="w-10 h-10 text-orange-500" />
+            <Card className="bg-white/50 border-orange-100 hover:border-orange-500 transition-colors h-full">
+              <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
+                <Instagram className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
+                <p className="text-sm font-semibold text-gray-600 sm:hidden">Follow Us</p>
               </CardContent>
             </Card>
           </a>
@@ -129,38 +132,37 @@ const ContactUs = () => {
       </div>
 
       {/* Phone Dialog */}
-      <Dialog open={isPhoneOpen} onOpenChange={setIsPhoneOpen} className="border-r-20">
-  <DialogContent className="flex flex-col items-center rounded-sm justify-center text-center space-y-4">
-    <DialogHeader>
-      <DialogTitle className="text-bold text-xl">Call Us</DialogTitle>
-    </DialogHeader>
+      <Dialog open={isPhoneOpen} onOpenChange={setIsPhoneOpen}>
+        <DialogContent className="flex flex-col items-center rounded-3xl justify-center text-center space-y-6 pt-12 pb-10 max-w-[90%] sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-black text-gray-900">Call Us</DialogTitle>
+          </DialogHeader>
 
-    {/* Phone icon */}
-    <span className="relative bg-orange-100 h-12 w-12 rounded-full flex items-center justify-center">
-  <Phone className="text-orange-600 text-3xl" />
-</span>
+          <div className="relative bg-orange-100 h-20 w-20 rounded-full flex items-center justify-center animate-bounce">
+            <Phone className="text-orange-600 w-10 h-10" />
+          </div>
 
-    {/* Phone number */}
-    <a href="tel:+447387044524" className="text-2xl font-bold">
-      +447387044524
-    </a>
+          <a href="tel:+447387044524" className="text-2xl sm:text-3xl font-black text-orange-600 hover:scale-105 transition-transform">
+            +447387044524
+          </a>
 
-    <p className="font-sm">
-      Available for orders and inquiries
-    </p>
-  </DialogContent>
-</Dialog>
+          <p className="text-gray-500 font-medium px-4">
+            Available 24/7 for orders and inquiries
+          </p>
+        </DialogContent>
+      </Dialog>
 
 
       {/* Contact Form */}
-      <div className="max-w-5xl mx-auto px-4 pb-16">
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
+      <div className="max-w-4xl mx-auto px-4 pb-16">
+        <div className="bg-white rounded-3xl shadow-xl shadow-orange-900/5 p-6 sm:p-10 border border-gray-100">
+          <h2 className="text-2xl font-black text-gray-900 mb-8 border-b border-gray-50 pb-4">Send Us a Message</h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Input
                 placeholder="Full Name *"
+                className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-orange-500"
                 value={formData.fullName}
                 onChange={e => handleChange('fullName', e.target.value)}
                 required
@@ -168,15 +170,17 @@ const ContactUs = () => {
               <Input
                 type="email"
                 placeholder="Email Address *"
+                className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-orange-500"
                 value={formData.email}
                 onChange={e => handleChange('email', e.target.value)}
                 required
               />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Input
                 placeholder="Phone Number / WhatsApp *"
+                className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-orange-500"
                 value={formData.phoneNumber}
                 onChange={e => handleChange('phoneNumber', e.target.value)}
                 required
@@ -186,12 +190,12 @@ const ContactUs = () => {
                 value={formData.subject}
                 onValueChange={value => handleChange('subject', value)}
               >
-                <SelectTrigger>
+                <SelectTrigger className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-orange-500">
                   <SelectValue placeholder="Select subject *" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="rounded-xl">
                   {subjects.map(s => (
-                    <SelectItem key={s} value={s}>
+                    <SelectItem key={s} value={s} className="focus:bg-orange-50 cursor-pointer">
                       {s}
                     </SelectItem>
                   ))}
@@ -200,15 +204,16 @@ const ContactUs = () => {
             </div>
 
             <Textarea
-              rows={8}
+              rows={6}
               placeholder="Your message *"
+              className="bg-gray-50 border-gray-200 rounded-2xl p-4 focus:ring-orange-500 resize-none"
               value={formData.message}
               onChange={e => handleChange('message', e.target.value)}
               required
             />
 
-            <Button type="submit" disabled={loading} className="bg-orange-500 w-full">
-              {loading ? 'Sending...' : 'Send Message'}
+            <Button type="submit" disabled={loading} className="bg-orange-600 hover:bg-orange-700 h-14 w-full rounded-2xl text-lg font-bold transition shadow-lg shadow-orange-500/20 active:scale-95">
+              {loading ? 'Sending Request...' : 'Send Message'}
             </Button>
 
             {success && <p className="text-green-600 text-center">{success}</p>}

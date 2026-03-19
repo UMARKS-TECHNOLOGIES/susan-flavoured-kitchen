@@ -11,7 +11,7 @@ function CategoriesUI({
   const [openCategory, setOpenCategory] = useState(null);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
       <div>
         <h2 className="text-2xl font-bold">Categories</h2>
@@ -48,7 +48,7 @@ function CategoriesUI({
           return (
             <div
               key={cat._id}
-              className="bg-white border rounded-xl p-5 shadow-sm"
+            className="bg-white border rounded-xl p-4 sm:p-5 shadow-sm"
             >
               {/* Category Header */}
               <div className="flex items-center justify-between">
@@ -90,15 +90,15 @@ function CategoriesUI({
                   {cat.items.map(item => (
                     <div
                       key={item._id}
-                      className="flex justify-between gap-4 bg-gray-50 rounded-lg p-3"
+                      className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 bg-gray-50 rounded-xl p-4 border border-gray-100"
                     >
-                      <div className={''}>
-                        <p className="font-medium capitalize">{item.name}</p>
-                        <p className="text-xs text-muted-foreground capitalize">
+                      <div>
+                        <p className="font-bold text-gray-800 capitalize leading-tight">{item.name}</p>
+                        <p className="text-[10px] text-gray-400 capitalize truncate mt-0.5">
                           {item.description}
                         </p>
                       </div>
-                      <p className="font-semibold text-sm">₦{item.price}</p>
+                      <p className="font-extrabold text-sm text-indigo-600">₦{item.price}</p>
                     </div>
                   ))}
                 </div>

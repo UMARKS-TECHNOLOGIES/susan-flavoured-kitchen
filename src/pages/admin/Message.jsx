@@ -74,7 +74,7 @@ const Message = () => {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="w-full">
       <h1 className="text-2xl sm:text-3xl font-bold mb-4">Messages</h1>
 
       {loading ? (

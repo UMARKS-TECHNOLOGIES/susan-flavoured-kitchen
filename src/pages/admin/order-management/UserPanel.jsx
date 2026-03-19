@@ -23,7 +23,7 @@ function UserSidePanel({ userId, onClose }) {
   return (
     <>
       <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose}></div>
-      <div className="fixed top-0 right-0 h-full w-full md:w-1/3 bg-white shadow-xl z-50 p-6 overflow-y-auto transition-transform duration-300 transform translate-x-0">
+      <div className="fixed top-0 right-0 h-full w-full md:w-1/3 bg-white shadow-xl z-50 p-4 sm:p-6 overflow-y-auto transition-transform duration-300 transform translate-x-0">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">User Info</h2>
           <button

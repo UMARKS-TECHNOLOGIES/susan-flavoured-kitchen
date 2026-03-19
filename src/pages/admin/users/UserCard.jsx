@@ -13,7 +13,7 @@ export default function UserCard({ user }) {
 
   return (
     <>
-      <div className="bg-white rounded-3xl shadow-md hover:shadow-xl transition p-6 w-full max-w-2xl mx-auto my-4">
+      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-sm hover:shadow-lg transition p-4 sm:p-6 w-full max-w-3xl mx-auto my-2 sm:my-4 border border-gray-100">
         {/* Header */}
         <div className="flex items-center gap-4">
           <div className="h-14 w-14 rounded-full bg-indigo-100 flex items-center justify-center text-xl font-bold text-indigo-700">

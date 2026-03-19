@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Bell, TrendingUp, Users, DollarSign, Settings } from 'lucide-react';
 export default function Index() {
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -54,7 +54,7 @@ export default function Index() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Activity Feed */}
         <Card className="lg:col-span-2">
-          <CardContent className="p-5 space-y-4">
+          <CardContent className="p-4 sm:p-6 space-y-4">
             <h2 className="font-medium">Recent Activity</h2>
             <div className="space-y-3 text-sm text-muted-foreground">
               <p>• User signed up (future)</p>
@@ -85,7 +85,7 @@ export default function Index() {
 
       {/* Placeholder Chart */}
       <Card>
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
           <h2 className="font-medium mb-2">Analytics</h2>
           <div className="h-40 flex items-center justify-center text-muted-foreground text-sm">
             Chart goes here (Recharts later)
@@ -100,7 +100,7 @@ function StatCard({ title, value, icon: _Icon, hint }) {
   const Icon = _Icon;
   return (
     <Card className="relative overflow-hidden">
-      <CardContent className="p-5">
+      <CardContent className="p-4 sm:p-6">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-muted-foreground">{title}</p>

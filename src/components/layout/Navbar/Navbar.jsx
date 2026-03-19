@@ -7,8 +7,10 @@ import { NavMobile } from './NavMobile';
 import CategoryOverlay from './CategoryOverlay';
 import { NavMobileDropdown } from './NavMobileDropDown';
 import { useCart } from '@/store/useCart';
+import { useAuth } from '@/store/useAuth'; // Added this
 
 const Navbar = () => {
+  const { user } = useAuth(); // get user
   const { CartItemTotal } = useCart();
   const totalItems = CartItemTotal() || 0;
 
@@ -79,6 +81,7 @@ const Navbar = () => {
 
         {/* ================= MOBILE ================= */}
         <NavMobile
+          user={user} 
           totalItems={totalItems}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
           isMobileMenuOpen={isMobileMenuOpen}

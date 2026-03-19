@@ -51,52 +51,13 @@ export function NavRightIcon({
       </form>
 
       {/* USER */}
-      <div className="relative">
-        {user ? (
-          <div>
-            <button onClick={() => setShowUserMenu(v => !v)}>
-              <IoPerson className="text-2xl" />
-            </button>
-
-            {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-44 bg-white rounded-md shadow-lg py-2 border">
-                <div
-                  onClick={
-                    user.role === 'user'
-                      ? navigate('/dashboard')
-                      : navigate('/admin')
-                  }
-                  className="cursor-pointer px-4 w-full hover:text-orange-500 py-2 text-sm flex items-center text-gray-700"
-                >
-                  <p>DashBoard</p> <FaArrowRight />
-                </div>
-
-                {user.role === 'admin' && (
-                  <Link
-                    to="/admin"
-                    className="block px-4 py-2 text-sm hover:bg-orange-50"
-                  >
-                    Admin Dashboard
-                  </Link>
-                )}
-
-                <button
-                  onClick={() => {
-                    logout();
-                    setShowUserMenu(false);
-                  }}
-                  className="block w-full text-left px-4 py-2 text-sm hover:bg-orange-50"
-                >
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <Link to="/login">
-            <IoPerson className="text-2xl" />
-          </Link>
-        )}
+      <div className="relative pt-1">
+        <Link 
+          to={user ? (user.role === 'admin' ? '/admin' : '/dashboard') : '/login'} 
+          className="hover:text-orange-600 transition-colors flex items-center"
+        >
+          <IoPerson className="text-2xl" />
+        </Link>
       </div>
 
       {/* CART */}

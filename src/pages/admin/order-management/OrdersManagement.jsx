@@ -65,7 +65,7 @@ export default function OrdersManagement() {
   };
 
   return (
-    <div className="p-6 max-w-full mx-auto">
+    <div className="w-full max-w-full mx-auto">
       <h2 className="text-2xl font-bold mb-6">Orders Management</h2>
 
       {/* Counts */}

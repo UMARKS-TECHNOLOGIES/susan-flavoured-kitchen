@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BiCategoryAlt } from 'react-icons/bi';
 import {
   LayoutDashboard,
@@ -9,14 +8,12 @@ import {
   LogOut,
   MessageCircle,
   GitPullRequestDraft,
-  Menu,
-  X
+  X // Added this
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+import Logo from '@/assets/Logo.jpeg';
 
-function SideBar({ logout, navigate }) {
-  const [isOpen, setIsOpen] = useState(false);
-
+function SideBar({ logout, navigate, isOpen, setIsOpen }) {
   const links = [
     { to: '/admin', label: 'Dashboard', Icon: LayoutDashboard },
     { to: 'orders', label: 'Orders', Icon: ShoppingBag },
@@ -30,21 +27,18 @@ function SideBar({ logout, navigate }) {
 
   return (
     <>
-      {/* Mobile Hamburger Button */}
-      <button
-        className="md:hidden fixed top-4 right-4 z-50 p-2 rounded-md bg-white shadow-md"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
-
-      {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-white border-r px-4 py-6 transform transition-transform duration-300 ease-in-out z-40
+        className={`fixed top-0 left-0 h-full w-64 bg-white border-r px-4 py-8 transform transition-transform duration-300 ease-in-out z-[60]
         ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
         md:translate-x-0 md:static md:block`}
       >
-        <h1 className="text-xl font-bold text-orange-600 mb-8">Admin Panel</h1>
+        <div className="flex items-center gap-3 mb-10 px-2">
+          <img src={Logo} alt="Logo" className="w-10 h-10 rounded-full object-cover border-2 border-orange-100" />
+          <h1 className="text-xl font-bold bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+            Admin Panel
+          </h1>
+        </div>
+
         <nav className="space-y-2">
           {links.map(v => (
             <NavLink
@@ -52,33 +46,36 @@ function SideBar({ logout, navigate }) {
               to={v.to}
               end={v.to === '/admin'}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium capitalize ${
+                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
                   isActive
-                    ? 'bg-orange-100 text-orange-600'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-orange-600 text-white shadow-lg shadow-orange-500/20'
+                    : 'text-gray-500 hover:bg-gray-50'
                 }`
               }
-              onClick={() => setIsOpen(false)} // close sidebar on mobile after click
+              onClick={() => setIsOpen(false)}
             >
               <v.Icon size={18} /> {v.label}
             </NavLink>
           ))}
         </nav>
-        <button
-          onClick={() => {
-            logout();
-            navigate('/login');
-          }}
-          className="mt-10 flex items-center cursor-pointer gap-2 text-sm text-red-600"
-        >
-          <LogOut size={16} /> Logout
-        </button>
+
+        <div className="absolute bottom-10 left-4 right-4">
+          <button
+            onClick={() => {
+              logout();
+              navigate('/login');
+            }}
+            className="w-full flex items-center cursor-pointer gap-3 px-4 py-3 rounded-xl text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 transition-all shadow-sm"
+          >
+            <LogOut size={18} /> Logout
+          </button>
+        </div>
       </aside>
 
-      {/* Overlay for mobile */}
+      {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-25 z-30 md:hidden"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[55] md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
