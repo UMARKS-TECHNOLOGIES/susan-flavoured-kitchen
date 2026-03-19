@@ -22,7 +22,7 @@ export const API = {
   // 
   CONTACT: import.meta.env.VITE_API_CONTACT_PATH || '/api/v1/contact/contact',
 
-  BASEURL: import.meta.env.VITE_NODE_ENV === 'production'
-    ? import.meta.env.VITE_API_BASE_URL
-    : import.meta.env.VITE_DEV_SERVER,
+  BASEURL: (import.meta.env.PROD || import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_NODE_ENV === 'production')
+    ? (import.meta.env.VITE_API_BASE_URL || 'https://susanfalvoredkitchen-backend-23c5.onrender.com')
+    : (import.meta.env.VITE_DEV_SERVER || 'http://localhost:5000'),
 };

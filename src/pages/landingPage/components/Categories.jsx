@@ -15,11 +15,12 @@ const Categories = () => {
       setError(false);
 
       try {
-        const res = await api.get(`${API.MENU}/categories`);
+        const url = `${API.MENU}/categories`;
+        const res = await api.get(url);
         const data = res.data?.data || [];
         setCategories(data);
       } catch (err) {
-        console.error('Failed to fetch categories', err);
+        console.error('Failed to fetch categories. URL:', `${API.MENU}/categories`, 'Error:', err.message, err.response?.data);
         setError(true);
       } finally {
         setLoading(false);

@@ -8,9 +8,12 @@ let baseURL =
 
 const devServer = import.meta.env.VITE_DEV_SERVER || 'http://localhost:5000';
 
-console.log('Environment:', import.meta.env.VITE_NODE_ENV);
+console.log('Environment Mode:', import.meta.env.MODE);
 
-if (import.meta.env.VITE_NODE_ENV !== 'production' && devServer) {
+// Use production backend if either VITE_API_BASE_URL is set or if we are in production build
+const useProduction = import.meta.env.PROD || import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_NODE_ENV === 'production';
+
+if (!useProduction && devServer) {
   console.log('[api] using development server:', devServer);
   baseURL = devServer;
 } else {
@@ -35,7 +38,12 @@ api.interceptors.request.use(config => {
   }
 
   if (token) {
-    config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+    try {
+      config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+    } catch (e) {
+      // Fallback: if it's not JSON, use it as a raw string (e.g. bare JWT)
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
 
   return config;
