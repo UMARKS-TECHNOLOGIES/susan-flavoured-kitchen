@@ -14,3 +14,13 @@ export function formatItemName(name) {
     .replace(/\s*\d+L\b/gi, "")
     .trim();
 }
+export function getStepDetails(item) {
+  const categoryName = item?.category?.name || item?.categoryName || "";
+  const EXCLUDED_CATEGORIES = ["Side Dishes", "Pastries", "Small Chops"];
+  
+  if (categoryName && !EXCLUDED_CATEGORIES.includes(categoryName)) {
+    return { step: 2, isLitreItem: true };
+  }
+  
+  return { step: 1, isLitreItem: false };
+}

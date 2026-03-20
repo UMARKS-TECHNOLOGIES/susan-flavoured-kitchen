@@ -4,19 +4,13 @@ import { Minus, Plus } from 'lucide-react';
 import ProductAccordion from './ProductAccordion';
 import StarRating from '../../../components/layout/StarRating';
 import { useCart } from '../../../store/useCart';
-import { formatItemName } from '@/lib/utils';
+import { formatItemName, getStepDetails } from '@/lib/utils';
 
 const ProductHeader = ({ product, item }) => {
   const { addItem, getItemQuantity } = useCart();
 
   const data = product || item;
-
-  // Extract liter amount from name (e.g., "Coke 2L" -> 2 or "Coke (2L)")
-  const literMatch = data?.name?.match(/(\d+)L/i);
-  let step = literMatch ? parseInt(literMatch[1]) : 1;
-  // If explicitly 4L, count in 2s as requested
-  if (step === 4) step = 2;
-  const isLitreItem = !!literMatch;
+  const { step, isLitreItem } = getStepDetails(data);
 
   // Cleanup name to remove bracketed liter info
   const cleanName = formatItemName(data?.name);
@@ -98,7 +92,10 @@ const ProductHeader = ({ product, item }) => {
             <Button
               variant="outline"
               size="icon"
-              onClick={() => setLocalQuantity(localQuantity + step)}
+              onClick={() => {
+                if (isLitreItem && localQuantity >= 12) return;
+                setLocalQuantity(localQuantity + step);
+              }}
               className="w-10 h-10 border-orange-500 text-orange-500"
             >
               <Plus className="w-4 h-4" />

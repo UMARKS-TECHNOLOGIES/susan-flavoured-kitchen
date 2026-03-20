@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/store/useCart';
+import { getStepDetails } from '@/lib/utils';
 
 const CartButton = ({ item }) => {
   const { addItem, loadingId } = useCart();
-
-  // Extract liter amount from name (e.g., "Coke 2L" -> 2)
-  const literMatch = item?.name?.match(/(\d+)L/i);
-  let step = literMatch ? parseInt(literMatch[1]) : 1;
-  if (step === 4) step = 2;
-  const isLitreItem = !!literMatch;
+  const { step, isLitreItem } = getStepDetails(item);
 
   const [qty, setQty] = useState(isLitreItem ? step : 1);
 
@@ -23,6 +19,7 @@ const CartButton = ({ item }) => {
   };
 
   const increment = () => {
+    if (isLitreItem && qty >= 12) return; // Cap at 12L
     setQty(prev => prev + step);
   };
 

@@ -1,17 +1,14 @@
 import { useCart } from '@/store/useCart';
+import { getStepDetails } from '@/lib/utils';
 
 const itemControl = ({ item }) => {
   const { updateItem, removeItem, loading } = useCart();
-
-  // Extract liter amount (e.g., "Coke 2L" -> 2)
-  const literMatch = item?.name?.match(/(\d+)L/i);
-  let step = literMatch ? parseInt(literMatch[1]) : 1;
-  if (step === 4) step = 2;
-  const isLitreItem = !!literMatch;
+  const { step, isLitreItem } = getStepDetails(item);
 
   if (loading) return;
 
   const increase = () => {
+    if (isLitreItem && item?.quantity >= 6) return; // Cap at 12L (6 units * 2L)
     updateItem(item?.productId, item?.quantity + 1);
   };
 
