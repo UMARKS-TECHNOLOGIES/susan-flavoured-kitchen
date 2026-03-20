@@ -15,13 +15,14 @@ export function DeskTopNavBar({
   categories,
 }) {
   return (
-    <div className="hidden lg:flex justify-between items-center">
-      {/* Left and Middle Group */}
-      <div className="flex items-center gap-20">
-        {/* Logo */}
+    <div className="hidden lg:flex items-center w-full">
+      {/* Logo Area (Pushes center) */}
+      <div className="flex-1">
         <NavLogo />
+      </div>
 
-        {/* Navigation */}
+      {/* Navigation (Always Centered) */}
+      <div className="shrink-0 px-6">
         <NavigationLinks
           navLinks={linkData}
           setOpenDropdown={setOpenDropdown}
@@ -32,13 +33,15 @@ export function DeskTopNavBar({
         />
       </div>
 
-      {/* Right Icons */}
-      <NavRightIcon
-        setShowUserMenu={setShowUserMenu}
-        showUserMenu={showUserMenu}
-        totalItems={totalItems}
-        categories={categories}
-      />
+      {/* Right Icons Area (Pushes center) */}
+      <div className="flex-1 flex justify-end">
+        <NavRightIcon
+          setShowUserMenu={setShowUserMenu}
+          showUserMenu={showUserMenu}
+          totalItems={totalItems}
+          categories={categories}
+        />
+      </div>
     </div>
   );
 }

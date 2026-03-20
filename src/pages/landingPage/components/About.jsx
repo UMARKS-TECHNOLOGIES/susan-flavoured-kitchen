@@ -1,48 +1,57 @@
-import React, { useState } from "react";
+import React from "react";
 import Picture from "../../../assets/chefstory1.jpeg";
-import { Button } from "../../../components/ui/button";
 
 const About = () => {
-  const [expanded, setExpanded] = useState(false);
-
   return (
-    <section className="mt-12 md:mt-20 px-6 lg:px-12">
-      <div className="w-full lg:max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8">About Us</h2>
+    <section className="bg-white py-20 px-8 lg:px-24 overflow-hidden">
+      <div className="w-full lg:max-w-[1200px] mx-auto text-center mb-10">
+        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-2 tracking-tight">
+          Our Culinary <span className="text-orange-600">Story</span>
+        </h2>
+        <div className="w-24 h-1.5 bg-orange-500 rounded-full mx-auto"></div>
+      </div>
 
-        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
-          {/* Image */}
-          <div className="w-full lg:w-[500px] h-[300px] lg:h-[400px] rounded-lg overflow-hidden shrink-0">
+      <div className="w-full lg:max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center gap-16">
+        <div className="w-full lg:w-[45%]">
+          <div className="relative group">
             <img
               src={Picture}
-              alt="About Us"
-              className="w-full h-full object-cover"
+              alt="Susan Flavoured Kitchen"
+              className="w-full h-[350px] lg:h-[500px] object-cover rounded-2xl shadow-xl transition-transform duration-700 hover:scale-[1.02]"
             />
+            <div className="absolute -bottom-6 -right-6 bg-orange-500 p-6 rounded-2xl shadow-lg hidden md:block">
+              <p className="text-white font-bold text-2xl">10+ Years</p>
+              <p className="text-white/80 text-sm">Of Culinary Excellence</p>
+            </div>
           </div>
+        </div>
 
-          {/* Text Content */}
-          <div className="flex-1">
-            <p
-              className={`text-gray-600 text-base lg:text-lg leading-relaxed mb-6 text-justify lg:text-left
-                overflow-hidden transition-all duration-500 ease-in-out
-                ${expanded ? "max-h-[1000px]" : "max-h-[120px]"}`}
-            >
-              Welcome to Susan Flavoured Kitchen Limited, a fast-growing food and catering business based in Nottingham, United kingdom, Founded in 2020
-              by Susan Chioma Nwobo, SFK was born from a lifelong passion for cooking and the joy of bringing people together through food. Susan's cullinary journey
-              began more than 20 years ago when she catered her own birthday celebrations at ages 16 and 20
-              <br className="hidden lg:block" />
-              <br className="hidden lg:block" />
-              With every dish she prepared for family, friends, and community events, her love for cooking grew into a purposeful mission-and today,
-              that mission is the heart of <b className="text-orange-600">SFK</b>
-            </p>
+        <div className="w-full lg:w-[55%] flex flex-col gap-6">
+          <p className="text-gray-600 leading-relaxed text-sm md:text-base max-w-xl">
+            Welcome to <span className="font-bold text-gray-900 border-b-2 border-orange-100">Susan Flavoured Kitchen Limited</span>, your home of authentic and flavorful catering in Nottingham. Founded in 2020 by Susan Chioma Nwobo, <b className="text-orange-600">SFK</b> was born from a lifelong passion for cooking and the joy of bringing people together through food. 
+            <br /><br />
+            With over 20 years of culinary experience, Susan's mission remains simple: to celebrate life's moments with exceptional taste and uncompromising quality.
+          </p>
 
-            <Button
-              className="bg-orange-600 hover:bg-orange-500 text-white font-medium px-8 py-2 h-11 transition-all"
-              size="lg"
-              onClick={() => setExpanded(!expanded)}
-            >
-              {expanded ? "Show Less" : "Learn More"}
-            </Button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
+            {[
+              { title: "Quality Ingredients", desc: "Fresh, locally sourced produce" },
+              { title: "Traditional Taste", desc: "Authentic family recipes" },
+              { title: "Fast Delivery", desc: "Hot meals at your doorstep" },
+              { title: "Event Catering", desc: "Making your moments special" }
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-start gap-4 p-5 bg-orange-50/70 rounded-2xl border border-orange-100/30 hover:bg-orange-50 transition-colors">
+                <div className="w-7 h-7 bg-orange-500 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-orange-200">
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 leading-tight">{item.title}</h4>
+                  <p className="text-sm text-gray-500 mt-1">{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
