@@ -1,6 +1,7 @@
 import { API } from '@/lib/endpoints';
 import QuantityControl from './QuantityControl';
 import { useCart } from '@/store/useCart';
+import { formatItemName } from '@/lib/utils';
 
 const CartItem = ({ item }) => {
   const { loading, removeItem } = useCart();
@@ -25,9 +26,9 @@ const CartItem = ({ item }) => {
       {/* INFO */}
       <div className="flex-1 flex justify-between">
         <div>
-          <h3 className="font-semibold">{item?.name}</h3>
+          <h3 className="font-semibold">{formatItemName(item?.name)}</h3>
           <p className="text-sm text-gray-500">
-            ₦{item?.unitPrice.toLocaleString()}
+            £{item?.unitPrice.toLocaleString()}
           </p>
 
           <button

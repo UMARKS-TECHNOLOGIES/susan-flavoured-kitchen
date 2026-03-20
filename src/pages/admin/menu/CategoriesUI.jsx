@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 function CategoriesUI({
   name,
   setName,
+  preview,
+  onImageChange,
   createCategory,
   categories,
   deleteCategory,
@@ -21,17 +23,36 @@ function CategoriesUI({
       </div>
 
       {/* Create Category */}
-      <div className="bg-white rounded-xl border p-4 shadow-sm">
+      <div className="bg-white rounded-xl border p-4 shadow-sm space-y-4">
         <h3 className="font-semibold mb-3">Create Category</h3>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="e.g. Breakfast, Drinks"
             className="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black/10"
           />
-          <Button onClick={createCategory}>Add</Button>
+          <div className="flex-1">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={e => onImageChange(e.target.files[0])}
+              className="w-full border rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/10"
+            />
+          </div>
+          <Button onClick={createCategory}>Add Category</Button>
         </div>
+
+        {preview && (
+          <div className="mt-2">
+            <p className="text-xs text-muted-foreground mb-1">Image Preview:</p>
+            <img
+              src={preview}
+              alt="Category preview"
+              className="w-20 h-20 object-cover rounded-lg border shadow-sm"
+            />
+          </div>
+        )}
       </div>
 
       {/* Categories List */}
@@ -48,16 +69,25 @@ function CategoriesUI({
           return (
             <div
               key={cat._id}
-            className="bg-white border rounded-xl p-4 sm:p-5 shadow-sm"
+              className="bg-white border rounded-xl p-4 sm:p-5 shadow-sm"
             >
               {/* Category Header */}
               <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="font-semibold text-lg">{cat.name}</h4>
-                  <p className="text-xs text-muted-foreground">
-                    {cat.items.length} item{cat.items.length !== 1 && 's'} •{' '}
-                    {new Date(cat.createdAt).toLocaleDateString()}
-                  </p>
+                <div className="flex items-center gap-4">
+                  {cat.imageUrl && (
+                    <img 
+                      src={cat.imageUrl} 
+                      alt={cat.name} 
+                      className="w-12 h-12 object-cover rounded-lg border"
+                    />
+                  )}
+                  <div>
+                    <h4 className="font-semibold text-lg">{cat.name}</h4>
+                    <p className="text-xs text-muted-foreground">
+                      {cat.items.length} item{cat.items.length !== 1 && 's'} •{' '}
+                      {new Date(cat.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="flex gap-2">
@@ -92,13 +122,22 @@ function CategoriesUI({
                       key={item._id}
                       className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 bg-gray-50 rounded-xl p-4 border border-gray-100"
                     >
-                      <div>
-                        <p className="font-bold text-gray-800 capitalize leading-tight">{item.name}</p>
-                        <p className="text-[10px] text-gray-400 capitalize truncate mt-0.5">
-                          {item.description}
-                        </p>
+                      <div className="flex items-center gap-3">
+                        {item.imageUrl && (
+                          <img 
+                            src={item.imageUrl} 
+                            alt={item.name} 
+                            className="w-10 h-10 object-cover rounded border"
+                          />
+                        )}
+                        <div>
+                          <p className="font-bold text-gray-800 capitalize leading-tight">{item.name}</p>
+                          <p className="text-[10px] text-gray-400 capitalize truncate mt-0.5">
+                            {item.description}
+                          </p>
+                        </div>
                       </div>
-                      <p className="font-extrabold text-sm text-indigo-600">₦{item.price}</p>
+                      <p className="font-extrabold text-sm text-indigo-600">£{item.price}</p>
                     </div>
                   ))}
                 </div>

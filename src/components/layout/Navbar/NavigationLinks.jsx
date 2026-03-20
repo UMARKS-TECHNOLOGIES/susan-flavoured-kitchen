@@ -10,7 +10,7 @@ export default function NavigationLinks({
   onCategorySelect,
 }) {
   return (
-    <div className="flex items-center justify-evenly w-full">
+    <div className="flex items-center justify-center gap-2">
       {navLinks.map(link =>
         link.dropdown ? (
           <div key={link.name} className="relative">
@@ -77,8 +77,8 @@ export default function NavigationLinks({
             to={link.href}
             className={({ isActive }) =>
               isActive
-                ? 'text-orange-400 mx-4 font-medium'
-                : 'text-[#343333] hover:text-[#00004d] px-5 py-2 font-medium'
+                ? 'text-orange-400 font-medium px-2 py-2'
+                : 'text-[#343333] hover:text-[#00004d] font-medium px-2 py-2'
             }
           >
             {link.name}

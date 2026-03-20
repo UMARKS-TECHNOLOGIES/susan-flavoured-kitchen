@@ -88,12 +88,12 @@ const Herosection = () => {
                 </p>
 
                 <div className="flex justify-center lg:justify-start items-center pt-2 lg:py-6 gap-3 w-full lg:w-auto">
-                  <Link to="order-now" className="flex-1 lg:flex-none">
+                  <Link to="/menu" className="flex-1 lg:flex-none">
                     <Button className="bg-white w-full lg:w-[100px] h-10 text-[#ff6e00] hover:bg-gray-100 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none">
                       Order Now
                     </Button>
                   </Link>
-                  <Link to="/contact-us" className="flex-1 lg:flex-none">
+                  <Link to="/catering-quote" className="flex-1 lg:flex-none">
                     <Button className="bg-transparent w-full lg:w-[140px] h-10 text-white hover:bg-white/10 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none">
                       Book Catering
                     </Button>

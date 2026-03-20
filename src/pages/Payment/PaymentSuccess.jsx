@@ -69,7 +69,7 @@ const PaymentSuccess = () => {
         )}
 
         <div className="flex gap-3">
-          <Button onClick={() => navigate('/orderconfirmation')}>
+          <Button onClick={() => navigate('/dashboard/orders')}>
             View Order
           </Button>
           <Button variant="outline" onClick={() => navigate('/menu')}>

@@ -31,9 +31,9 @@ const PopularDishes = () => {
   }, []);
 
   return (
-    <section className="mt-10 lg:mt-25 px-4 lg:px-0">
-      <div className="w-full lg:max-w-5xl mx-auto">
-        <h2 className="text-2xl font-medium">Popular Dishes</h2>
+    <section className="mt-12 md:mt-20 px-6 lg:px-12">
+      <div className="w-full lg:max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold mb-8">Popular Dishes</h2>
 
         {loading ? (
           <p className="mt-4 text-gray-500">Loading popular dishes...</p>

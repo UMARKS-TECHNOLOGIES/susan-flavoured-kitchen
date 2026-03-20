@@ -5,6 +5,7 @@ import { API } from '@/lib/endpoints';
 import Placeholder from '@/assets/chickenChps.jpeg';
 import { useCart } from '@/store/useCart';
 import CartButton from '../cartPage/CartButton';
+import { formatItemName } from '@/lib/utils';
 
 const Menu = () => {
   const location = useLocation();
@@ -115,9 +116,9 @@ const Menu = () => {
                 {/* INFO */}
                 <div className="p-4 flex flex-col gap-2">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold">{item.name}</h3>
+                    <h3 className="text-lg font-semibold">{formatItemName(item.name)}</h3>
                     <span className="font-bold text-orange-600">
-                      ₦{item.price}
+                      £{item.price}
                     </span>
                   </div>
 

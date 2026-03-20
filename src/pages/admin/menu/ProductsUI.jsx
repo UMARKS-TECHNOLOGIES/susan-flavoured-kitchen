@@ -162,7 +162,7 @@ function ProductsUI({
                       </div>
 
                       <div className="flex items-center justify-between sm:justify-end gap-4 pt-3 sm:pt-0 border-t sm:border-t-0 border-gray-100">
-                        <span className="font-bold text-orange-600">₦{item.price}</span>
+                        <span className="font-bold text-orange-600">£{item.price}</span>
                         <Button
                           variant="destructive"
                           size="sm"

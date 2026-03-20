@@ -176,8 +176,8 @@ export default function Catering() {
                         <tr key={idx}>
                           <td className="px-3 py-2 text-gray-800">{item.name}</td>
                           <td className="px-3 py-2 text-center text-gray-600">{item.qty}</td>
-                          <td className="px-3 py-2 text-right text-gray-600">₦{item.unitPrice.toLocaleString()}</td>
-                          <td className="px-3 py-2 text-right font-medium text-gray-900">₦{(item.unitPrice * item.qty).toLocaleString()}</td>
+                          <td className="px-3 py-2 text-right text-gray-600">£{item.unitPrice.toLocaleString()}</td>
+                          <td className="px-3 py-2 text-right font-medium text-gray-900">£{(item.unitPrice * item.qty).toLocaleString()}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -185,7 +185,7 @@ export default function Catering() {
                       <tr>
                         <td colSpan={3} className="px-3 py-2 text-right text-gray-700 uppercase tracking-wider">Grand Total</td>
                         <td className="px-3 py-2 text-right text-indigo-700 text-sm">
-                          ₦{selectedRequest.quote.total?.toLocaleString() || 0}
+                          £{selectedRequest.quote.total?.toLocaleString() || 0}
                         </td>
                       </tr>
                     </tfoot>

@@ -4,21 +4,34 @@ import { useCart } from '@/store/useCart';
 
 const CartButton = ({ item }) => {
   const { addItem, loadingId } = useCart();
-  const [qty, setQty] = useState(1);
+
+  // Extract liter amount from name (e.g., "Coke 2L" -> 2)
+  const literMatch = item?.name?.match(/(\d+)L/i);
+  let step = literMatch ? parseInt(literMatch[1]) : 1;
+  if (step === 4) step = 2;
+  const isLitreItem = !!literMatch;
+
+  const [qty, setQty] = useState(isLitreItem ? step : 1);
 
   const isUpdating = loadingId === item._id;
   const isUnavailable = !item.available;
 
   const handleAdd = async () => {
-    await addItem(item._id, qty);
+    // If it's a liter item, we send the number of units (total liters / liter-per-unit)
+    const finalQty = isLitreItem ? Math.floor(qty / step) : qty;
+    await addItem(item._id, finalQty);
   };
 
   const increment = () => {
-    setQty(prev => prev + 1);
+    setQty(prev => prev + step);
   };
 
   const decrement = () => {
-    if (qty > 1) setQty(prev => prev - 1);
+    if (qty > step) {
+      setQty(prev => prev - step);
+    } else if (!isLitreItem && qty > 1) {
+      setQty(prev => prev - 1);
+    }
   };
 
   return (
@@ -38,11 +51,14 @@ const CartButton = ({ item }) => {
           <Button
             size="sm"
             onClick={decrement}
-            disabled={qty <= 1 || isUpdating}
+            disabled={(isLitreItem ? qty <= step : qty <= 1) || isUpdating}
           >
             -
           </Button>
-          <span className="px-2">{qty}</span>
+          <span className="px-2 font-medium">
+            {qty}
+            {isLitreItem ? 'L' : ''}
+          </span>
           <Button size="sm" onClick={increment} disabled={isUpdating}>
             +
           </Button>

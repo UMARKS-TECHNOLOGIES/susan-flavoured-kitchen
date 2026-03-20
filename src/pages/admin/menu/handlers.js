@@ -16,15 +16,23 @@ export async function getAllCategories() {
 }
 
 // Create a new category
-export async function createCategory(name, setName, setCategories) {
+export async function createCategory(name, setName, image, setImage, setPreview, setCategories) {
   if (!name) return;
 
   try {
-    const res = await CategoryService.create({ name });
+    const formData = new FormData();
+    formData.append('name', name);
+    if (image) {
+      formData.append('image', image);
+    }
+
+    const res = await CategoryService.create(formData);
     if (res.status !== 201)
       throw new Error(res.data.error || 'Unable to create category');
 
     setName('');
+    setImage(null);
+    setPreview(null);
     const categories = await getAllCategories();
     setCategories(categories);
   } catch (err) {

@@ -4,8 +4,8 @@ const DeliveryMethod = ({ deliveryMethod, setDeliveryMethod }) => {
       <h2 className="text-lg font-semibold">Delivery Method</h2>
 
       {[
-        { id: 'delivery', label: 'Express (₦500)' },
-        { id: 'pickup', label: 'Pickup (Free)' },
+        { id: 'delivery', label: 'Home Delivery' },
+        { id: 'pickup', label: 'Pick UP (coming soon)' },
       ].map(m => (
         <label
           key={m.id}
@@ -17,6 +17,7 @@ const DeliveryMethod = ({ deliveryMethod, setDeliveryMethod }) => {
             type="radio"
             checked={deliveryMethod === m.id}
             onChange={() => setDeliveryMethod(m.id)}
+            disabled={m.id === 'pickup'}
           />
         </label>
       ))}

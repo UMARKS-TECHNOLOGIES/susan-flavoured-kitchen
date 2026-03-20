@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { API } from '@/lib/endpoints';
 import CartButton from '@/pages/cartPage/CartButton';
+import { formatItemName } from '@/lib/utils';
 
 function fuzzyMatch(text, query) {
   return text.toLowerCase().includes(query.toLowerCase());
@@ -96,11 +97,11 @@ export default function SearchResults() {
                             />
 
                             <div className="p-4 space-y-1">
-                              <h5 className="font-medium">{item.name}</h5>
+                              <h5 className="font-medium">{formatItemName(item.name)}</h5>
                               <p className="text-xs text-gray-500">
                                 {item.description}
                               </p>
-                              <p className="font-semibold">₦{item.price}</p>
+                              <p className="font-semibold">£{item.price}</p>
                               <p
                                 className={`text-sm mt-1 ${
                                   item.available
@@ -144,11 +145,11 @@ export default function SearchResults() {
                     />
 
                     <div className="p-4 space-y-1">
-                      <h4 className="font-medium">{item.name}</h4>
+                      <h4 className="font-medium">{formatItemName(item.name)}</h4>
                       <p className="text-xs text-gray-500">
                         {item.categoryName}
                       </p>
-                      <p className="font-semibold">₦{item.price}</p>
+                      <p className="font-semibold">£{item.price}</p>
 
                       <CartButton item={item} />
                     </div>

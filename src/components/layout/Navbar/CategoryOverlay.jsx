@@ -1,6 +1,7 @@
 import { API } from '@/lib/endpoints';
 import CartButton from '@/pages/cartPage/CartButton';
 import { X } from 'lucide-react';
+import { formatItemName } from '@/lib/utils';
 
 export default function CategoryOverlay({ category, onClose }) {
   if (!category) return null;
@@ -74,8 +75,8 @@ export default function CategoryOverlay({ category, onClose }) {
 
                     <div className="p-4 flex flex-col flex-1">
                       <div className="flex justify-between items-start mb-2 gap-2">
-                         <h3 className="font-bold text-gray-800 capitalize leading-tight">{item.name}</h3>
-                         <span className="text-orange-600 font-extrabold whitespace-nowrap text-sm sm:text-base">₦{item.price}</span>
+                         <h3 className="font-bold text-gray-800 capitalize leading-tight">{formatItemName(item.name)}</h3>
+                         <span className="text-orange-600 font-extrabold whitespace-nowrap text-sm sm:text-base">£{item.price}</span>
                       </div>
                       
                       <p className="text-gray-500 text-xs sm:text-sm flex-1 mb-4 line-clamp-2">

@@ -26,7 +26,7 @@ export default function Index() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Total Revenue"
-          value="₦0"
+          value="£0"
           icon={DollarSign}
           hint="Stripe later"
         />

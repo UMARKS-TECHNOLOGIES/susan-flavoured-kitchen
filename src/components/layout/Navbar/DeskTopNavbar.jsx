@@ -16,18 +16,21 @@ export function DeskTopNavBar({
 }) {
   return (
     <div className="hidden lg:flex justify-between items-center">
-      {/* Logo */}
-      <NavLogo />
+      {/* Left and Middle Group */}
+      <div className="flex items-center gap-20">
+        {/* Logo */}
+        <NavLogo />
 
-      {/* Navigation */}
-      <NavigationLinks
-        navLinks={linkData}
-        setOpenDropdown={setOpenDropdown}
-        openDropdown={openDropdown}
-        catLoading={catLoading}
-        catError={catError}
-        onCategorySelect={onCategorySelect}
-      />
+        {/* Navigation */}
+        <NavigationLinks
+          navLinks={linkData}
+          setOpenDropdown={setOpenDropdown}
+          openDropdown={openDropdown}
+          catLoading={catLoading}
+          catError={catError}
+          onCategorySelect={onCategorySelect}
+        />
+      </div>
 
       {/* Right Icons */}
       <NavRightIcon

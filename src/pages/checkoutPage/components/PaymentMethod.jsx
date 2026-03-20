@@ -19,17 +19,18 @@ const PaymentMethod = ({ paymentType, setPaymentType }) => {
       </label>
 
       <label
-        className={`flex justify-between p-4 border rounded-lg cursor-pointer
+        className={`flex justify-between p-4 border rounded-lg cursor-not-allowed opacity-60
         ${paymentType === 'cash' ? 'border-orange-500 bg-orange-50' : ''}`}
       >
         <div>
-          <p className="font-medium">Cash on Delivery</p>
-          <p className="text-sm text-gray-500">Pay when order arrives</p>
+          <p className="font-medium text-gray-400 italic">Cash on Delivery (coming soon)</p>
+          <p className="text-sm text-gray-400">Not currently available</p>
         </div>
         <input
           type="radio"
           checked={paymentType === 'cash'}
           onChange={() => setPaymentType('cash')}
+          disabled
         />
       </label>
     </div>

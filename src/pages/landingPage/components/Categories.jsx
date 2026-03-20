@@ -42,8 +42,8 @@ const Categories = () => {
     );
 
   return (
-    <section className="w-full lg:max-w-7xl mx-auto mt-6 px-4 lg:px-0">
-      <h2 className="text-3xl font-semibold mb-6">Categories</h2>
+    <section className="w-full lg:max-w-7xl mx-auto mt-10 md:mt-16 px-6 lg:px-12">
+      <h2 className="text-3xl font-bold mb-8">Categories</h2>
 
       {categories.length === 0 ? (
         <p className="text-center text-gray-400 mt-20">

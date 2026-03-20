@@ -6,9 +6,9 @@ const About = () => {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <section className="mt-10 lg:mt-20">
-      <div className="w-full lg:max-w-5xl mx-auto px-4 lg:px-0">
-        <h2 className="text-2xl font-medium mb-4 lg:mb-8">About Us</h2>
+    <section className="mt-12 md:mt-20 px-6 lg:px-12">
+      <div className="w-full lg:max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold mb-8">About Us</h2>
 
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
           {/* Image */}

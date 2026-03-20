@@ -51,13 +51,53 @@ export function NavRightIcon({
       </form>
 
       {/* USER */}
-      <div className="relative pt-1">
-        <Link 
-          to={user ? (user.role === 'admin' ? '/admin' : '/dashboard') : '/login'} 
-          className="hover:text-orange-600 transition-colors flex items-center"
-        >
-          <IoPerson className="text-2xl" />
-        </Link>
+      <div className="relative pt-1 flex items-center">
+        {user ? (
+          <div className="relative">
+            <button
+              onClick={() => setShowUserMenu(!showUserMenu)}
+              className="hover:text-orange-600 transition-colors flex items-center outline-none"
+            >
+              <IoPerson className="text-2xl" />
+            </button>
+
+            {showUserMenu && (
+              <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-3 z-60 animate-in fade-in zoom-in duration-200">
+                <div className="px-4 pb-2 border-b border-gray-50 mb-2">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Welcome,</p>
+                  <p className="text-sm font-bold text-gray-800 truncate">
+                    {user.fullName || user.email?.split('@')[0]}
+                  </p>
+                </div>
+
+                <Link
+                  to={user.role === 'admin' ? '/admin' : '/dashboard'}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                  onClick={() => setShowUserMenu(false)}
+                >
+                  Dashboard
+                </Link>
+
+                <button
+                  onClick={() => {
+                    logout();
+                    setShowUserMenu(false);
+                  }}
+                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors mt-1"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Link
+            to="/login"
+            className="hover:text-orange-600 transition-colors flex items-center"
+          >
+            <IoPerson className="text-2xl" />
+          </Link>
+        )}
       </div>
 
       {/* CART */}

@@ -21,7 +21,7 @@ const Checkout = () => {
     address: '',
     city: '',
     postcode: '',
-    country: '',
+    country: 'GB',
     state: '',
   });
   const [deliveryMethod, setDeliveryMethod] = useState('delivery');
@@ -30,7 +30,7 @@ const Checkout = () => {
   const subtotal = getSubtotal();
 
   // Estimation ONLY
-  const estimatedDeliveryFee = deliveryMethod === 'delivery' ? 1500 : 0;
+  const estimatedDeliveryFee = 0;
   const estimatedTotal = subtotal + estimatedDeliveryFee;
 
   useEffect(() => {
@@ -133,7 +133,7 @@ const Checkout = () => {
                   {loading ? (
                     <div className="h-4 w-12 bg-gray-200 rounded animate-pulse"></div>
                   ) : (
-                    `₦${subtotal}`
+                    `£${subtotal}`
                   )}
                 </span>
               </div>
@@ -151,7 +151,7 @@ const Checkout = () => {
                   {loading ? (
                     <div className="h-4 w-12 bg-gray-200 rounded animate-pulse"></div>
                   ) : (
-                    `₦${estimatedDeliveryFee}`
+                    `£${estimatedDeliveryFee}`
                   )}
                 </span>
               </div>
@@ -169,7 +169,7 @@ const Checkout = () => {
                   {loading ? (
                     <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
                   ) : (
-                    `₦${estimatedTotal}`
+                    `£${estimatedTotal}`
                   )}
                 </span>
               </div>

@@ -1,10 +1,10 @@
 import React from "react";
-import P1 from "@/assets/P1.svg";
-import P2 from "@/assets/P2.svg";
-import P3 from "@/assets/P3.svg";
-import P4 from "@/assets/P4.svg";
-import P5 from "@/assets/P5.svg";
-import P6 from "@/assets/P6.svg";
+import cath1 from "@/assets/cath1.jpeg";
+import cath2 from "@/assets/cath2.jpeg";
+import cath3 from "@/assets/cath3.jpeg";
+import cath4 from "@/assets/cath4.jpeg";
+import cath5 from "@/assets/cath5.jpeg";
+import cath6 from "@/assets/cath6.jpeg";
 import { Link } from "react-router-dom";
 
 const Popular = () => {
@@ -15,31 +15,33 @@ const Popular = () => {
           Popular Catering Dishes
         </h1>
 
-        <div className="flex flex-wrap gap-6 lg:gap-10 justify-center">
-          <div className="w-full md:w-[48%] lg:w-[30%] mb-6 shadow-sm hover:shadow-md transition-shadow">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10">
+          <div className="flex flex-col mb-6 shadow-sm hover:shadow-md transition-shadow">
             <img
-              src={P1}
+              src={cath1}
               alt=""
-              className="h-[250px] lg:h-[300px] w-full object-cover"
+              className="h-[250px] lg:h-[300px] w-full object-cover rounded-t-xl"
             />
-            <div className="bg-[#ffffff] p-3 pb-6">
+            <div className="bg-[#ffffff] p-3 pb-6 rounded-b-xl shadow-sm border border-gray-50 flex-1">
               <p className="text-lg lg:text-xl pb-1 pt-2 font-bold">
-                Jollof Rice & Chicken
+                Spaghetti & Turkey
               </p>
               <p className="text-sm lg:text-md">
-                Signature smoky Jollof rice served with tender grilled chicken.
-                Ideal for parties and large gatherings.
+                This is our special Spaghetti and turkey, made from your
+                favourite SFK with a mix of spices, turkey and turkey stock.
+                Spaghetti and turkey is eaten as a main dish. It can also be
+                served with moi moi for the complete SFK special taste.
               </p>
             </div>
           </div>
 
-          <div className="w-full md:w-[48%] lg:w-[30%] mb-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex flex-col mb-6 shadow-sm hover:shadow-md transition-shadow">
             <img
-              src={P2}
+              src={cath2}
               alt=""
-              className="h-[250px] lg:h-[300px] w-full object-cover"
+              className="h-[250px] lg:h-[300px] w-full object-cover rounded-t-xl"
             />
-            <div className="bg-[#ffffff] p-3 pb-6">
+            <div className="bg-[#ffffff] p-3 pb-6 rounded-b-xl shadow-sm border border-gray-50 flex-1">
               <p className="text-lg lg:text-xl pb-1 pt-2 font-bold">
                 Fried Rice
               </p>
@@ -50,47 +52,52 @@ const Popular = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-[48%] lg:w-[30%] mb-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex flex-col mb-6 shadow-sm hover:shadow-md transition-shadow">
             <img
-              src={P4}
+              src={cath3}
               alt=""
-              className="h-[250px] lg:h-[300px] w-full object-cover"
+              className="h-[250px] lg:h-[300px] w-full object-cover rounded-t-xl"
             />
-            <div className="bg-[#ffffff] p-3 pb-6">
+            <div className="bg-[#ffffff] p-3 pb-6 rounded-b-xl shadow-sm border border-gray-50 flex-1">
               <p className="text-lg lg:text-xl pb-1 pt-2 font-bold">
-                Pepper Soup
+                Eforiro
               </p>
               <p className="text-sm lg:text-md">
-                A bold, aromatic pepper soup with assorted meats — warm, spicy,
-                and perfect for events.
+                This is our rich Nigerian vegetable soup made with leafy greens,
+                palm oil, assorted meats, and spices, delivering a deep, savory
+                flavor. It is a staple in Yoruba cuisine, often enjoyed with
+                swallow foods like pounded yam or fufu for a satisfying, hearty
+                meal.
               </p>
             </div>
           </div>
 
-          <div className="w-full md:w-[48%] lg:w-[30%] mb-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex flex-col mb-6 shadow-sm hover:shadow-md transition-shadow">
             <img
-              src={P3}
+              src={cath4}
               alt=""
-              className="h-[250px] lg:h-[300px] w-full object-cover"
+              className="h-[250px] lg:h-[300px] w-full object-cover rounded-t-xl"
             />
-            <div className="bg-[#ffffff] p-3 pb-6">
+            <div className="bg-[#ffffff] p-3 pb-6 rounded-b-xl shadow-sm border border-gray-50 flex-1">
               <p className="text-lg lg:text-xl pb-1 pt-2 font-bold">
-                Pounded Yam & Egusi
+                Soup & Stew
               </p>
               <p className="text-sm lg:text-md">
-                Rich, flavourful Egusi soup paired with soft pounded yam — a
-                crowd favourite at any celebration.
+                This is our Soup and stews delicacy. It is a rich, flavorful
+                dishes made with a blend of spices, meats, fish, chicken and/or
+                beef. They are essential in everyday meals, typically served
+                with rice, yam, or swallow foods like eba, fufu, or pounded yam.
               </p>
             </div>
           </div>
 
-          <div className="w-full md:w-[48%] lg:w-[30%] mb-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex flex-col mb-6 shadow-sm hover:shadow-md transition-shadow">
             <img
-              src={P5}
+              src={cath5}
               alt=""
-              className="h-[250px] lg:h-[300px] w-full object-cover"
+              className="h-[250px] lg:h-[300px] w-full object-cover rounded-t-xl"
             />
-            <div className="bg-[#ffffff] p-3 pb-6">
+            <div className="bg-[#ffffff] p-3 pb-6 rounded-b-xl shadow-sm border border-gray-50 flex-1">
               <p className="text-lg lg:text-xl pb-1 pt-2 font-bold">Moi Moi</p>
               <p className="text-sm lg:text-md">
                 Fluffy, protein-rich steamed bean pudding. A great side dish for
@@ -99,13 +106,13 @@ const Popular = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-[48%] lg:w-[30%] mb-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex flex-col mb-6 shadow-sm hover:shadow-md transition-shadow">
             <img
-              src={P6}
+              src={cath6}
               alt=""
-              className="h-[250px] lg:h-[300px] w-full object-cover"
+              className="h-[250px] lg:h-[300px] w-full object-cover rounded-t-xl"
             />
-            <div className="bg-[#ffffff] p-3 pb-6">
+            <div className="bg-[#ffffff] p-3 pb-6 rounded-b-xl shadow-sm border border-gray-50 flex-1">
               <p className="text-lg lg:text-xl pb-1 pt-2 font-bold">
                 Small Chops
               </p>

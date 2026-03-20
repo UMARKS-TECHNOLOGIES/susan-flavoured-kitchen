@@ -51,7 +51,7 @@ export default function DashboardHome() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <StatCard
           title="Total expenses"
-          value="₦0"
+          value="£0"
           icon={DollarSign}
           hint="Stripe later"
         />

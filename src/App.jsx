@@ -5,7 +5,6 @@ import Menu from './pages/menuPage/Menu';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductDetails from './pages/product details/ProductDetails';
 import Checkout from './pages/checkoutPage/Checkout';
-import OrderConfirmation from './pages/orderConfirmationpage/OrderConfirmation';
 import ContactUs from './pages/contactUsPage/ContactUs';
 import AboutUs from './pages/about-us/AboutUs';
 import HomeEvent from './pages/event-cathering-page/HomeEvent';
@@ -16,7 +15,6 @@ import ResetPasswordPage from './pages/auth/ResetPasswordPage';
 import SignupPage from './pages/auth/SignupPage';
 import CateringQuote from './pages/cateringQuotePage/CateringQuote';
 import PaymentSuccess from './pages/Payment/PaymentSuccess';
-import PaymentCancel from './pages/Payment/PaymentCancel';
 
 import ProtectedRoute from './routes/ProtectedRoute';
 import AdminRoute from './routes/AdminRoute';
@@ -108,6 +106,7 @@ const App = () => {
               <Route path="addresses" element={<UserAddresses />} />
               <Route path="logout" element={<DangerZone />} />
             </Route>
+
             <Route
               path="/order-success/:orderId"
               element={
@@ -122,44 +121,25 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-          <Route  path="/resetpassword" element={<ResetPasswordPage />} />
+          <Route path="/resetpassword" element={<ResetPasswordPage />} />
 
+          {/* ================= ADMIN ================= */}
           <Route
             path="/admin"
             element={
-                <AdminRoute>
+              <AdminRoute>
                 <AdminLayout />
-              </AdminRoute> 
+              </AdminRoute>
             }
           >
-
-          {/* <AdminRoute>
-                <AdminLayout />
-              </AdminRoute> */}
             <Route index element={<Index />} />
             <Route path="categories" element={<Categories />} />
             <Route path="products" element={<Products />} />
             <Route path="orders" element={<OrdersManagement />} />
             <Route path="users" element={<Users />} />
             <Route path="payments" element={<Payments />} />
-            <Route path="contacts" element={<Message/>}/>
-            <Route path="catering-request" element={<Catering/>} />
-          </Route>
-
-          {/* ================= USER DASHBOARD ================= */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<DashboardHome />} />
-            <Route path="products" element={<DashboardProducts />} />
-            <Route path="cart" element={<DashboardCart />} />
-            <Route path="orders" element={<DashboardOrders />} />
-            <Route path="account" element={<AccountSettings />} />
+            <Route path="contacts" element={<Message />} />
+            <Route path="catering-request" element={<Catering />} />
           </Route>
 
           {/* ================= PAYMENT ================= */}

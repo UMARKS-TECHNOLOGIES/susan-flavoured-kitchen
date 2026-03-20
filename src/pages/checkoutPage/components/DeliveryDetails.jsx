@@ -24,12 +24,12 @@ const DeliveryDetails = ({ delivery, setDelivery }) => {
     setDelivery(prev => ({ ...prev, [field]: value }));
   };
 
-  const [countries] = useState(
-    Country.getAllCountries().map(c => ({
-      code: c.isoCode,
-      name: c.name,
-    }))
-  );
+  const [countries] = useState([
+    {
+      code: 'GB',
+      name: 'United Kingdom',
+    },
+  ]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
 

@@ -16,7 +16,7 @@ const WhyChooseUs = () => {
             Freshly Cooked Meals
           </h1>
           <p className="text-base lg:text-lg pt-3">
-            Fully 5-star hygiene rated by the UK Food Standards Agency
+            Freshly cooked meals made with care just like home cooking using quality ingredients for rich, satisfying flavour.
           </p>
           <div className="w-[15%] lg:w-[10%] absolute bottom-4 lg:bottom-2 right-4 lg:right-6">
             <img src={Cap} alt="" />
