@@ -3,6 +3,7 @@ import { Button } from '../../../components/ui/button';
 import { Link } from 'react-router-dom';
 import api from '@/lib/api';
 import { API } from '@/lib/endpoints';
+import { motion } from 'framer-motion';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -42,7 +43,13 @@ const Categories = () => {
     );
 
   return (
-    <section className="w-full lg:max-w-7xl mx-auto mt-10 md:mt-16 px-6 lg:px-12">
+    <motion.section 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6 }}
+      className="w-full lg:max-w-7xl mx-auto mt-10 md:mt-16 px-6 lg:px-12"
+    >
       <h2 className="text-3xl font-bold mb-8">Categories</h2>
 
       {categories.length === 0 ? (
@@ -51,12 +58,17 @@ const Categories = () => {
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {categories.map(cat => {
+          {categories.map((cat, idx) => {
             const imageUrl = `${API.BASEURL}${cat.imageUri || cat.imageUrl || ''}`;
 
             return (
-              <div
+              <motion.div
                 key={cat._id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
                 className="relative overflow-hidden rounded-xl shadow-md cursor-pointer group"
               >
                 {/* Category Image */}
@@ -101,12 +113,12 @@ const Categories = () => {
                   </Link>
 
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
       )}
-    </section>
+    </motion.section>
   );
 };
 

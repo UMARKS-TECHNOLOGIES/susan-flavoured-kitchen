@@ -12,6 +12,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import nigerianFoods from "./nigerianFoods";
+import { motion } from "framer-motion";
 
 const API_BASE = "https://susanfalvoredkitchen-backend-oz62.onrender.com/api/v1/catering";
 
@@ -93,7 +94,12 @@ export default function CateringQuote() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
+      >
         <div className="bg-orange-600 py-6 px-8 text-white flex items-center gap-4">
           <FaUtensils className="text-2xl" />
           <h2 className="text-xl sm:text-2xl font-bold">Catering Quote Request</h2>
@@ -236,7 +242,7 @@ export default function CateringQuote() {
                 icon={<FaPhone />}
                 type="tel"
                 name="phone"
-                placeholder="08012345678"
+                placeholder="+44 7700 900000"
                 onChange={handleChange}
               />
             </div>
@@ -262,7 +268,7 @@ export default function CateringQuote() {
         )}
 
         {error && <p className="text-center text-red-500 font-bold p-4 bg-red-50 mx-6 mb-6 rounded-xl">{error}</p>}
-      </div>
+      </motion.div>
 
       {/* MODALS */}
       {showSuccessModal && (

@@ -20,6 +20,7 @@ import { Button } from "../../components/ui/button";
 import { Textarea } from "../../components/ui/textarea";
 import { Instagram, Mail, Phone } from "lucide-react";
 import HeroImage from "../../assets/contact_bg_sharp.png";
+import { motion } from "framer-motion";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -83,7 +84,10 @@ const ContactUs = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
         className="relative h-64 sm:h-80 md:h-[400px] mt-20 mb-10 bg-cover bg-center flex items-center justify-center p-4 text-center"
         style={{ backgroundImage: `url(${HeroImage})` }}
       >
@@ -91,36 +95,46 @@ const ContactUs = () => {
         <h1 className="relative text-3xl sm:text-4xl md:text-5xl font-extrabold text-white z-10 drop-shadow-lg">
           We'd Love to Hear From You
         </h1>
-      </div>
+      </motion.div>
 
       {/* Contact Methods */}
-      <div className="max-w-6xl mx-auto px-4 mt-8 mb-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="max-w-6xl mx-auto px-4 mt-8 mb-10"
+      >
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <Card
-            onClick={() => setIsPhoneOpen(true)}
-            className="cursor-pointer bg-white/50 border-orange-100 hover:border-orange-500 transition-colors"
-          >
-            <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
-              <Phone className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
-              <p className="text-sm font-semibold text-gray-600 sm:hidden">
-                Call Us
-              </p>
-            </CardContent>
-          </Card>
+          <motion.div whileHover={{ y: -5, scale: 1.02 }}>
+            <Card
+              onClick={() => setIsPhoneOpen(true)}
+              className="cursor-pointer bg-white/50 border-orange-100 hover:border-orange-500 transition-colors h-full"
+            >
+              <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
+                <Phone className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
+                <p className="text-sm font-semibold text-gray-600 sm:hidden">
+                  Call Us
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
 
           <a
             href="https://mail.google.com/mail/?view=cm&fs=1&to=Susanflavouredkitchen@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Card className="bg-white/50 border-orange-100 hover:border-orange-500 transition-colors h-full">
-              <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
-                <Mail className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
-                <p className="text-sm font-semibold text-gray-600 sm:hidden">
-                  Email Us
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div whileHover={{ y: -5, scale: 1.02 }} className="h-full">
+              <Card className="bg-white/50 border-orange-100 hover:border-orange-500 transition-colors h-full">
+                <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
+                  <Mail className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
+                  <p className="text-sm font-semibold text-gray-600 sm:hidden">
+                    Email Us
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           </a>
 
           <a
@@ -128,17 +142,19 @@ const ContactUs = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Card className="bg-white/50 border-orange-100 hover:border-orange-500 transition-colors h-full">
-              <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
-                <Instagram className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
-                <p className="text-sm font-semibold text-gray-600 sm:hidden">
-                  Follow Us
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div whileHover={{ y: -5, scale: 1.02 }} className="h-full">
+              <Card className="bg-white/50 border-orange-100 hover:border-orange-500 transition-colors h-full">
+                <CardContent className="py-8 sm:py-10 flex flex-col items-center gap-4">
+                  <Instagram className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
+                  <p className="text-sm font-semibold text-gray-600 sm:hidden">
+                    Follow Us
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           </a>
         </div>
-      </div>
+      </motion.div>
 
       {/* Phone Dialog */}
       <Dialog open={isPhoneOpen} onOpenChange={setIsPhoneOpen}>
@@ -166,7 +182,13 @@ const ContactUs = () => {
         </DialogContent>
       </Dialog>
 
-      <div className="max-w-6xl mx-auto px-1 sm:px-4 pb-16">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+        className="max-w-6xl mx-auto px-1 sm:px-4 pb-16"
+      >
         <div className="bg-white rounded-4xl shadow-xl shadow-orange-900/5 p-3 sm:p-10 border border-gray-100">
           <h2 className="text-2xl font-black text-gray-900 mb-4 mt-3 border-b border-gray-50 pb-4">
             Send Us a Message
@@ -193,7 +215,7 @@ const ContactUs = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Input
-                placeholder="Phone Number / WhatsApp *"
+                placeholder="Phone (e.g. +44 7700 900000) *"
                 className="h-12 bg-gray-50 border-gray-200 rounded-xl focus:ring-orange-500"
                 value={formData.phoneNumber}
                 onChange={(e) => handleChange("phoneNumber", e.target.value)}
@@ -242,7 +264,7 @@ const ContactUs = () => {
             {error && <p className="text-red-600 text-center">{error}</p>}
           </form>
         </div>
-      </div>
+      </motion.div>
 
       {/* <Footer /> */}
     </div>

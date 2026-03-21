@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import Herosection from './components/Herosection';
-import Categories from './components/Categories';
-import PopularDishes from './components/PopularDishes';
-import About from './components/About';
-import Catering from './components/Catering';
-import Testimonial from './components/Testimonial';
+
+// Lazy loading the components below the fold
+const Categories = lazy(() => import('./components/Categories'));
+const PopularDishes = lazy(() => import('./components/PopularDishes'));
+const About = lazy(() => import('./components/About'));
+const Catering = lazy(() => import('./components/Catering'));
+const Testimonial = lazy(() => import('./components/Testimonial'));
 
 const Home = () => {
   return (
     <>
       <Herosection />
-      <Categories />
-      <PopularDishes />
-      <About />
-      <Catering />
-      <Testimonial />
+      <Suspense fallback={
+        <div className="w-full h-64 flex items-center justify-center bg-[#fff9f4] animate-pulse">
+            <span className="text-gray-400 font-medium">Loading sections...</span>
+        </div>
+      }>
+        <Categories />
+        <PopularDishes />
+        <About />
+        <Catering />
+        <Testimonial />
+      </Suspense>
     </>
   );
 };

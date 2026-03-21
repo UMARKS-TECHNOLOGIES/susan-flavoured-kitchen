@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/layout/Navbar/Navbar';
 import Footer from '../../components/layout/Footer';
 import { Button } from '../../components/ui/button';
+import { CheckCircle, ShoppingBag, ArrowRight } from 'lucide-react';
+import api from '../../lib/api';
 
 const PaymentSuccess = () => {
   const { search } = useLocation();
@@ -15,6 +17,11 @@ const PaymentSuccess = () => {
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
+    // Basic local cart clearing logic if possible
+    try {
+       localStorage.removeItem('cartItems');
+    } catch(e) {}
+
     if (!orderId) {
       setLoading(false);
       return;
@@ -23,12 +30,12 @@ const PaymentSuccess = () => {
     let mounted = true;
     (async () => {
       try {
-        // Optional: fetch order details from your backend if you want to show them
-        // const res = await fetch(`/api/orders/${orderId}`);
-        // const data = await res.json();
-        // if (mounted) setOrder(data);
+        const res = await api.get(`/orders/${orderId}`);
+        if (mounted && res.data) {
+           setOrder(res.data.data || res.data);
+        }
       } catch (e) {
-        // ignore — show basic success UI
+        // quiet fail
       } finally {
         if (mounted) setLoading(false);
       }
@@ -37,46 +44,63 @@ const PaymentSuccess = () => {
   }, [orderId]);
 
   return (
-    <div className="min-h-screen bg-[#fff9f4]">
-      <main className="max-w-4xl mx-auto px-4 py-24">
-        <h1 className="text-2xl font-bold mb-4">Payment Successful</h1>
+    <div className="min-h-screen bg-[#fff9f4] flex flex-col">
+      <Navbar />
+      
+      <main className="flex-1 flex items-center justify-center p-4 mt-20 mb-10">
+        <div className="bg-white rounded-3xl p-8 sm:p-12 w-full max-w-lg mx-auto shadow-2xl relative overflow-hidden border border-gray-100 text-center animate-in zoom-in-95 duration-500">
+           {/* Confetti / Decorative background element */}
+           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-green-50 to-white opacity-50"></div>
+           
+           <div className="relative z-10 flex flex-col items-center">
+             <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6 shadow-inner ring-4 ring-green-50">
+               <CheckCircle className="w-10 h-10 text-green-600" />
+             </div>
+             
+             <h1 className="text-3xl font-black text-gray-900 mb-3 tracking-tight">Payment Successful!</h1>
+             <p className="text-sm text-gray-500 mb-8 max-w-xs leading-relaxed">
+               Thank you for your order. We've received your payment and our kitchen will start processing it shortly.
+             </p>
 
-        <p className="mb-4">
-          Thank you — your payment was completed successfully.
-        </p>
+             {loading ? (
+                <div className="w-full h-16 bg-gray-50 rounded-xl mb-6 flex items-center justify-center animate-pulse border border-gray-100">
+                  <span className="text-sm font-medium text-gray-400">Loading order details...</span>
+                </div>
+             ) : order ? (
+               <div className="w-full bg-gray-50 rounded-2xl p-5 mb-8 border border-gray-100 text-left">
+                 <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Order Summary</p>
+                 <div className="flex justify-between items-end">
+                   <p className="text-lg font-bold text-gray-900">#{order._id?.slice(-6).toUpperCase() || order.id || orderId}</p>
+                   <p className="text-xl font-black text-indigo-600">£{order.total}</p>
+                 </div>
+               </div>
+             ) : (
+               <div className="w-full bg-gray-50 rounded-2xl p-4 mb-8 border border-gray-100">
+                 <p className="text-sm font-medium text-gray-600">
+                   Your order ID is: <span className="font-bold text-gray-900">{orderId || sessionId?.slice(0,10) + '...'}</span>
+                 </p>
+               </div>
+             )}
 
-        {sessionId && (
-          <p className="text-sm text-gray-600 mb-4">
-            Session: <span className="font-mono">{sessionId}</span>
-          </p>
-        )}
-
-        {loading ? (
-          <p>Loading order...</p>
-        ) : order ? (
-          <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
-            <h2 className="font-semibold mb-2">Order #{order.id}</h2>
-            {/* render minimal order summary here if you fetched it */}
-            <p className="text-sm text-gray-600">Total: {order.total}</p>
-          </div>
-        ) : (
-          <div className="mb-6">
-            <p className="text-sm text-gray-600">
-              If you don't see your order details here, you can visit your
-              Orders page.
-            </p>
-          </div>
-        )}
-
-        <div className="flex gap-3">
-          <Button onClick={() => navigate('/dashboard/orders')}>
-            View Order
-          </Button>
-          <Button variant="outline" onClick={() => navigate('/menu')}>
-            Continue Shopping
-          </Button>
+             <div className="flex flex-col sm:flex-row gap-3 w-full">
+               <Button 
+                 onClick={() => navigate('/dashboard/orders')}
+                 className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl h-12 font-medium shadow-md shadow-indigo-200"
+               >
+                 <ShoppingBag className="w-4 h-4 mr-2" /> View Order
+               </Button>
+               <Button 
+                 variant="outline" 
+                 onClick={() => navigate('/menu')}
+                 className="flex-1 rounded-xl h-12 font-medium border-gray-200 hover:bg-gray-50 text-gray-700"
+               >
+                 Continue Shopping <ArrowRight className="w-4 h-4 ml-2" />
+               </Button>
+             </div>
+           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );

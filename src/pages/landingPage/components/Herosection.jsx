@@ -9,6 +9,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Search } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Herosection = () => {
   const heroSlides = [
@@ -36,7 +37,12 @@ const Herosection = () => {
   ];
 
   return (
-    <section className="w-full lg:w-[95%] mt-6 lg:mt-8 mx-auto relative px-4 lg:px-0">
+    <motion.section 
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="w-full lg:w-[95%] mt-6 lg:mt-8 mx-auto relative px-4 lg:px-0"
+    >
       {/* Mobile Search Bar */}
       <div className="flex lg:hidden w-full gap-2 mb-4">
         <div className="relative flex-1">
@@ -69,7 +75,10 @@ const Herosection = () => {
           <SwiperSlide key={slide.id}>
             <div className="bg-[#ff6e00] flex flex-col lg:flex-row py-8 lg:py-8 px-6 lg:px-12 rounded-2xl lg:rounded-lg gap-6 lg:gap-20 items-center min-h-[500px] lg:min-h-0">
               {/* Image Container */}
-              <div
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.6 }}
                 className="w-[250px] h-[250px] lg:w-[390px] lg:h-[390px] flex items-center justify-center shrink-0"
               >
                 <img
@@ -77,7 +86,7 @@ const Herosection = () => {
                   alt={slide.title}
                   className="w-full h-full object-contain drop-shadow-xl"
                 />
-              </div>
+              </motion.div>
 
               {/* Text Content */}
               <div className="text-white max-w-4xl text-center lg:text-left flex flex-col items-center lg:items-start">
@@ -97,14 +106,18 @@ const Herosection = () => {
                   className="flex justify-center lg:justify-start items-center pt-2 lg:py-6 gap-3 w-full lg:w-auto"
                 >
                   <Link to="/menu" className="flex-1 lg:flex-none">
-                    <Button className="bg-white w-full lg:w-[100px] h-10 text-[#ff6e00] hover:bg-gray-100 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none">
-                      Order Now
-                    </Button>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button className="bg-white w-full lg:w-[100px] h-10 text-[#ff6e00] hover:bg-gray-100 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none shadow-md">
+                        Order Now
+                      </Button>
+                    </motion.div>
                   </Link>
                   <Link to="/catering-quote" className="flex-1 lg:flex-none">
-                    <Button className="bg-transparent w-full lg:w-[140px] h-10 text-white hover:bg-white/10 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none">
-                      Book Catering
-                    </Button>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button className="bg-transparent w-full lg:w-[140px] h-10 text-white hover:bg-white/10 font-semibold border border-white rounded-lg lg:rounded-tr-none lg:rounded-bl-none shadow-md">
+                        Book Catering
+                      </Button>
+                    </motion.div>
                   </Link>
                 </div>
               </div>
@@ -131,7 +144,7 @@ const Herosection = () => {
           }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 };
 

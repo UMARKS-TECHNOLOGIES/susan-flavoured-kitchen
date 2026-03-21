@@ -6,6 +6,7 @@ import Placeholder from '@/assets/chickenChps.jpeg';
 import { useCart } from '@/store/useCart';
 import CartButton from '../cartPage/CartButton';
 import { formatItemName } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 const Menu = () => {
   const location = useLocation();
@@ -57,14 +58,19 @@ const Menu = () => {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white px-4"
+        >
           <h1 className="text-4xl font-semibold mb-2">
             {categoryName || 'Menu'}
           </h1>
           <p className="text-sm text-gray-200 max-w-md">
             Freshly prepared, carefully crafted, and made to satisfy.
           </p>
-        </div>
+        </motion.div>
       </div>
 
       {/* CONTENT */}
@@ -88,15 +94,19 @@ const Menu = () => {
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {items.map(item => {
+          {items.map((item, idx) => {
             const imageUrl = item.imageUrl
               ? `${API.BASEURL}${item.imageUrl}`
               : Placeholder;
 
             return (
-              <div
+              <motion.div
                 key={item._id}
-                className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-transform hover:-translate-y-1 overflow-hidden"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="bg-white rounded-2xl shadow-sm hover:shadow-lg overflow-hidden flex flex-col"
               >
                 {/* IMAGE */}
                 <div className="relative h-48 overflow-hidden">
@@ -130,7 +140,7 @@ const Menu = () => {
 
                   <CartButton item={item} />
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
