@@ -91,23 +91,23 @@ const Categories = () => {
                   </p>
                 </div>
 
-                {/* Bottom Overlay: Name (Left) and Button (Right) */}
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-4 sm:p-5 pt-20 flex items-end justify-between rounded-b-xl">
+                {/* Bottom Overlay: Name (Top) and Button (Bottom) */}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-4 sm:p-5 pt-20 flex flex-col justify-end gap-2 sm:gap-3 rounded-b-xl">
                   
-                  {/* Left Side (End Left) - Category Name */}
-                  <div className="text-left flex flex-col justify-end mr-2 mb-1">
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-white tracking-wide leading-tight">
+                  {/* Top - Category Name */}
+                  <div className="text-left w-full">
+                    <h3 className="text-base sm:text-lg md:text-[18px] lg:text-xl font-bold text-white tracking-wide leading-tight">
                       {cat.name}
                     </h3>
                   </div>
 
-                  {/* Right Side (End Right) - View Menu Button */}
+                  {/* Bottom - View Menu Button */}
                   <Link
                     to={`/menu?category=${cat._id}`}
                     state={{ catItems: cat.items }}
-                    className="shrink-0 mb-1"
+                    className="self-start"
                   >
-                    <Button className="bg-orange-600 hover:bg-orange-500 text-white text-xs sm:text-sm font-semibold rounded-lg py-1.5 px-3 sm:py-2 sm:px-5 shadow-sm hover:shadow-md transition-all">
+                    <Button className="bg-orange-600 hover:bg-orange-500 text-white text-xs sm:text-sm font-semibold rounded-lg py-1.5 px-4 shadow-sm hover:shadow-md transition-all">
                       View Menu
                     </Button>
                   </Link>
